@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.yzj.ebs.database.ImportSpecile" table="ebs_ImportSpecile">
+        <id name="accno" type="java.lang.String">
+            <column name="accno" precision="10" scale="0" length="32">
+				<comment>流水号</comment>
+			</column>
+			<generator class="assigned" ></generator>
+        </id>
+  
+        <property name="accCycle" type="java.lang.String">
+            <column name="accCycle" length="2"  >
+				<comment>账户类型 </comment>
+			</column>
+        </property>
+        <property name="sealMode" type="java.lang.String">
+            <column name="sealMode" length="2"  >
+				<comment>验印模式</comment>
+			</column>
+        </property>
+        <property name="sendMode" type="java.lang.String">
+            <column name="sendMode" length="2"  >
+				<comment>发送方式</comment>
+			</column>
+        </property>
+         <property name="docDate" type="java.lang.String">
+            <column name="docDate" length="10"  >
+				<comment>导入时间</comment>
+			</column>
+        </property>
+          <property name="isImport" type="java.lang.String">
+            <column name="isImport" length="2"  >
+				<comment>是否已导入</comment>
+			</column>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Wed Dec 05 12:04:00 CST 2012
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=com.yzj.ebs.auto_fat.jar
+manifest.mergeall=true
+manifest.mainclass=com.yzj.ebs.auto.Starter
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

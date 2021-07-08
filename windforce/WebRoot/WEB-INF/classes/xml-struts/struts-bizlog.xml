@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<package name="bizlog" namespace="/" extends="json-default">
+		<action name="businessLog" class="simpleLogAction">
+			<result name="initPage">/windforce/bizlog/bizlog_simplelog.jsp</result>
+			<result name="success" type="json">
+				<param name="ignoreHierarchy">false</param>
+			</result>
+		</action>
+		<action name="logDataSource" class="logDataSource" method="findParamList">
+			<result type="json">
+				<param name="root">paramList</param>
+			</result>
+		</action>
+		<action name="testSimpleLog" class="testSimpleLog">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+</struts>

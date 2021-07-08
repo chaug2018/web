@@ -1,0 +1,17 @@
+<!DOCTYPE HTML PUBLIC "-//WSC/DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+com.yzj.ebs.param.queryparam
+</TITLE>
+</HEAD>
+<BODY>
+存放发生额明细查询相关Action类<BR><BR>
+	设计思路：查询账号从月初到页面输入发生日期内的发生额明细。 <BR><BR>
+	1.发生额明细查询Action类(AccnoDetailQueryAction.java)  
+	 <BR>init()方法：初始化页面信息；
+	 <BR>queryAccnoDetailData()方法：根据输入的对账日期和账号，查询账号的发生额明细，方法在accnoDetailAdm；
+	 <BR>exportData()方法：调用公共类，导出符合条件的所有列表信息；
+</BODY>
+</HTML>

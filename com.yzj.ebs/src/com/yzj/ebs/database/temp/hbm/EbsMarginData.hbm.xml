@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.yzj.ebs.database.temp.hbm.EbsMarginData"
+		table="Ebs_MarginData" dynamic-insert="false" dynamic-update="false"
+		entity-name="Ebs_MarginData">
+		<id name="autoid" type="long">
+			<column name="AUTOID" />
+			<generator class="native">
+				<param name="sequence">EBS_MarginData_AUTOID</param>
+			</generator>
+		</id>
+		<property name="idbank" type="java.lang.String">
+			<column name="IDBANK" length="24" not-null="false" />
+		</property>
+		<property name="bankname" type="java.lang.String">
+			<column name="BANKNAME" length="256" not-null="false" />
+		</property>
+		<property name="custid" type="java.lang.String">
+			<column name="CUSTID" precision="24" scale="0" not-null="false" />
+		</property>
+		<property name="accno" type="java.lang.String">
+			<column name="ACCNO" length="64" not-null="false" />
+		</property>
+		<property name="accson" type="java.lang.String">
+			<column name="ACCSON" length="20" not-null="false" />
+		</property>
+		<property name="acctype" type="java.lang.String">
+			<column name="ACCTYPE" length="24" not-null="false" />
+		</property>
+		<property name="accname" type="java.lang.String">
+			<column name="ACCNAME" length="256" not-null="false" />
+		</property>
+		<property name="opendate" type="java.lang.String">
+			<column name="OPENDATE" length="20" not-null="false" />
+		</property>
+		<property name="cdebflag" type="java.lang.String">
+			<column name="CDEBFLAG" length="4" not-null="false" />
+		</property>
+		<property name="currtype" type="java.lang.String">
+			<column name="CURRTYPE" length="6" not-null="false" />
+		</property>
+		<property name="prodtype" type="java.lang.String">
+			<column name="PRODTYPE" precision="4" scale="0" not-null="false" />
+		</property>
+		<property name="proddesc" type="java.lang.String">
+			<column name="PRODDESC" length="160" not-null="false" />
+		</property>
+		<property name="subnoc" type="java.lang.String">
+			<column name="SUBNOC" length="24" not-null="false" />
+		</property>
+		<property name="bal" type="java.lang.Double">
+			<column name="BAL" precision="126" scale="0" not-null="false" />
+		</property>
+		<property name="stamt" type="java.lang.Double">
+			<column name="STAMT" precision="126" scale="0" not-null="false" />
+		</property>
+		<property name="maxtamt" type="java.lang.Double">
+			<column name="MAXTAMT" precision="126" scale="0" not-null="false" />
+		</property>
+		<property name="avbal" type="java.lang.Double">
+			<column name="AVBAL" precision="126" scale="0" not-null="false" />
+		</property>
+		<property name="accstate" type="java.lang.String">
+			<column name="ACCSTATE" precision="1" scale="0" not-null="false" />
+		</property>
+		<property name="zip" type="java.lang.String">
+			<column name="ZIP" length="20" not-null="false" />
+		</property>
+		<property name="address" type="java.lang.String">
+			<column name="ADDRESS" length="500" not-null="false" />
+		</property>
+		<property name="respon" type="java.lang.String">
+			<column name="RESPON" length="120" not-null="false" />
+		</property>
+		<property name="phone" type="java.lang.String">
+			<column name="PHONE" length="120" not-null="false" />
+		</property>
+		<property name="docdate" type="java.lang.String">
+			<column name="DOCDATE" length="20" not-null="false" />
+		</property>
+		<property name="idbranch" type="java.lang.String">
+			<column name="IDBRANCH" length="24" not-null="false" />
+		</property>
+		<property name="idcenterno" type="java.lang.String">
+			<column name="IDCENTERNO" length="24" not-null="false" />
+		</property>
+		<property name="nfreeze" type="java.lang.String">
+			<column name="NFREEZE" length="2" not-null="false" />
+		</property>
+		<property name="dzpl" type="java.lang.String">
+			<column name="DZPL" length="2" not-null="false" />
+		</property>
+		<property name="sumcount" type="java.lang.Double">
+			<column name="SUMCOUNT" precision="126" scale="0" not-null="false" />
+		</property>
+		<property name="voucherno" type="java.lang.String">
+			<column name="VOUCHERNO" length="64" not-null="false" />
+		</property>
+		<property name="call" type="java.lang.String">
+			<column name="CALL" length="120" not-null="false" />
+		</property>
+		<property name="singleaccno" type="java.lang.String">
+			<column name="SINGLEACCNO" length="32" not-null="false" />
+		</property>
+		<property name="currency" type="java.lang.String">
+			<column name="CURRENCY" length="32" not-null="false" />
+		</property>
+		<property name="keytype" type="java.lang.String">
+			<column name="KEYTYPE" length="32" not-null="false" />
+		</property>
+		<property name="acccycle" type="java.lang.String">
+			<column name="ACCCYCLE" length="2" not-null="false" />
+		</property>
+		<property name="specialflag" type="java.lang.String">
+			<column name="SPECIALFLAG" length="2" not-null="false" />
+		</property>
+		<property name="signflag" type="java.lang.String">
+			<column name="SIGNFLAG" length="2" not-null="false" />
+		</property>
+		<property name="signopcode" type="java.lang.String">
+			<column name="SIGNOPCODE" length="64" not-null="false" />
+		</property>
+		<property name="signtime" type="java.lang.String">
+			<column name="SIGNTIME" length="38" not-null="false" />
+		</property>
+		<property name="signcontractno" type="java.lang.String">
+			<column name="SIGNCONTRACTNO" length="64" not-null="false" />
+		</property>
+		<property name="sealmode" type="java.lang.String">
+			<column name="SEALMODE" length="2" not-null="false" />
+		</property>
+		<property name="faceflag" type="java.lang.String">
+			<column name="FACEFLAG" length="2" not-null="false" />
+		</property>
+		<property name="centerphone" type="java.lang.String">
+			<column name="CENTERPHONE" length="32" not-null="false" />
+		</property>
+		<property name="centeraddress" type="java.lang.String">
+			<column name="CENTERADDRESS" length="128" not-null="false" />
+		</property>
+		<property name="sendmode" type="java.lang.String">
+			<column name="SENDMODE" length="2" not-null="false" />
+		</property>
+		
+		<property name="timelimit" type="java.lang.String">
+			<column name="TIMELIMIT" length="128" not-null="false" />
+		</property>
+		<property name="accnoindex" type="java.lang.String">
+            <column name="ACCNOINDEX" length="4" not-null="false" />
+        </property>
+		<property name="subnocflag" type="java.lang.String">
+			<column name="subnocflag" length="2" not-null="false" >
+				<comment>识别按月出账单时 排除指定不需要的科目  ；1 是需要按照规则来按月出账单</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

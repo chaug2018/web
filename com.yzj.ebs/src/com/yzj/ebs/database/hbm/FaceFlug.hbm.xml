@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.yzj.ebs.database.FaceFlug" table="ebs_FaceFlug">
+		<composite-id>
+			<key-property name="sendMode" column="sendMode" type="java.lang.String" length="2" >
+			</key-property>
+			<key-property name="idCenter" column="idCenter" type="java.lang.String" length="12">
+			</key-property>
+		</composite-id>		
+		<property name="addressFlug" column="addressFlug" type="java.lang.String" length="2"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-2.0.xsd 
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd 
+           http://www.springframework.org/schema/context 
+           http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<bean id="dataSource_wf" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" lazy-init="default" autowire="default">
+		<property name="driverClass">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>driverClass</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="jdbcUrl">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>jdbcUrl</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="user">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>user</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="password">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>password</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="initialPoolSize">
+			<value>10</value>
+		</property>
+		<property name="minPoolSize">
+			<value>10</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>100</value>
+		</property>
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement">
+			<value>3</value>
+		</property>
+		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+		<property name="acquireRetryAttempts">
+			<value>30</value>
+		</property>
+
+	</bean>
+
+	<bean id="sessionFactory_wf"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource_wf" />
+		</property>
+		<property name="hibernateProperties[hibernate.dialect]">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>dialect</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="hibernateProperties[hibernate.show_sql]">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>show_sql</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="hibernateProperties[hibernate.hbm2ddl.auto]">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>hbm2ddl.auto</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property
+			name="hibernateProperties[hibernate.cache.use_second_level_cache]">
+			<value>true</value>
+		</property>
+		<property name="hibernateProperties[hibernate.connection.release_mode]">
+			<value>auto</value>
+		</property>
+		<property name="hibernateProperties[hibernate.cache.provider_class]">
+			<value>org.hibernate.cache.EhCacheProvider</value>
+		</property>
+		<property name="hibernateProperties[hibernate.cache.use_query_cache]">
+			<value>true</value>
+		</property>
+		<property name="hibernateProperties[hibernate.query.factory_class]">
+			<value>org.hibernate.hql.ast.ASTQueryTranslatorFactory</value>
+		</property>
+		<property name="configLocations">
+			<list>
+				<value>WEB-INF/xml-flow/bpm-lwe-hibernate.cfg.xml</value>
+			</list>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<!-- 机构人员 -->
+				<value>com/yzj/wf/po/hbm/CurrentLogin.hbm.xml</value>
+				<value>com/yzj/wf/po/hbm/OrganizeInfo.hbm.xml</value>
+				<value>com/yzj/wf/po/hbm/PeopleInfo.hbm.xml</value>
+				<value>com/yzj/wf/po/hbm/OrgType.hbm.xml</value>
+				<value>com/yzj/wf/po/hbm/OrgTypeRelate.hbm.xml</value>
+				<value>com/yzj/wf/po/hbm/RoleGroupPeople.hbm.xml</value>
+				<value>com/yzj/wf/poam/hbm/PoamOperateLogInfo.hbm.xml</value>
+				<value>com/yzj/wf/po/hbm/hibernate-queries.hbm.xml</value>
+				<!-- 权限 -->
+				<value>com/yzj/wf/am/hbm/RoleGroupInfo.hbm.xml</value>
+				<value>com/yzj/wf/am/hbm/RoleInfo.hbm.xml</value>
+				<value>com/yzj/wf/am/hbm/PowerInfo.hbm.xml</value>
+				<value>com/yzj/wf/am/hbm/hibernate-queries.hbm.xml</value>
+				<!-- 模块 -->
+				<value>com/yzj/wf/mm/hbm/ModuleInfo.hbm.xml</value>
+				<value>com/yzj/wf/mm/hbm/hibernate-queries.hbm.xml</value>
+				<!-- 参数 -->
+				<value>com/yzj/wf/dk/hbm/Param_ModuleFlow.hbm.xml</value>
+				<!-- 工作流 -->
+				<value>com/yzj/wf/bpm/lwe/hbm/LightweightTaskLog.hbm.xml</value>
+				<value>com/yzj/ebs/bpm/lwe/hbm/bpm_lwe_ebs_recovery.hbm.xml</value>
+				<!-- 业务日志 -->
+				<value>com/yzj/wf/bizlog/hbm/simplelogInfo.hbm.xml</value>
+				<!-- 参数管理日志 -->
+				<value>com/yzj/wf/bizlog/hbm/pamlogInfo.hbm.xml</value>
+				<value>com/yzj/wf/pam/hbm/BaseParam.hbm.xml</value>
+			</list>
+
+		</property>
+	</bean>
+
+	<!-- 事务管理配置 -->
+	<bean id="transactionManager_wf"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory_wf" />
+		</property>
+	</bean>
+
+	<aop:aspectj-autoproxy proxy-target-class="true">
+	</aop:aspectj-autoproxy>
+
+	<context:component-scan base-package="com.yzj.*" />
+
+	<tx:annotation-driven transaction-manager="transactionManager_wf"
+		order="2000" />
+	<!-- 参数管理 -->
+	<bean id="dbParamDao" class="com.yzj.wf.pam.dao.DBParamDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+	<!-- 模块管理 -->
+	<bean id="dao_mm" class="com.yzj.wf.mm.dao.ModuleInfoDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+	<!-- 机构人员管理 -->
+	<bean id="OrganizeInfoDao" class="com.yzj.wf.po.dao.OrganizeInfoDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+	<bean id="OrgTypeDao" class="com.yzj.wf.po.dao.OrgTypeDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+	<bean id="OrgTypeRelateDao" class="com.yzj.wf.po.dao.OrgTypeRelateDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+	<bean id="PeopleInfoDao" class="com.yzj.wf.po.dao.PeopleInfoDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+	<bean id="RoleGroupPeopleDao" class="com.yzj.wf.po.dao.RoleGroupPeopleDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+	<bean id="CurrentLoginDao" class="com.yzj.wf.po.dao.CurrentLoginDao">
+		<property name="sessionFactory" ref="sessionFactory_wf"></property>
+	</bean>
+	<bean id="OperateLogInfoDao" class="com.yzj.wf.common.db.dao.BaseDao">
+		<property name="sessionFactory" ref="sessionFactory_wf"></property>
+	</bean>
+	<!-- 权限管理 -->
+	<bean id="RoleGroupDao" class="com.yzj.wf.am.dao.RoleGroupDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+	<bean id="RoleDao" class="com.yzj.wf.am.dao.RoleDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+	<bean id="PowerDao" class="com.yzj.wf.am.dao.PowerDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+
+	<!-- 工作流 -->
+	<bean id="taskLogDao" class="com.yzj.wf.bpm.lwe.dao.TaskLogDao">
+		<property name="sessionFactory">
+			<ref local="sessionFactory_wf" />
+		</property>
+	</bean>
+	<bean id="taskDao" class="com.yzj.wf.bpm.lwe.dao.TaskDao">
+		<property name="sessionFactory">
+			<ref local="sessionFactory_wf" />
+		</property>
+	</bean>
+
+	<!-- 业务日志管理 -->
+	<bean id="SimpleCurrLogDao" class="com.yzj.wf.bizlog.dao.SimpleCurrLogDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+
+	<!-- 参数管理日志 -->
+	<bean id="PamCurrLogDao" class="com.yzj.wf.bizlog.dao.PamCurrLogDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_wf" />
+		</property>
+	</bean>
+</beans>

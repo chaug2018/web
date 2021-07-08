@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+	<class name="com.yzj.wf.pam.db.BaseParam" table="Param_Subnoc"
+		dynamic-insert="true" dynamic-update="true" entity-name="Param_Subnoc">
+		<id name="id" type="long">
+			<column name="autoid" />
+			<generator class="native">
+				<param name="sequence">Param_Subnoc_ID</param>
+			</generator>
+		</id>
+		<dynamic-component name="extFields">
+			<property name="subnoc" type="string">
+	            <column name="SUBNOC" length="35"  >
+					<comment>科目号</comment>
+				</column>
+	        </property>
+	        <property name="subnoctype" type="string">
+	            <column name="SUBNOCTYPE" length="10" >
+					<comment>科目类型</comment>
+				</column>
+	        </property>
+	        <property name="memo" type="string">
+	            <column name="MEMO" length="128" >
+					<comment>客户中文描述</comment>
+				</column>
+	        </property>
+	        <property name="isCheck" type="string">
+	            <column name="isCheck" length="10" >
+					<comment>是否参加对账</comment>
+				</column>
+	        </property>
+			 <property name="isMouthCheck" type="string">
+	            <column name="ISMOUTHCHECK" length="10" >
+					<comment>按月出账单需要按照对账规则来标识,true 是需要</comment>
+				</column>
+	        </property>
+		</dynamic-component>
+		<property name="activeTime" type="string">
+			<column name="activetime" length="32" />
+		</property>
+		<property name="deactiveTime" type="string">
+			<column name="deactivetime" length="32" />
+		</property>
+		<property name="lastUpdatedTime" type="string">
+			<column name="lastupdatedtime" length="32" />
+		</property>
+		<property name="updateOperator" type="string">
+			<column name="updateoperator" length="10" />
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 
+	配置constant设置文件上传的最大字节数为200M
+	 -->
+	<constant name="struts.multipart.maxSize" value="209715200"></constant>
+	<package name="ebs" namespace="/" extends="struts-default">
+		<global-results>
+			<result name="noTask">/taskFinish.jsp</result>
+		</global-results>
+		
+		<!-- 二期改造所有报表模块begin -->
+		
+		<!-- 验印情况统计 -->
+		<action name="sealReport_*" class="sealReport" method="{1}">
+			<result name="initSuccess">/ebs/report/sealReport.jsp</result>
+		</action>
+		<!-- 验印情况账户明细 -->
+		<action name="sealAccDetailReport_*" class="sealAccDetailReport" method="{1}">
+			<result name="initSuccess">/ebs/report/sealAccDetailReport.jsp</result>
+		</action>
+		
+		<!-- 机构对账成功率统计 -->
+		<action name="ebillReport_*" class="ebillReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/ebill.jsp</result>
+		</action>
+		
+		<!--对账有效率统计 -->
+		<action name="ebillMatchReport_*" class="ebillMatchReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/ebill_match.jsp</result>
+		</action>
+		<!--对账有效明细统计 -->
+		<action name="ebillMatchDetailReport_*" class="ebillMatchDetailReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/ebill_matchDetail.jsp</result>
+		</action>
+		<!--账户有效对账结果展示 -->
+		<action name="ebillMatchResultReport_*" class="ebillMatchResultReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/ebill_matchResult.jsp</result>
+		</action>
+		
+		<!--覆盖率统计 -->
+		<action name="coverReport_*" class="coverReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/cover.jsp</result>
+		</action>
+		
+		<!--连续对账未成功账户明细(未覆盖的明细) -->
+		<action name="coverFailReport_*" class="coverFailReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/coverFail.jsp</result>
+		</action>
+		
+		<!--对账集中情况统计 -->
+		<action name="focusReport_*" class="focusReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/focus.jsp</result>
+		</action>
+		
+		<!--网银对账签约率统计 -->
+		<action name="netSignReport_*" class="netSignReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/netSign.jsp</result>
+		</action>
+		
+		<!--网银对账率统计 -->
+		<action name="netCheckReport_*" class="netCheckReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/netCheck.jsp</result>
+		</action>
+		
+		<!--活跃账户情况统计表 -->
+		<action name="activeAccReport_*" class="activeAccReportAction" method="{1}">
+			<result name="initSuccess">/ebs/report/activeAcc.jsp</result>
+		</action>
+		
+		<!-- 二期改造所有报表模块end -->
+		
+		
+		
+		<!-- 退信登记 -->
+		<action name="retreatInputAction_*" class="retreatInputAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/retreat/retreatInput.jsp</result>
+		</action>
+		<!-- 退信处理 -->
+		<action name="retreatProcessAction_*" class="retreatProcessAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/retreat/retreatProcess.jsp</result>
+		</action>
+		<!-- 数据补录 -->
+		<action name="manualInputAction_*" class="manualInputAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/manualInput/ManualInput.jsp</result>
+		</action>
+		<!-- 录入审核 -->
+		<action name="manualAuthAction_*" class="manualAuthAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/manualAuth/ManualAuth.jsp</result>
+		</action>
+		<!-- 删除审核 -->
+		<action name="deleteAuthAction_*" class="deleteAuthAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/deleteAuth/DeleteAuth.jsp</result>
+		</action>
+
+		<!-- 扫描 -->
+		<action name="scanAction" class="scanAction" method="init_save">
+			<result name="show">/ebs/scan/Scan.jsp</result>
+		</action>
+		<!-- 获取删除或重录原因的action -->
+		<action name="untreadAction_*" class="untreadAction" method="{1}">
+		</action>
+
+		<!-- 人工初验 LiuQiFeng.20121018 -->
+		<action name="fstManuProveAction_*" class="fstManuProveAction"
+			method="{1}">
+			<result name="success">/ebs/manuProve/ManuProveFst.jsp</result>
+			<result name="notask">/taskFinish.jsp</result>
+		</action>
+
+		<!-- 人工复验&主管验印 LiuQiFeng.20121023 -->
+
+		<action name="secManuProveAction_*" class="secManuProveAction"
+			method="{1}">
+			<result name="success">/ebs/manuProve/ManuProveSec.jsp</result>
+			<result name="notask">/taskFinish.jsp</result>
+		</action>
+		<action name="authManuProveAction_*" class="authManuProveAction"
+			method="{1}">
+			<result name="success">/ebs/manuProve/ManuProveAuth.jsp</result>
+			<result name="notask">/taskFinish.jsp</result>
+		</action>
+
+		<!-- 未达项录入 -->
+		<action name="notMatchInputAction_*" class="notMatchInputAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/back/notMatchInput.jsp</result>
+		</action>
+
+		<!-- 未达项审核 -->
+		<action name="notMatchCommitAction_*" class="notMatchCommitAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/back/notMatchAuth.jsp</result>
+		</action>
+		<!-- 未达项查询 -->
+		<action name="notMatchQueryAction_*" class="notMatchQueryAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/back/notMatchQuery.jsp</result>
+		</action>
+		<!-- 黑白名单维护 -->
+		<action name="blackWhiteAction_*" class="blackWhiteAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/blackWhite/blackWhite.jsp</result>
+		</action>
+
+		<!-- 特殊面对面账户维护 -->
+		<action name="specialFaceToFaceAction_*" class="specialFaceToFaceAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/blackWhite/specialFaceToFace.jsp</result>
+		</action>
+		
+		<!-- 账户信息查询 -->
+		<action name="accQueryAction_*" class="accQueryAction" method="{1}">
+			<result name="initSuccess">/ebs/accoper/accQuery.jsp</result>
+		</action>
+		<!-- 账户信息维护 -->
+		<action name="accModifyAction_*" class="accModifyAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/accoper/accModify.jsp</result>
+		</action>
+		<!-- 账户对账状态维护 -->
+		<action name="ischeckModifyAction_*" class="ischeckModifyAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/ischeckmodify/ischeckmodify.jsp</result>
+		</action>
+		<!-- 账户验印账号维护 -->
+		<action name="sealAccnoModifyAction_*" class="sealAccnoModifyAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/sealAccnoModify/sealAccnoModify.jsp</result>
+		</action>
+		<!--签约维护 -->
+		<action name="accSignAction_*" class="accSignAction" method="{1}">
+			<result name="initSuccess">/ebs/accoper/accSign.jsp</result>
+		</action>
+
+		<!-- 发生额明细查询 -->
+		<action name="accnoDetailQuery_*" class="accnoDetailQueryAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/param/accrualQuery.jsp</result>
+		</action>
+		<!-- 未达账情况统计 -->
+		<action name="notMatchAnalyse_*" class="notMatchAnalyse"
+			method="{1}">
+			<result name="initSuccess">/ebs/analyse/notmatch.jsp</result>
+		</action>
+		<!-- 对账率统计 -->
+		<action name="ebillAnalyse_*" class="ebillAnalyseAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/analyse/checking.jsp</result>
+		</action>
+		
+		<!-- 增量对账情况统计 -->
+		<action name="partEbillAnalyse_*" class="partEbillAnalyseAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/analyse/partEbill_analyse.jsp</result>
+		</action>
+		
+		<!-- 验印情况统计 -->
+		<action name="sealAnalyse_*" class="sealAnalyse" method="{1}">
+			<result name="initSuccess">/ebs/analyse/seal.jsp</result>
+		</action>
+
+
+		<!-- 账单信息查询 -->
+		<action name="billinfoQueryAction_*" class="billinfoQueryAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/billinfoQuery/billinfoquery.jsp</result>
+		</action>
+
+		<!--网银对账信息查询 -->
+		<action name="netQueryAction_*" class="netQueryAction" method="{1}">
+			<result name="initSuccess">/ebs/analyse/ebank.jsp</result>
+		</action>
+		<!-- 催收处理 -->
+		<action name="rushAction_*" class="rushAction" method="{1}">
+			<result name="initSuccess">/ebs/rush/rush.jsp</result>
+		</action>
+		<!-- 票据信息查询 -->
+		<action name="billQueryAction_*" class="billQueryAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/billQuery/billQuery.jsp</result>
+		</action>
+		<!-- 票据查询初明细页面 -->
+		<action name="viewBillDetail" class="billQueryAction" method="viewBillDetail">
+			<result name="billDetail">/ebs/billQuery/billDetail.jsp</result>
+		</action>
+		<!-- wu账单编号的，票据查询初明细页面 -->
+		<action name="viewBillDetailByVoucherNo" class="billQueryAction"
+			method="viewBillDetailByVoucherNo">
+			<result name="billDetail">/ebs/billQuery/billDetail.jsp</result>
+		</action>
+		<!-- 对账单查询初明细页面 -->
+		<action name="viewBillinfoDetail" class="billinfoQueryAction"
+			method="viewBillinfoDetail">
+			<result name="initSuccess">/ebs/billinfoQuery/billDetail.jsp</result>
+		</action>
+		<!-- 对账单查询页面 -->
+		<action name="queryBillinfoData" class="billinfoQueryAction"
+			method="queryBillinfoData">
+			<result name="initSuccess">/ebs/billinfoQuery/billinfoquery.jsp</result>
+		</action>
+		<!-- 对账单导出 -->
+		<action name="exportData" class="billinfoQueryAction" method="exportData">
+			<result name="initSuccess">/ebs/billinfoQuery/billinfoquery.jsp</result>
+		</action>
+		<!-- 日志列表页面页面 -->
+		<action name="queryLog" class="billQueryAction" method="queryLog">
+			<result name="logList">/ebs/billQuery/logList.jsp</result>
+		</action>
+		<!--操作日志查询界面 -->
+		<action name="operLogQueryAction_*" class="operLogQueryAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/operlogquery/queryOperLog.jsp</result>
+		</action>
+
+		<!-- 数据处理 -->
+		<action name="EDataAction_*" class="edataAction" method="{1}">
+			<result name="showEdatePage">/ebs/edata/edataProcess.jsp</result>
+			<result name="openUpLoadPage">/ebs/edata/upLoadFile.jsp</result>
+			<result name="openHBCheck">/ebs/edata/headBankCheck.jsp</result>
+		</action>
+		
+		<!-- 数据导出 -->
+		<action name="DataExportAction_*" class="dataExportAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/edata/datatxtexport.jsp</result>
+		</action>
+		<!-- 数据打印 -->
+		<action name="DataPrintAction_*" class="dataPrintAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/edata/printinfo.jsp</result>
+		</action>
+		<!-- 批量打印 -->
+		<action name="BatchPrintAction_*" class="batchPrintAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/edata/batchprint.jsp</result>
+			<result name="tableList">/ebs/edata/tableList.jsp</result>
+		</action>
+		<!--半年机构有效率统计 -->
+		<action name="ebillMatchAction_*" class="ebillMatchAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/analyse/ebill_analyse.jsp</result>
+		</action>
+		<!--半年有效明细 -->
+		<action name="ebillMatchParamAction_*" class="ebillMatchParamAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/analyse/ebill_param.jsp</result>
+		</action>
+		<!-- 催收情况统计 -->
+		<action name="rushStatisticsAction_*" class="rushStatisticsAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/analyse/rush.jsp
+			</result>
+		</action>
+		<!-- 对账中心业务量统计 -->
+		<action name="businessStatisticsAction_*" class="businessStatisticsAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/analyse/business.jsp
+			</result>
+		</action>
+		<!-- 退信情况统计 -->
+		<action name="urgeStatisticsAction_*" class="urgeStatisticsAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/analyse/urge.jsp
+			</result>
+		</action>
+		<!-- 外部登出action -->
+		<action name="logoutAction" class="LogoutAction" method="logout">
+		</action>
+		<!-- 参数管理始化 -->
+		<action name="ParamsManagerAction_*" class="ParamsManagerAction"
+			method="{1}">
+			<result name="init">/ebs/paramsadmin/paramsManager.jsp</result>
+			<result name="success">/ebs/paramsadmin/paramDetail.jsp</result>
+			<result name="initaddparam">/ebs/paramsadmin/paramAdd.jsp</result>
+			<result name="update">/ebs/paramsadmin/paramUpdate.jsp</result>
+		</action>
+		<!-- 表格组件数据展现处理 -->
+		<action name="queryDataTable_*" class="queryDataTableAction"
+			method="{1}">
+		</action>
+		<!-- 账单登记薄 -->
+		<action name="exChangeBookAction_*" class="exChangeBookAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/exchangebook/exChangeBook.jsp
+			</result>
+		</action>
+		<!-- 特殊账户统计报表 -->
+		<action name="blackWhiteAnalyseAction_*" class="blackWhiteAnalyseAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/analyse/blackwhite.jsp
+			</result>
+		</action>	
+		<!-- 内部账户参数配置 -->
+		<action name="insideAccnoParamAction" class="insideAccnoParamAction">
+			<result name="initSuccess">/ebs/insideaccno/insideAccnoparam.jsp</result>
+		</action>		
+		<!-- 内部账户对账单核对 -->
+		<action name="insideAccnoCheckAction" class="InsideAccnoCheckAction">
+			<result name="initSuccess">/ebs/insideaccno/innerCheck.jsp</result>
+		</action>
+		<!-- 内部账户对账单复核 -->
+		<action name="insideAccnoRecheckAction" class="InsideAccnoRecheckAction">
+			<result name="initSuccess">/ebs/insideaccno/innerRecheck.jsp</result>
+		</action>
+		<!-- 内部账户对账单查询 -->
+		<action name="insideAccnoQueryAction" class="InsideAccnoQueryAction">
+			<result name="initSuccess">/ebs/insideaccno/innerQuery.jsp</result>
+		</action>
+		<!-- 内部账户维护 -->
+		<action name="innerAccnoAction_*" class="innerAccnoAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/insideaccno/innerAccno.jsp</result>
+		</action>
+		<!-- 内部账户发生额明细查询 -->
+		<action name="innerAccnoDetailQuery_*" class="innerAccnoDetailQueryAction"
+			method="{1}">
+			<result name="initSuccess">/ebs/insideaccno/innerAccnoDetailQuery.jsp</result>
+		</action>
+		
+		
+		<!-- 账户类型定制 -->
+		<action name="ruleOfAccCycleAction" class="ruleOfAccCycleAction">
+			<result name="initSuccess">/ebs/ruleofacccycle/ruleofacccycle.jsp</result>	
+		</action>
+		<!-- 发送地址定制 -->
+		<action name="changeAddressAction" class="changeAddressAction">
+			<result name="initSuccess">/ebs/address/changeaddress.jsp</result>	
+			<result name="queryDetailInfo">/ebs/address/changeaddress_DetailInfo.jsp</result>	
+		</action>
+		<!-- 特殊账户过滤表-->
+		<action name="inputQueryAction" class="InputQueryAction">
+			<result name="initSuccess">/ebs/blackWhite/inputFileQuery.jsp</result>	
+		</action>
+		<!-- 机构号过滤 -->
+		<action name="organizaFilterAction" class="organizaFilterAction">
+			<result name="goOrganizaFilter">/ebs/organizaFilter/organizaFilter.jsp</result>	
+		</action>
+		<!-- 人员岗位查询 -->
+		<action name="queryPeopleRoleAction_*" class="queryPeopleRoleAction" method="{1}">
+			<result name="initSuccess">/ebs/peoplerole/peopleroleQuery.jsp</result>	
+		</action>
+	</package>
+	<package name="billQueryAjax" namespace="/" extends="json-default">
+		<!-- 票据查询之删除票据 -->
+		<action name="deleteBill" class="billQueryAction" method="deleteBill">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+	</package>
+
+	
+	<!-- jasper 导出、打印账单数据 -->
+	<package name="myDataJasper" extends="jasperreports-default">
+		<result-types>
+			<result-type name="jasper"
+				class="org.apache.struts2.views.jasperreports.JasperReportsResult"></result-type>
+		</result-types>
+		<!-- jasper 提供了 xls,pdf,csv,xml,word -->
+		<action name="JR_*_*" class="dataPrintAction" method="printData">
+			<result name="success" type="jasper">
+				<param name="location">/WEB-INF/jasper/{2}.jasper</param>
+				<param name="format">{1}</param>
+				<param name="dataSource">lstData</param>
+				<param name="reportParameters">map</param>
+				<param name="documentName">${myFileName}</param>
+				<param name="imageServletUrl"><![CDATA[/servlets/image?image=]]></param>
+			</result>
+		</action>
+		<action name="MX__*__*" class="dataPrintAction" method="printDetailsData">
+			<result name="success" type="jasper">
+				<param name="location">/WEB-INF/jasper/{2}.jasper</param>
+				<param name="format">{1}</param>
+				<param name="dataSource">detailsData</param>
+				<param name="reportParameters">map</param>
+				<param name="documentName">${myFileName}</param>
+				<param name="imageServletUrl"><![CDATA[/servlets/image?image=]]></param>
+			</result>
+		</action>
+	</package>
+
+</struts>

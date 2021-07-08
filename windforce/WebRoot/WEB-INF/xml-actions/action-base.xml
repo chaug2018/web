@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<import resource="action-mm.xml" />
+	<import resource="action-dk.xml" />
+	<import resource="action-am.xml" />
+	<import resource="action-po.xml" />
+	<import resource="action-cache.xml" />
+	<import resource="action-auth.xml" />
+	<import resource="action-pam.xml" />
+	<import resource="action-bizlog.xml" />
+	<import resource="action-ebs.xml" />
+	<import resource="action-pm.xml" />
+</beans>

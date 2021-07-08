@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" -->
+<!-- "http://www.springframework.org/dtd/spring-beans.dtd"> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="des" class="com.yzj.wf.pam.impl.security.DESSecurity">
+		<property name="key" value="key">
+		</property>
+	</bean>
+	<bean id="securityFactory" class="com.yzj.wf.pam.factory.SecurityFactory">
+		<property name="securities">
+			<map>
+				<entry key="1" value-ref="des" />
+			</map>
+		</property>
+	</bean>
+	<bean id="defaultAdapter" class="com.yzj.wf.pam.impl.adapter.DefaultAdapter">
+		<property name="securityFactory">
+			<ref bean="securityFactory" />
+		</property>
+	</bean>
+	<bean id="paramAdapterFactory" class="com.yzj.wf.pam.factory.ParamAdapterFactory">
+		<property name="paramAdapters">
+			<map>
+				<entry key="Integer" value-ref="defaultAdapter" />
+				<entry key="String" value-ref="defaultAdapter" />
+				<entry key="Boolean" value-ref="defaultAdapter" />
+				<entry key="Long" value-ref="defaultAdapter" />
+			</map>
+		</property>
+	</bean>
+	<bean id="paramRootParser" class="com.yzj.wf.pam.core.ParamRootParser"
+		init-method="init">
+		<property name="paramRootPath" value="xml-config/ParamRoot.xml">
+		</property>
+	</bean>
+	<!--  
+	<bean id="dbParamManager" class="com.yzj.wf.pam.impl.DBParamManager"
+		init-method="init">
+		<property name="dbParamDao">
+			<ref bean="dbParamDao" />
+		</property>
+		<property name="paramAdapterFactory">
+			<ref bean="paramAdapterFactory" />
+		</property>
+		<property name="securityFactory">
+			<ref bean="securityFactory" />
+		</property>
+	</bean>
+	-->
+	<bean id="xmlParamManager" class="com.yzj.wf.pam.impl.XmlParamManager"
+		init-method="init">
+		<!-- 待解析xml文件的目录，把所有需要解析的xml文件放到该目录下即可 -->
+		<property name="configPath" value="xml-config">
+		</property>
+		<property name="paramAdapterFactory">
+			<ref bean="paramAdapterFactory" />
+		</property>
+	</bean>
+	<bean id="universalParamManager" class="com.yzj.wf.pam.impl.UniversalParamManager"
+		init-method="init">
+		<property name="rootParser">
+			<ref bean="paramRootParser" />
+		</property>
+		<property name="paramManagers">
+			<list>
+				<!--  <ref bean="dbParamManager"/>-->
+				<ref bean="xmlParamManager"/>
+			</list>
+		</property>
+	</bean>
+</beans>

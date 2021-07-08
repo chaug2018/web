@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//WSC/DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+com.yzj.ebs.query.action
+</TITLE>
+</HEAD>
+<BODY>
+存放查询统计相关Action<BR><BR>
+	设计思路：该报表实现统计账号某个对账日期的半年来的对账有效明细。 <BR><BR>
+	1.半年机构对账有效率明细统计的Action类(EbillMatchParamAction.java)  <BR>
+	<BR>init()方法：初始化页面信息；
+	 <BR>analyse()方法：统计机构对账有效率明细信息；
+	 <BR>exportData()方法：调用公共类，导出符合条件的所有列表信息，方法在AccnoMainDataAdm；
+     <BR>queryData(int m)方法：根据参数决定是否需要分页查询；
+</BODY>
+</HTML>

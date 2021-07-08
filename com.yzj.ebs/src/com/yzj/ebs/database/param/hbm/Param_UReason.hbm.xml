@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+	<class name="com.yzj.wf.pam.db.BaseParam" table="Param_UReason"
+		dynamic-insert="true" dynamic-update="true" entity-name="Param_UReason">
+		<id name="id" type="long">
+			<column name="autoid" />
+			<generator class="native">
+				<param name="sequence">PARAM_UREASON_ID</param>
+			</generator>
+		</id>
+		<dynamic-component name="extFields">
+			<property name="ureasonID" type="int">
+				<column name="UreasonID" length="4" >
+					<comment>验印不过理由ID </comment>
+				</column>
+			</property>
+			<property name="description" type="string">
+				<column name="Description" length="64" >
+					<comment>验印不过理由描述 </comment>
+				</column>
+			</property>
+			<property name="proveflag" type="string">
+				<column name="ProveFlag" length="8">
+					<comment>验印不过理由对应验印结果值 </comment>
+				</column>
+			</property>
+		</dynamic-component>
+		<property name="activeTime" type="string">
+			<column name="activetime" length="32" />
+		</property>
+		<property name="deactiveTime" type="string">
+			<column name="deactivetime" length="32" />
+		</property>
+		<property name="lastUpdatedTime" type="string">
+			<column name="lastupdatedtime" length="32" />
+		</property>
+		<property name="updateOperator" type="string">
+			<column name="updateoperator" length="10" />
+		</property>
+	</class>
+</hibernate-mapping>

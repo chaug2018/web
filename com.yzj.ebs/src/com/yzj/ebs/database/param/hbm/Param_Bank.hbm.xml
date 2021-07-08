@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-12-18 14:39:37 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="com.yzj.wf.pam.db.BaseParam" table="PARAM_BANK"
+    	dynamic-insert="true" dynamic-update="true" entity-name="Param_Bank">
+        <id name="id" type="java.lang.Long">
+            <column name="id" precision="10" scale="0" >
+				<comment>流水号</comment>
+			</column>
+            <generator class="native" >
+				<param name="sequence">Param_Bank_autoid</param>
+			</generator>
+        </id>
+        <dynamic-component name="extFields">
+	        <property name="idBank" type="string">
+	            <column name="idBank" length="10" not-null="true" >
+					<comment>机构号</comment>
+				</column>
+	        </property>
+	        <property name="idBranch" type="string">
+	            <column name="idBranch" length="10" not-null="true">
+					<comment>上级行号</comment>
+				</column>
+	        </property>
+	         <property name="idCenter" type="string">
+	            <column name="idCenter" length="10" not-null="true" >
+					<comment>对账中心</comment>
+				</column>
+	        </property>
+	        <property name="orgSid" type="string">
+	            <column name="orgSid" length="32" not-null="true" >
+					<comment>机构sid号</comment>
+				</column>
+	        </property>
+	        <property name="cName" type="string">
+	            <column name="cName" length="64" not-null="true" >
+					<comment>机构名称</comment>
+				</column>
+	        </property>
+	        <property name="nLevel" type="java.lang.Short">
+	            <column name="nLevel" precision="3" scale="0" >
+					<comment>等级1总行；2对账中心；3支行；4网点，营业部</comment>
+				</column>
+	        </property>
+	        <property name="orgsid" type="string">
+				<column name="ORGSID" length="32">
+				</column>
+			</property>
+			<property name="centtg" type="string">
+				<column name="CENTTG" length="1">
+				</column>
+			</property>
+			<property name="phone" type="string">
+				<column name="PHONE" length="128">
+					<comment>机构电话</comment>
+				</column>
+			</property>
+			<property name="address" type="string">
+				<column name="ADDRESS" length="256">
+					<comment>机构地址</comment>
+				</column>
+			</property>
+			<property name="zip" type="string">
+				<column name="ZIP" length="10">
+					<comment>机构邮编</comment>
+				</column>
+			</property>
+		</dynamic-component>
+		
+		<property name="activeTime" type="string">
+			<column name="activetime" length="32" />
+		</property>
+		<property name="deactiveTime" type="string">
+			<column name="deactivetime" length="32" />
+		</property>
+		<property name="lastUpdatedTime" type="string">
+			<column name="lastupdatedtime" length="32" />
+		</property>
+		<property name="updateOperator" type="string">
+			<column name="updateoperator" length="10" />
+		</property>
+    </class>
+</hibernate-mapping>

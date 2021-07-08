@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-12-18 14:39:37 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+	<class name="com.yzj.wf.pam.db.BaseParam" table="Param_Currtype"
+		dynamic-insert="true" dynamic-update="true" entity-name="Param_Currtype">
+		<id name="id" type="java.lang.Long">
+            <column name="id" precision="10" scale="0" >
+				<comment>流水号</comment>
+			</column>
+            <generator class="native" >
+				<param name="sequence">Param_Currtype_autoid</param>
+			</generator>
+        </id>
+        <dynamic-component name="extFields">
+			<property name="currType" type="string">
+				<column name="currType" length="5" not-null="false" >
+					<comment>币种类型号</comment>
+				</column>
+			</property>
+			<property name="engName" type="string">
+				<column name="engName" length="5" not-null="false" >
+					<comment>英文名称</comment>
+				</column>
+			</property>
+			<property name="chnName" type="string">
+				<column name="chnName" length="16" not-null="false" >
+					<comment>中文名称</comment>
+				</column>
+			</property>
+			<property name="currUnit" type="string">
+				<column name="currUnit" length="8" >
+					<comment>币种单位</comment>
+				</column>
+			</property>
+			<property name="currSymbol" type="string">
+				<column name="currSymbol" length="8" >
+					<comment>币种符号</comment>
+				</column>
+			</property>
+			<property name="exchangeRate" type="java.lang.Double">
+				<column name="exchangeRate" >
+					<comment>汇率</comment>
+				</column>
+			</property>
+		</dynamic-component>
+		<property name="activeTime" type="string">
+			<column name="activetime" length="32" />
+		</property>
+		<property name="deactiveTime" type="string">
+			<column name="deactivetime" length="32" />
+		</property>
+		<property name="lastUpdatedTime" type="string">
+			<column name="lastupdatedtime" length="32" />
+		</property>
+		<property name="updateOperator" type="string">
+			<column name="updateoperator" length="10" />
+		</property>
+	</class>
+</hibernate-mapping>

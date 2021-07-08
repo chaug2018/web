@@ -1,0 +1,22 @@
+<!DOCTYPE HTML PUBLIC "-//WSC/DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+com.yzj.ebs.exchangebook.action
+</TITLE>
+</HEAD>
+<BODY>
+存放账单交接登记薄相关Action类<BR><BR>
+	设计思路：用来登记和查询对账中心在对账周期内发出和回收的账单数。<BR><BR>
+	1.账单交接登记薄Action类(ExChangeBookAction.java)  
+	<BR>init()方法：初始化页面信息；
+	 <BR>queryData()方法：查询符合条件的信息，方法在ExChangeBookAdm；
+	 <BR>exportData()方法：调用公共类，导出符合条件的所有列表信息；
+	 <BR>bookIn()方法：对账单登记；
+	<BR>outputWrite()方法：将string转换成json串；
+	<BR><BR>
+	2.账单交接登记薄查询参数类(QueryParam.java)
+	<BR>javabean，查询参数
+</BODY>
+</HTML>

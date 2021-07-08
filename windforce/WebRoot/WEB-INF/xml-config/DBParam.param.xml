@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configs>
+	<ParamGroup name="WFDB" memo="WF数据库配置">
+		<Param name="driverClass">oracle.jdbc.driver.OracleDriver</Param>
+		<Param name="jdbcUrl">jdbc:oracle:thin:@192.168.1.101:1521:ebs</Param>
+		<!-- infotech/flyvideo -->
+		<Param name="user">infotech</Param>
+		<Param name="password">flyvideo</Param>
+		<Param name="dialect">org.hibernate.dialect.Oracle9iDialect</Param>
+		<Param name="show_sql">false</Param>
+		<Param name="hbm2ddl.auto">update</Param>
+	</ParamGroup>
+	<ParamGroup name="EBSDB" memo="银企对账数据库配置">
+		<Param name="driverClass">oracle.jdbc.driver.OracleDriver</Param>
+		<Param name="jdbcUrl">jdbc:oracle:thin:@192.168.1.101:1521:ebs</Param>
+		<!-- autek/flyvideo -->
+		<Param name="user">autek</Param>
+		<Param name="password">flyvideo</Param>
+		<Param name="dialect">org.hibernate.dialect.Oracle9iDialect</Param>
+		<Param name="show_sql">false</Param>
+		<Param name="hbm2ddl.auto">update</Param>
+	</ParamGroup>
+	<ParamGroup name="SEALDB" memo="验印数据库配置">
+		<Param name="driverClass">net.sourceforge.jtds.jdbc.Driver</Param>
+		<Param name="jdbcUrl">jdbc:jtds:sqlserver://192.168.1.102;DatabaseName=NewSeal;SelectMethod=cursor</Param>
+		<!-- autek/flyvideo -->
+		<Param name="user">AUTEK</Param>
+		<Param name="password">FLYVIDEO</Param>
+		<Param name="dialect">org.hibernate.dialect.SQLServerDialect</Param>
+		<Param name="show_sql">false</Param>
+		<Param name="hbm2ddl.auto">none</Param>
+	</ParamGroup>
+</Configs>

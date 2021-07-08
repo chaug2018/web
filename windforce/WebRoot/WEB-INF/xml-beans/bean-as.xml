@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" -->
+<!-- "http://www.springframework.org/dtd/spring-beans.dtd"> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+   <bean id="ResAllocor" class="com.yzj.wf.as.core.ResAllocor"
+		init-method="init">
+		<property name="xpm">
+			<ref bean="xmlParamManager" />
+		</property>
+	</bean>
+
+	<bean id="autoFrameworkService" class="com.yzj.wf.as.core.AutoFrameworkService" />
+
+	<!-- 控制台服务 -->
+	<bean id="autoConsoleService" class="com.yzj.wf.as.console.AutoConsoleService"
+		init-method="init">
+		<property name="afService">
+			<ref bean="autoFrameworkService" />
+		</property>
+		<property name="managerService">
+			<ref bean="managerService" />
+		</property>
+		<property name="servicePort" value="1199"/>
+	</bean>
+	<bean id="jobRegister" class="com.yzj.wf.as.core.JobRegisterImpl" />
+	<!-- 自动任务初始化 -->
+	<bean id="autoTaskInit" class="com.yzj.wf.as.manager.action.AutoTaskInitAction" scope="session"> </bean>
+	
+	<!-- 启动指定线程 -->
+	<bean id="stratThreads" class="com.yzj.wf.as.manager.action.StartThreadsAction" scope="session"> </bean>
+	
+	<!-- 停止指定线程 -->
+	<bean id="stopThreads" class="com.yzj.wf.as.manager.action.StopThreadsAction" scope="session"> </bean>
+	<!-- 取得自动调度业务数据 -->
+	<bean id="bizDataShow" class="com.yzj.wf.as.manager.action.BizDataShowAction" scope="session"> </bean>
+	
+	<!-- 管理端提供的远程注册服务 -->	
+	<bean id="managerService" class="com.yzj.wf.as.manager.core.ManagerServiceImpl"/>
+	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="serviceName" value="ManagerURL" />
+		<property name="service" ref="managerService" />
+		<property name="serviceInterface" value="com.yzj.wf.as.common.IManagerService" />
+		<property name="registryPort" value="8000" />
+	</bean>
+	
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="serviceName" value="AutoURL" />
+		<property name="service" ref="autoConsoleService" />
+		<property name="serviceInterface"
+			value="com.yzj.wf.as.common.IAutoConsoleService" />
+		<property name="registryPort" value="1199" />
+	</bean>
+	
+</beans>

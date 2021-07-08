@@ -1,0 +1,125 @@
+
+#loading {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background-color: gray;
+	z-index: 100;
+	display: none;
+	filter: alpha(opacity = 30);
+	opacity: 0.3;
+}
+
+#loadingImg {
+	position: absolute;
+	top: 48%;
+	left: 48%;
+}
+
+#bgDiv {
+	position: relative;
+	background: white;
+	overflow: auto;
+}
+
+#leftPage {
+	position: absolute;
+	top: 0px;
+	left: 20px;
+	bottom: 15px;
+	width: 49%;
+	height: 98%;
+}
+
+#leftArr {
+	position: absolute;
+	top: 45%;
+	left: 10px;
+	height: 60px;
+	width: 35px;
+	background-color: gray;
+}
+
+#leftArrImg {
+	width: 35px;
+	height: 60px;
+}
+
+#smallerButton {
+	position: absolute;
+	left: 10px;
+	bottom: 30px;
+	width: 35px;
+	height: 35px;
+	background-color: gray;
+}
+
+#smallerButtonImg {
+	width: 35px;
+	height: 35px;
+}
+
+#unClockRoButton{
+	position: absolute;
+	left: 10px;
+	bottom: 120px;
+	width: 35px;
+	height: 35px;
+	background-color: gray;
+}
+#unClockRoButtonImg{
+	width: 35px;
+	height: 35px;
+}
+
+#rightPage {
+	position: absolute;
+	top: 0px;
+	right: 20px;
+	bottom: 15px;
+	width: 48%;
+	height: 98%;
+}
+
+#rightArr {
+	position: absolute;
+	top: 45%;
+	right: 10px;
+	height: 60px;
+	width: 35px;
+	background-color: gray;
+}
+
+#rightArrImg {
+	width: 35px;
+	height: 60px;
+}
+
+#biggerButton {
+	position: absolute;
+	right: 10px;
+	bottom: 30px;
+	width: 35px;
+	height: 35px;
+	background-color: gray
+}
+
+#biggerButtonImg {
+	width: 35px;
+	height: 35px;
+}
+
+#clockRoButton{
+	position: absolute;
+	right: 10px;
+	bottom: 120px;
+	width: 35px;
+	height: 35px;
+	background-color: gray
+}
+#clockRoButtonImg{
+	width: 35px;
+	height: 35px;
+}
+
+

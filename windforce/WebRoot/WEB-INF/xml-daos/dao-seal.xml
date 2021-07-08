@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-2.0.xsd 
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<bean id="dataSource_seal" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" lazy-init="default" autowire="default">
+		<property name="driverClass">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>SEALDB</value>
+						<value>driverClass</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="jdbcUrl">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>SEALDB</value>
+						<value>jdbcUrl</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="user">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>SEALDB</value>
+						<value>user</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="password">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>SEALDB</value>
+						<value>password</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="initialPoolSize">
+			<value>10</value>
+		</property>
+		<property name="minPoolSize">
+			<value>10</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>50</value>
+		</property>
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement">
+			<value>3</value>
+		</property>
+		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+		<property name="acquireRetryAttempts">
+			<value>15</value>
+		</property>
+
+	</bean>
+
+	<bean id="sessionFactory_seal"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource_seal" />
+		</property>
+		<property name="hibernateProperties[hibernate.dialect]">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>SEALDB</value>
+						<value>dialect</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="hibernateProperties[hibernate.show_sql]">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>SEALDB</value>
+						<value>show_sql</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="hibernateProperties[hibernate.hbm2ddl.auto]">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>SEALDB</value>
+						<value>hbm2ddl.auto</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property
+			name="hibernateProperties[hibernate.cache.use_second_level_cache]">
+			<value>true</value>
+		</property>
+		<property name="hibernateProperties[hibernate.connection.release_mode]">
+			<value>auto</value>
+		</property>
+		<property name="hibernateProperties[hibernate.cache.provider_class]">
+			<value>org.hibernate.cache.EhCacheProvider</value>
+		</property>
+		<property name="hibernateProperties[hibernate.cache.use_query_cache]">
+			<value>true</value>
+		</property>
+		<property name="hibernateProperties[hibernate.query.factory_class]">
+			<value>org.hibernate.hql.ast.ASTQueryTranslatorFactory</value>
+		</property>
+	</bean>
+
+	<!-- 事务管理配置 -->
+	<bean id="transactionManager_seal"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory_seal" />
+		</property>
+	</bean>
+
+	<aop:aspectj-autoproxy proxy-target-class="true">
+	</aop:aspectj-autoproxy>
+
+	<tx:annotation-driven transaction-manager="transactionManager_seal"
+		order="2000" />
+	<!-- 通用DAO，操作所有的表 -->
+	<bean id="SealDao" class="com.yzj.ebs.database.dao.SealDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_seal" />
+		</property>
+	</bean>
+</beans>

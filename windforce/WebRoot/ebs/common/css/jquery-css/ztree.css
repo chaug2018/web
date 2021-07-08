@@ -1,0 +1,4 @@
+@charset "utf-8";
+/* CSS Document */
+
+.ztree li span.button.littlelist_open{margin-right:2px; background: url(img/littlelist.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}

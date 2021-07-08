@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Tue Apr 16 18:23:10 CST 2013
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=Scan.jar
+manifest.mergeall=true
+manifest.mainclass=com.yzj.wf.ebs.scanapplet.applet.MainTest
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=

@@ -1,0 +1,18 @@
+<!DOCTYPE HTML PUBLIC "-//WSC/DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+com.yzj.ebs.util
+</TITLE>
+</HEAD>
+<BODY>
+自动阵列包<BR><BR>
+	其中包括： <BR><BR>
+	1.downImage 图片下载类，用于自动匹配、自动验印时，把图片下载至自动阵列PC机，并删除前一天的临时文件。 <BR><BR>
+	2.JacobLoader 加载控件类，用于初始化jacob控件，以及通用的调用控件的方法，由于jacob控件只支持单线程，因此，需要提供线程安全的调用方法。<BR><BR>	
+	3.ResultBean 返回结果集，封装返回服务端的对象，用于界面显示。<BR><BR>	
+	4.Starter 自动阵列启动类，有main函数启动或通过sprint启动，推荐用main方法启动，sprint启动会有很多缺陷，如，只能部署一个阵列，效率不高，自动阵列崩溃时，容易影响主服务。<BR><BR>	
+	5.Synchronizer 线程安全锁。
+</BODY>
+</HTML>

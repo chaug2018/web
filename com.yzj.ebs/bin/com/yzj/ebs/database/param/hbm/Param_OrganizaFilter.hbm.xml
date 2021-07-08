@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field">
+	<class lazy="false" name="com.yzj.ebs.database.OrganizaFilter" table="Param_OrganizaFilter">
+		<id name="autoId" type="java.lang.Long">
+            <column name="autoId" precision="10" scale="0" >
+				<comment>主键id</comment>
+			</column>
+            <generator class="native" >
+				<param name="sequence">OrganizaFilter_autoid</param>
+			</generator>
+        </id>
+        <property generated="never" lazy="false" name="idBank" type="java.lang.String">
+	   		<column length="32" name="idBank" >
+				<comment>机构号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="idBranch" type="java.lang.String">
+	   		<column length="32" name="idBranch" >
+				<comment>上级机构</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="bankName" type="java.lang.String">
+	   		<column length="128" name="bankName" >
+				<comment>机构名称</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="idCenter" type="java.lang.String">
+	   		<column length="32" name="idCenter" >
+				<comment>对账中心</comment>
+			</column>
+	 	</property>
+	</class>
+</hibernate-mapping>

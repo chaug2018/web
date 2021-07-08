@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.yzj.ebs.database.RuleOfAccCycle" table="ebs_ruleofacccycle">
+		<id name="autoId" type="java.lang.Long">
+            <column name="autoId" precision="10" scale="0" >
+				<comment>自动增长ID</comment>
+			</column>
+            <generator class="native" >
+				<param name="sequence">RuleOfAccCycle_autoid</param>
+			</generator>
+        </id>
+        <property generated="never" lazy="false" name="accCycle" type="java.lang.String">
+	   		<column length="2" name="accCycle" >
+				<comment>账户类型</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="subjectNo" type="java.lang.String">
+	   		<column length="24" name="subjectNo" >
+				<comment>科目号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="minBal" type="java.lang.String">
+	   		<column length="20" name="minBal" >
+				<comment>最小余额</comment>
+			</column>
+	 	</property>
+		<property generated="never" lazy="false" name="maxBal" type="java.lang.String">
+	   		<column length="20" name="maxBal" >
+				<comment>最大余额</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="oneMinAccrual" type="java.lang.String">
+	   		<column length="20" name="oneMinAccrual" >
+				<comment>最小单笔发生额</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="oneMaxAccrual" type="java.lang.String">
+	   		<column length="20" name="oneMaxAccrual" >
+				<comment>最大单笔发生额</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="totalMinAccrual" type="java.lang.String">
+	   		<column length="20" name="totalMinAccrual" >
+				<comment>最小累计发生额</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="totalMaxAccrual" type="java.lang.String">
+	   		<column length="20" name="totalMaxAccrual" >
+				<comment>最大累计发生额</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="accnoState" type="java.lang.String">
+	   		<column length="2" name="accnoState" >
+				<comment>账户状态</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="executeFlog" type="java.lang.String">
+	   		<column length="2" name="executeFlog" >
+				<comment>执行状态 0执行 1废弃</comment>
+			</column>
+	 	</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="OrganizeInfoAdm" class="com.yzj.wf.po.impl.OrganizeInfoAdm">
+		<property name="organizeInfoDao">
+			<ref bean="OrganizeInfoDao" />
+		</property>
+		<property name="orgTypeDao">
+			<ref bean="OrgTypeDao" />
+		</property>
+	</bean>
+	<bean id="PeopleInfoAdm" class="com.yzj.wf.po.impl.PeopleInfoAdm">
+		<property name="peopleInfoDao">
+			<ref bean="PeopleInfoDao" />
+		</property>
+	</bean>
+	<bean id="RoleGroupPeopleAdm" class="com.yzj.wf.po.impl.RoleGroupPeopleAdm">
+		<property name="roleGroupPeopleDao">
+			<ref bean="RoleGroupPeopleDao" />
+		</property>
+		<property name="peopleInfoAdm">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="roleGroupAdm">
+			<ref bean="RoleGroupAdm" />
+		</property>
+	</bean>
+	<!-- 机构人员管理访问权限控制器之能访问所有机构的控制器 -->
+	<bean id="SuperPOPowerControl" class="com.yzj.wf.po.powercontrol.SuperPOPowerCotrol">
+	</bean>
+	<bean id="CurrentLoginAdm" class="com.yzj.wf.po.impl.CurrentLoginAdm">
+		<property name="currentLoginDao" ref="CurrentLoginDao"></property>
+	</bean>
+	<bean id="PeopleInfoFactory" class="com.yzj.wf.po.factory.PeopleInfoFactory">
+		<property name="organizeInfoAdm" ref="OrganizeInfoAdm"></property>
+	</bean>
+	<bean id="POService" class="com.yzj.wf.po.impl.POService">
+		<property name="defaultPassword">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WF_CORE_PARAM</value>
+						<value>defaultPassword</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="passwordRecordsLength">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WF_CORE_PARAM</value>
+						<value>passwordRecordsLength</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="organizeInfoAdm">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="peopleInfoAdm">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="roleGroupAdm">
+			<ref bean="RoleGroupAdm" />
+		</property>
+		<property name="roleGroupPeopleAdm">
+			<ref bean="RoleGroupPeopleAdm" />
+		</property>
+		<property name="roleAdm">
+			<ref bean="RoleAdm" />
+		</property>
+		<property name="powerAdm">
+			<ref bean="PowerAdm" />
+		</property>
+		<property name="currentLoginAdm" ref="CurrentLoginAdm" />
+		<property name="amService">
+			<ref bean="AMService" />
+		</property>
+	</bean>
+	<!-- 操作日志实现 -->
+	<bean id="OperateLogInfoAdm" class="com.yzj.wf.poam.impl.OperateLogAdm">
+		<property name="logInfoDao" ref="OperateLogInfoDao"></property>
+	</bean>
+
+	<!-- OrgTypeCache缓存 -->
+	<bean id="orgTypeCache" class="com.yzj.wf.po.cache.OrgTypeCache"
+		factory-method="getInstance" init-method="init">
+		<property name="orgTypeDao">
+			<ref bean="OrgTypeDao" />
+		</property>
+		<property name="cacheEnabled" value="true" />
+	</bean>
+	<!-- PeopleInfoCache缓存 -->
+	<bean id="peopleInfoCache" class="com.yzj.wf.po.cache.PeopleInfoCache"
+		factory-method="getInstance" init-method="init">
+		<property name="peopleInfoAdm">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="roleGroupPeopleCache">
+			<ref bean="roleGroupPeopleCache" />
+		</property>
+		<property name="organizeInfoCache">
+			<ref bean="organizeInfoCache" />
+		</property>
+		<!-- 加载策略 random,org -->
+		<property name="loadStrategy" value="random" />
+		<property name="defaultSize" value="500" />
+		<property name="cacheEnabled" value="true" />
+	</bean>
+	<!-- OrganizeInfoCache缓存 -->
+	<bean id="organizeInfoCache" class="com.yzj.wf.po.cache.OrganizeInfoCache"
+		factory-method="getInstance">
+		<property name="defaultSize" value="500" />
+		<property name="cacheEnabled" value="true" />
+	</bean>
+	<!-- RoleGroupPeopleCache缓存 -->
+	<bean id="roleGroupPeopleCache" class="com.yzj.wf.po.cache.RoleGroupPeopleCache"
+		factory-method="getInstance">
+		<property name="defaultSize" value="500" />
+		<property name="cacheEnabled" value="true" />
+	</bean>
+
+	<!-- Cache工厂 -->
+	<bean id="cacheFactory" class="com.yzj.wf.common.cache.CacheFactory">
+		<constructor-arg>
+			<map>
+				<entry key="com.yzj.wf.mm.cache.ModuleInfoCache" value-ref="moduleInfoCache"></entry>
+				<entry key="com.yzj.wf.am.cache.PowerInfoCache" value-ref="powerInfoCache"></entry>
+				<entry key="com.yzj.wf.am.cache.RoleGroupInfoCache" value-ref="roleGroupInfoCache"></entry>
+				<entry key="com.yzj.wf.am.cache.RoleInfoCache" value-ref="roleInfoCache"></entry>
+				<entry key="com.yzj.wf.po.cache.OrgTypeCache" value-ref="orgTypeCache"></entry>
+				<entry key="com.yzj.wf.po.cache.OrganizeInfoCache" value-ref="organizeInfoCache"></entry>
+				<entry key="com.yzj.wf.po.cache.PeopleInfoCache" value-ref="peopleInfoCache"></entry>
+				<entry key="com.yzj.wf.po.cache.RoleGroupPeopleCache"
+					value-ref="roleGroupPeopleCache"></entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	
+	
+	<!-- 配置biz服务器类 -->
+	<bean id="organizeDetailWarpBiz" class="com.yzj.wf.po.biz.OrganizeDetailWarpBiz">
+		<property name="driverClass">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>driverClass</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="jdbcUrl">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>jdbcUrl</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="user">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>user</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="password">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>password</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+</beans>

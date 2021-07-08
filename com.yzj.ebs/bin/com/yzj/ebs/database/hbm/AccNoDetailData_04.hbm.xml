@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.yzj.ebs.database.AccNoDetailData" table="ebs_AccnoDetailData_04"
+		dynamic-insert="true" dynamic-update="true" entity-name="ebs_AccnoDetailData_04">
+		<id name="autoid" type="java.lang.Long">
+            <column name="AUTOID" precision="10" scale="0" >
+				<comment>自动编号</comment>
+			</column>
+			<generator class="native" >
+				<param name="sequence">AccnoDetailData_04_autoid</param>
+			</generator>
+        </id>
+		<property name="nTaskId" type="java.lang.Long">
+			<column name="nTaskId" precision="10" scale="0" >
+				<comment>批次号</comment>
+			</column>
+		</property>
+		<property name="docDate" type="java.lang.String">
+			<column name="docDate"  length="10" >
+				<comment>对账日期</comment>
+			</column>
+		</property>
+		<property name="voucherNo" type="java.lang.String">
+			<column name="voucherNo"  length="30" >
+				<comment>账单编号</comment>
+			</column>
+		</property>
+		<property name="accNo" type="java.lang.String">
+			<column name="accNo"  length="32" >
+				<comment>账号</comment>
+			</column>
+		</property>
+		<property name="accSon" type="java.lang.String">
+			<column name="accSon" length="12" >
+				<comment>子账号</comment>
+			</column>
+		</property>
+		<property name="credit" type="java.lang.Double">
+			<column name="credit" >
+				<comment>余额</comment>
+			</column>
+		</property>
+		<property name="idCenter" type="java.lang.String">
+			<column name="idCenter" length="12" >
+				<comment>对账中心</comment>
+			</column>
+		</property>
+		<property name="idBranch" type="java.lang.String">
+			<column name="idBranch" length="12" >
+				<comment>支行</comment>
+			</column>
+		</property>
+		<property name="idBank" type="java.lang.String">
+			<column name="idBank" length="12" >
+				<comment>网点</comment>
+			</column>
+		</property>
+		<property name="vouNoType" type="java.lang.String">
+			<column name="vouNoType" length="22" >
+				<comment>凭证类型</comment>
+			</column>
+		</property>
+		<property name="dcFlag" type="java.lang.String">
+			<column name="dcFlag" length="2" >
+				<comment>借贷标志</comment>
+			</column>
+		</property>
+		<property name="workDate" type="java.lang.String">
+			<column name="workDate" length="10" >
+				<comment>交易日期</comment>
+			</column>
+		</property>
+		<property name="traceBal" type="java.lang.Double">
+			<column name="traceBal" length="10" >
+				<comment>交易金额</comment>
+			</column>
+		</property>
+		<property name="vouNo" type="java.lang.String">
+			<column name="vouNo" length="20" >
+				<comment>凭证号</comment>
+			</column>
+		</property>
+		<property name="traceNo" type="java.lang.Long">
+			<column name="traceNo"  >
+				<comment>交易流水号</comment>
+			</column>
+		</property>
+		<property name="traceNoSon" type="java.lang.Long">
+			<column name="traceNoSon"   >
+				<comment>子交易流水号</comment>
+			</column>
+		</property>
+		<property name="pageNum1" type="java.lang.Long">
+			<column name="page_Num1"   >
+				<comment>页码1</comment>
+			</column>
+		</property>
+		<property name="pageNum2" type="java.lang.Long">
+			<column name="page_Num2"   >
+				<comment>页码2</comment>
+			</column>
+		</property>
+		<property name="currType" type="java.lang.String">
+			<column name="CURRTYPE" length="20" >
+				<comment>币种</comment>
+			</column>
+		</property>
+		<property name="to_Accno" type="java.lang.String">
+			<column name="TO_ACCNO" length="32" >
+				<comment>对方账号</comment>
+			</column>
+		</property>
+		<property name="to_Accname" type="java.lang.String">
+			<column name="TO_ACCNAME" length="120" >
+				<comment>对方户名</comment>
+			</column>
+		</property>
+		<property name="abs" type="java.lang.String">
+			<column name="ABS" length="120" >
+				<comment>摘要</comment>
+			</column>
+		</property>
+
+		<property name="checkDate" type="java.lang.String">
+			<column name="checkDate" length="10" >
+				<comment>核对日期</comment>
+			</column>
+		</property>
+		<property name="checkFlag" type="java.lang.String">
+			<column name="checkFlag" length="1" >
+				<comment>核对结果</comment>
+			</column>
+		</property>
+
+		<property name="importDate" type="java.lang.String">
+			<column name="IMPORTDATE"  length="10" >
+				<comment>导数日期</comment>
+			</column>
+		</property>
+		<property name="dataDate" type="java.lang.String">
+			<column name="dataDate"  length="10" >
+				<comment>数据日期</comment>
+			</column>
+		</property>
+		<property name="trace_code" type="java.lang.String">
+			<column name="TRACE_CODE"  length="20" >
+				<comment>交易代码（区分结息不结息）</comment>
+			</column>
+		</property>
+		<property name="traceTime" type="java.lang.String">
+			<column name="tracetime"  length="20" >
+				<comment>交易时间</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ParamRoot>
+	<System name="DEFAULT" memo="">
+		<GroupName>URLParam</GroupName>
+		<GroupName>WFDB</GroupName>
+		<GroupName>WF_CORE_PARAM</GroupName>
+		<GroupName>BIZLOG_TABLE</GroupName>
+		<GroupName>Param_Sysbase</GroupName>
+		<GroupName>Param_Credit</GroupName>
+		<GroupName>Param_ReInputReason</GroupName>
+		<GroupName>Param_DeleteReason</GroupName>
+		<GroupName>Param_Subnoc</GroupName>
+		<GroupName>Param_IdCenter</GroupName>
+		<GroupName>Param_Currtype</GroupName>
+	</System>
+</ParamRoot>

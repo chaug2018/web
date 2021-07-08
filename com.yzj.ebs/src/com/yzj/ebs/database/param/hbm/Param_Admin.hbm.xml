@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+	<class name="com.yzj.wf.pam.db.BaseParam" table="Param_Admin"
+		dynamic-insert="true" dynamic-update="true" entity-name="Param_Admin">
+		<id name="id" type="long">
+			<column name="autoid" />
+			<generator class="native">
+				<param name="sequence">PARAM_ADMIN_ID</param>
+			</generator>
+		</id>
+		<dynamic-component name="extFields">
+			<property name="tableName" type="string">
+				<column name="TableName" length="64"></column>
+			</property>
+			<property name="tableShowname" type="string">
+				<column name="TableShowname" length="64"></column>
+			</property>
+			<property name="fieldNames" type="string">
+				<column name="FieldNames" length="512"></column>
+			</property>
+			<property name="fieldShownames" type="string">
+				<column name="FieldShownames" length="1024"></column>
+			</property>
+			<property name="orderID" type="string">
+				<column name="OrderID" length="2"></column>
+			</property>
+			<property name="groupID" type="string">
+				<column name="GroupID" length="2"></column>
+			</property>
+		</dynamic-component>
+	</class>
+</hibernate-mapping>

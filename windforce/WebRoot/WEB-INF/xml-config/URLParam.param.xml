@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configs>
+	<ParamGroup name="URLParam" memo="用于模块管理子系统的入口点URL的通配映射">
+		<!-- 将数据库mm_moduleinfo表中entrypoint_url字段中形如[server]的域替换为localhost -->
+		<Param name="[server]">192.168.1.101</Param>
+		<!-- 将数据库mm_moduleinfo表中entrypoint_url字段中形如[port]的域替换为8080 -->
+		<Param name="[port]">8080</Param>
+	</ParamGroup>
+</Configs>

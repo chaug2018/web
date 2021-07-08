@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<cdp id="EBS_RECOVERY" desc="回收流程">
+  <group id="开始">
+    <condition param="1|扫描上传，创建任务至自动匹配">${TASKSOURCE == "SCAN"}</condition>
+    <condition param="16|网银数据，创建任务至未达录入">${TASKSOURCE == "EBANK"}</condition>
+  </group>
+  <group id="删除审核">
+    <condition param="-1|删除审核通过，流程结束">${RESULT == "SUCCESS"}</condition>
+    <condition param="10|删除审核不通过，至人工补录">${RESULT == "FAIL" and PRENODE == "MANUALINPUT"}</condition>
+    <condition param="15|删除审核不通过，至录入审核">${RESULT == "FAIL" and PRENODE == "MANUALAUTH"}</condition>
+    <condition param="12|删除审核不通过，至人工初验">${RESULT == "FAIL" and PRENODE == "SEALFST"}</condition>
+    <condition param="13|删除审核不通过，至人工复验">${RESULT == "FAIL" and PRENODE == "SEALSND"}</condition>
+    <condition param="14|删除审核不通过，至主管验印">${RESULT == "FAIL" and PRENODE == "SEALAUTH"}</condition>
+    <condition param="16|删除审核不通过，至未达录入">${RESULT == "FAIL" and PRENODE == "NOTMATCHINPUT"}</condition>
+    <condition param="17|删除审核不通过，至未达审核">${RESULT == "FAIL" and PRENODE == "NOTMATCHAUTH"}</condition>
+  </group>
+  <group id="未达审核">
+    <condition param="18|未达审核发起删除，至删除审核">${RESULT == "DELETE"}</condition>
+     <condition param="16|未达审核不通过，至未达录入">${RESULT == "FAIL"}</condition>
+    <condition param="3|未达审核通过，至自动记账">${RESULT == "SUCCESS"}</condition>
+  </group>
+  <group id="未达录入">
+    <condition param="17|未达录入通过，至未达审核">${RESULT == "SUCCESS"}</condition>
+    <condition param="18|未达录入发起删除，至删除审核">${RESULT == "DELETE"}</condition>
+  </group>
+  <group id="人工复验">
+    <condition param="14|人工复验通过、验印模式为2+1且金额大于等于主管验印额度，至主管验印">${RESULT == "SUCCESS" and SEALTYPE == "2+1" and CREDIT &gt;= CREDIT_MP_AUTH}</condition>
+    <condition param="16|(人工复验通过，且金额小于主管授权额度)未达处理为记账前，且有未达项，至未达录入">${RESULT == "SUCCESS"  and CREDIT &lt; CREDIT_MP_AUTH  and NOTMATCHINPUTTYPE== "BEFORE" and NOTMATCHRESULT == "UNFINISH"}</condition>
+    <condition param="16|(人工复验通过，且(印模式为1+1))未达处理为记账前，且有未达项，至未达录入">${RESULT == "SUCCESS"  and SEALTYPE == "1+1" and NOTMATCHINPUTTYPE== "BEFORE" and NOTMATCHRESULT == "UNFINISH"}</condition>
+    <condition param="16|( 人工复验失败，未达处理为记账前，且有未达项，至未达录入">${RESULT=="FAIL" and NOTMATCHINPUTTYPE== "BEFORE" and NOTMATCHRESULT == "UNFINISH"}</condition>    
+    <condition param="3|(人工复验通过，且金额小于主管授权额度)未达处理为记账后或没有未达项，至自动记账">${RESULT == "SUCCESS"  and CREDIT &lt; CREDIT_MP_AUTH  and (NOTMATCHINPUTTYPE== "AFTER" or NOTMATCHRESULT == "FINISH")}</condition>
+    <condition param="3|(人工复验通过，且验印模式为1+1)未达处理为记账后或没有未达项，至自动记账">${(RESULT == "SUCCESS"  and SEALTYPE == "1+1" ) and (NOTMATCHINPUTTYPE== "AFTER" or NOTMATCHRESULT == "FINISH")}</condition>
+    <condition param="3|(人工复验失败)，未达处理为记账后或没有未达项，至自动记账">${RESULT=="FAIL" and (NOTMATCHINPUTTYPE== "AFTER" or NOTMATCHRESULT == "FINISH")}</condition>
+    <condition param="18|人工复验发起删除，至删除审核">${RESULT == "DELETE"}</condition>
+  </group>
+  <group id="自动验印">
+    <condition param="12|自动验印失败或金额大于等于人工验印额度，至人工初验">${RESULT == "FAIL" || CREDIT &gt;= CREDIT_MP_FST}</condition>
+    <condition param="16|自动验印成功，金额小于人工初验额度，未达处理为记账前，且有未达项，至未达处理">${(RESULT == "SUCCESS" and CREDIT &lt; CREDIT_MP_FST) and NOTMATCHINPUTTYPE== "BEFORE" and NOTMATCHRESULT == "UNFINISH"}</condition>
+    <condition param="3|自动验印成功，金额小于人工初验额度，且未达处理为记账后或没有未达项，至自动记账">${(RESULT == "SUCCESS" and CREDIT &lt; CREDIT_MP_FST) and (NOTMATCHINPUTTYPE== "AFTER" or NOTMATCHRESULT == "FINISH")}</condition>
+  </group>
+  <group id="人工初验">
+    <condition param="13|人工初验成功，验印模式为2+1, 且金额大于等于人工复验额度，至人工复验">${RESULT == "SUCCESS" and SEALTYPE == "2+1"  and CREDIT &gt;= CREDIT_MP_SND}</condition>
+    <condition param="13|人工初验成功，验印模式为1+1, 且金额大于等于人工复验额度，至人工复验">${RESULT == "SUCCESS" and SEALTYPE=="1+1" and CREDIT &gt;= CREDIT_MP_SND}</condition>
+    <condition param="16|(人工初验成功，且金额小于复验额度或验印模式为1+0)且未达录入为记账前且有未达项，至未达录入">${RESULT == "SUCCESS" and (CREDIT &lt; CREDIT_MP_SND or SEALTYPE == "1+0") and NOTMATCHINPUTTYPE== "BEFORE" and NOTMATCHRESULT == "UNFINISH"}</condition>
+     <condition param="16|人工初验失败且未达录入为记账前且有未达项，至未达录入">${RESULT=="FAIL" and NOTMATCHINPUTTYPE== "BEFORE" and NOTMATCHRESULT == "UNFINISH"}</condition>
+     <condition param="3|(人工初验成功，且金额小于复验额度或验印模式为1+0)且(未达录入为记账后或无未达项)，至自动记账">${RESULT == "SUCCESS" and (CREDIT &lt; CREDIT_MP_SND  or SEALTYPE == "1+0") and (NOTMATCHINPUTTYPE== "AFTER" or NOTMATCHRESULT == "FINISH")}</condition>
+    <condition param="3|人工初验失败且(未达录入为记账后或无未达项)，至自动记账">${RESULT=="FAIL" and (NOTMATCHINPUTTYPE== "AFTER" or NOTMATCHRESULT == "FINISH")}</condition>
+    <condition param="18|人工初验发起删除，至删除审核">${RESULT == "DELETE"}</condition>
+  </group>
+  <group id="自动匹配">
+    <condition param="10|自动匹配失败或金额大于等于人工录入额度，至人工补录">${RESULT == "FAIL" or CREDIT &gt;= CREDIT_MI_INPT}</condition>
+    <condition param="11|自动匹配成功且金额小于人工补录额度。至自动验印">${RESULT == "SUCCESS" and CREDIT &lt; CREDIT_MI_INPT}</condition>
+  </group>
+  <group id="数据补录">
+    <condition param="15|数据补录成功且金额大于等于录入审核额度，至录入审核">${RESULT == "SUCCESS" and CREDIT &gt;= CREDIT_MI_AUTH}</condition>
+    <condition param="11|数据补录成功且金额小于录入审核额度。至自动验印">${RESULT == "SUCCESS" and CREDIT &lt; CREDIT_MI_AUTH}</condition>
+    <condition param="18|数据补录发起删除，至删除审核">${RESULT == "DELETE"}</condition>
+  </group>
+  <group id="自动记账">
+    <condition param="2|自动记账完毕，且未达处理完毕，流程结束">${NOTMATCHRESULT == "FINISH"}</condition>
+    <condition param="16|自动记账完毕，未达处理未完毕，至未达录入">${NOTMATCHRESULT == "UNFINISH"}</condition>
+  </group>
+  <group id="数据复核">
+    <condition param="11|数据复审成功，至自动验印">${RESULT == "SUCCESS"}</condition>
+    <condition param="18|数据复核发起删除，至删除审核">${RESULT == "DELETE"}</condition>
+    <condition param="10|数据复审失败，至数据补录">${RESULT == "FAIL"}</condition>
+  </group>
+  <group id="主管验印">
+    <condition param="16|主管验印提交任务，未达处理为记账前，且有未达项，至未达录入">${(RESULT == "SUCCESS" or RESULT=="FAIL") and NOTMATCHINPUTTYPE== "BEFORE" and NOTMATCHRESULT == "UNFINISH"}</condition>
+     <condition param="3|主管验印提交任务，未达处理为记账后，或没有未达项，至自动记账">${(RESULT == "SUCCESS"or RESULT=="FAIL") and NOTMATCHINPUTTYPE== "AFTER" or NOTMATCHRESULT == "FINISH"}</condition>
+    <condition param="18|主管验印发起删除，至删除审核">${RESULT == "DELETE"}</condition>
+  </group>
+</cdp>

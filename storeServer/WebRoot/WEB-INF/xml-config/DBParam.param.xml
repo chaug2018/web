@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configs>
+	<ParamGroup name="STOREDB" memo="银企对账数据库配置">
+		<Param name="driverClass">oracle.jdbc.driver.OracleDriver</Param>
+		<Param name="jdbcUrl">jdbc:oracle:thin:@192.168.1.101:1521:ebs</Param>
+		<!-- autek/flyvideo -->
+		<Param name="user">autek</Param>
+		<Param name="password">flyvideo</Param>
+		<Param name="dialect">org.hibernate.dialect.Oracle9iDialect</Param>
+		<Param name="show_sql">false</Param>
+		<Param name="hbm2ddl.auto">update</Param>
+	</ParamGroup>
+</Configs>

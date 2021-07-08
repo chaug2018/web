@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd ">
+
+	<!-- 数据库连接池配置 -->
+	<bean id="storeDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" lazy-init="default" autowire="default">
+			<property name="driverClass">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>STOREDB</value>
+						<value>driverClass</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="jdbcUrl">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>STOREDB</value>
+						<value>jdbcUrl</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="user">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>STOREDB</value>
+						<value>user</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="password">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>STOREDB</value>
+						<value>password</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="initialPoolSize">
+			<value>10</value>
+		</property>
+		<property name="minPoolSize">
+			<value>10</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>50</value>
+		</property>
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement">
+			<value>3</value>
+		</property>
+		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+		<property name="acquireRetryAttempts">
+			<value>15</value>
+		</property>
+
+	</bean>
+	
+
+	<bean id="StoreFsSessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="storeDataSource" />
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+				<!--  
+					org.hibernate.dialect.SQLServerDialect
+				-->
+					org.hibernate.dialect.Oracle9iDialect	
+				</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>com/yzj/store/fs/server/database/DocObject.hbm.xml
+				</value>
+				<value>com/yzj/store/fs/server/database/StoreObject.hbm.xml
+				</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 通用DAO，操作所有的表 -->
+	<bean id="StoreDao" class="com.yzj.store.fs.server.dao.StoreDao">
+		<property name="sessionFactory">
+			<ref bean="StoreFsSessionFactory" />
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="StoreFsSessionFactory" />
+		</property>
+	</bean>
+	<aop:aspectj-autoproxy proxy-target-class="true">
+
+	</aop:aspectj-autoproxy>
+
+	<tx:annotation-driven transaction-manager="transactionManager"
+		order="2000" />
+</beans>

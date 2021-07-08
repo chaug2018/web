@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="pm" namespace="/" extends="struts-default">
+		<!-- 流程监控初始化列表 -->
+		<action name="processMonitorInitPage" class="processMonitorAction"
+			method="processMonitorInitPage">
+			<result name="success">/windforce/pm/processMonitorInitPage.jsp</result>
+		</action>
+		<!-- 流程监控任务节点下锁定的任务实例列表 -->
+		<action name="unlockedTtaskNodeInsList" class="processMonitorAction"
+			method="unlockedTtaskNodeInsList">
+			<result name="success">/windforce/pm/taskNodeInsList.jsp</result>
+		</action>
+		<!-- 流程监控任务节点锁定任务实例列表 -->
+		<action name="lockedTtaskNodeInsList" class="processMonitorAction"
+			method="lockedTtaskNodeInsList">
+			<result name="success">/windforce/pm/taskNodeInsList.jsp</result>
+		</action>
+	</package>
+	<package name="pmAjax" namespace="/" extends="json-default">
+		<!-- 流程监控 任务实例解锁 -->
+		<action name="unLockTaskInstance" class="processMonitorAction"
+			method="unLockTaskInstance">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+		<!-- 流程监控任务实例锁定 -->
+		<action name="lockTaskInstance" class="processMonitorAction"
+			method="lockTaskInstance">
+			<result type="json">
+				<param name="root">resultMap</param>
+			</result>
+		</action>
+		<!-- 流程监控流程定义相关统计信息 -->
+		<action name="queryCountInfoByProDefKey" class="processMonitorAction"
+			method="queryCountInfoByProDefKey">
+			<result type="json">
+				<param name="root">proDefCountInfo</param>
+			</result>
+		</action>
+	</package>
+</struts>

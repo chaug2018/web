@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build-all" name="windforce">
+	<property name="bulid.version" value="v_1.0.0" />
+	<property name="bulid.stage" value="b" />
+	<target name="build-all">
+		<ant antfile="build.xml" dir="../com.yzj.wf.common" target="Jar" />
+		<ant antfile="build.xml" dir="../com.yzj.wf.common.db" target="Jar" />
+		<ant antfile="build.xml" dir="../com.yzj.wf.core" target="Jar" />
+		<ant antfile="build.xml" dir="../../cache/com.yzj.wf.cache" target="Jar" />
+		<ant antfile="build.xml" dir="../../am/com.yzj.wf.am.security" target="Jar" />
+		<ant antfile="build.xml" dir="../../am/com.yzj.wf.am" target="Jar" />
+		<ant antfile="build.xml" dir="../../as/com.yzj.wf.as" target="Jar" />
+		<ant antfile="build.xml" dir="../../as/com.yzj.wf.as.manager" target="Jar" />
+		<ant antfile="build.xml" dir="../../dk/com.yzj.wf.dk" target="Jar" />
+		<ant antfile="build.xml" dir="../../mm/com.yzj.wf.mm" target="Jar" />
+		<ant antfile="build.xml" dir="../../pam/com.yzj.wf.pam" target="Jar" />
+		<ant antfile="build.xml" dir="../../po/com.yzj.wf.po" target="Jar" />
+		<ant antfile="build.xml" dir="../../bpm/com.yzj.wf.bpm" target="Jar" />
+		<ant antfile="build.xml" dir="../../bpm/com.yzj.wf.bpm.lwe" target="Jar" />
+		<ant antfile="build.xml" dir="../../bpm/com.yzj.wf.bpm.lwe.bpmn.model" target="Jar" />
+		<ant antfile="build.xml" dir="../../bpm/com.yzj.wf.bpm.monitor" target="Jar" />
+		<!--ant antfile="build.xml" dir="../../store_fs/com.yzj.wf.store.fs.server.db" target="Jar" />
+		<ant antfile="build.xml" dir="../../store_fs/com.yzj.wf.store.common" target="Jar" />
+		<ant antfile="build.xml" dir="../../store_fs/com.yzj.wf.store.fs.server" target="Jar" />
+		<ant antfile="build.xml" dir="../../com_ibank/com.yzj.wf.com.ibank.standard" target="Jar" />
+		<ant antfile="build.xml" dir="../../com_ibank/com.yzj.wf.com.ibank" target="Jar" /-->
+	</target>
+</project>

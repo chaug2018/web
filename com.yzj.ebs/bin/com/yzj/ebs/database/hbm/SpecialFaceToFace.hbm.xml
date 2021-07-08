@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.yzj.ebs.database.SpecialFaceToFace" table="ebs_specialfacetoface">
+    	<id name="autoId" type="java.lang.Long">
+			<column name="autoId" precision="10" scale="0">
+				<comment>流水号</comment>
+			</column>
+			<generator class="native">
+				<param name="sequence">SpecialFaceToFace_autoid</param>
+			</generator>
+		</id>
+        <property name="accno" type="java.lang.String">
+			<column name="accno" length="32"  >
+				<comment>账号 </comment>
+			</column>
+        </property>
+        
+        <property name="docDate" type="java.lang.String">
+        	<column name="docDate" length="10"  >
+				<comment>对账日期</comment>
+			</column>
+        </property>
+        
+    </class>
+</hibernate-mapping>

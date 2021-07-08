@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="dk" namespace="/" extends="struts-default">
+		<interceptors>
+			<interceptor name="loginInterceptor" class="loginInterceptor" />
+		</interceptors>
+		<action name="login" class="loginAction">
+			<result name="success">/windforce/dk/loginIn.jsp</result>
+			<result name="input">/windforce/dk/login.jsp</result>
+			<result name="authfail">/accessDenied.jsp</result>
+		</action>
+		<action name="getPreUser" class="loginAction" method="getPreUser">
+		</action>
+		<action name="checkPassword" class="loginAction" method="checkPassword">
+		</action>	
+		<action name="toLogin">
+			<result type="redirect">/windforce/dk/login.jsp</result>
+		</action>
+		<action name="navigationAutoSearchAction" class="leftAutoSearchAction"
+			method="searchList">
+		</action>
+	</package>
+</struts>    

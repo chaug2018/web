@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="batchprint_subreport2" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="437"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="accDetails" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<parameterDescription><![CDATA[]]></parameterDescription>
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<field name="workdate" class="java.lang.String"/>
+	<field name="abs" class="java.lang.String"/>
+	<field name="credit" class="java.lang.String"/>
+	<field name="vouno" class="java.lang.String"/>
+	<field name="accno" class="java.lang.String"/>
+	<field name="num" class="java.lang.String"/>
+	<field name="jf" class="java.lang.String"/>
+	<field name="df" class="java.lang.String"/>
+	<variable name="index" class="java.lang.Integer" resetType="Column" calculation="Count">
+		<variableExpression><![CDATA[new Integer("1")]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="130" splitType="Stretch">
+			<staticText>
+				<reportElement x="230" y="31" width="127" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[对账单活期明细]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="499" y="110" width="96" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[摘要]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="196" y="110" width="69" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[凭证号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="110" width="64" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[交易日期]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="26" y="110" width="106" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[账号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="399" y="110" width="100" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[余额]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="110" height="110"/>
+				<imageExpression><![CDATA[$P{SUBREPORT_DIR} + "yz.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="265" y="110" width="62" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[借方支出]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="327" y="110" width="72" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[贷方收入]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="499" y="0" width="96" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{abs}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="399" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{credit}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="196" y="0" width="59" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{vouno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="132" y="0" width="64" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{workdate}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="26" y="0" width="106" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{accno}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="0" y="0" width="26" height="15" isPrintInFirstWholeBand="true"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{index}]]></textFieldExpression>
+			</textField>
+			<break>
+				<reportElement isPrintRepeatedValues="false" x="0" y="16" width="555" height="1" isPrintInFirstWholeBand="true">
+					<printWhenExpression><![CDATA[new Boolean ($V{index}.intValue() % 25 == 0)]]></printWhenExpression>
+				</reportElement>
+			</break>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="327" y="0" width="62" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{df}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement stretchType="RelativeToTallestObject" x="265" y="0" width="62" height="15"/>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{jf}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.yzj.ebs.database.InnerAccno" table="ebs_inneraccno">
+        <id name="autoId" type="java.lang.Long">
+            <column name="autoId" precision="10" scale="0">
+				<comment>流水号</comment>
+			</column>
+			<generator class="native" >
+				<param name="sequence">inneraccno_autoid</param>
+			</generator>
+        </id>
+        <property name="accNo" type="java.lang.String">
+            <column name="accno"  length="32"  >
+				<comment>内部账号 </comment>
+			</column>
+        </property>
+        <property name="inputDate" type="java.lang.String">
+            <column name="inputdate" length="10"  >
+				<comment>录入日期 </comment>
+			</column>
+        </property>
+        <property name="inputPeopleCode" type="java.lang.String">
+            <column name="inputpeoplecode" length="16"  >
+				<comment>录入柜员 </comment>
+			</column>
+        </property>
+    </class>
+</hibernate-mapping>

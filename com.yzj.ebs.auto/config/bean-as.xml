@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" -->
+<!-- "http://www.springframework.org/dtd/spring-beans.dtd"> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+           http://www.springframework.org/schema/context
+           http://www.springframework.org/schema/context/spring-context-2.5.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<bean id="jobRegister" class="com.yzj.wf.as.core.JobRegisterImpl" />
+
+	<bean id="ResAllocor" class="com.yzj.wf.as.core.ResAllocor"
+		init-method="init">
+		<property name="xpm">
+			<ref bean="xmlParamManager" />
+		</property>
+	</bean>
+
+	<bean id="autoFrameworkService" class="com.yzj.wf.as.core.AutoFrameworkService" />
+
+	<!-- 控制台服务 -->
+	<bean id="autoConsoleService" class="com.yzj.wf.as.console.AutoConsoleService"
+		init-method="init">
+		<property name="afService">
+			<ref bean="autoFrameworkService" />
+		</property>
+		<property name="managerService">
+			<ref bean="managerService" />
+		</property>
+		<property name="servicePort" value="1200"/>
+	</bean>
+
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="serviceName" value="AutoURL" />
+		<property name="service" ref="autoConsoleService" />
+		<property name="serviceInterface"
+			value="com.yzj.wf.as.common.IAutoConsoleService" />
+		<property name="registryPort" value="1200" />
+	</bean>
+
+	<!-- 获取远端(管理端)服务 -->
+	<bean id="managerService" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://127.0.0.1:8000/ManagerURL" />
+		<property name="serviceInterface" value="com.yzj.wf.as.common.IManagerService" />
+	</bean>
+
+	<!-- 获取远端服务 -->
+	<bean id="serviceForRemote" class="org.springframework.remoting.rmi.RmiProxyFactoryBean">
+		<property name="serviceUrl" value="rmi://127.0.0.1:8001/ServiceForRemoteURL" />
+		<property name="serviceInterface" value="com.yzj.ebs.common.IServiceForRemote" />
+	</bean>
+
+	<!-- 自动匹配 -->
+	<bean id="VerifyData" class="com.yzj.ebs.auto.verifydata.AutoVerifyData"
+		init-method="init">
+		<property name="jobRegister">
+			<ref bean="jobRegister" />
+		</property>
+		<property name="serviceForRemote">
+			<ref bean="serviceForRemote" />
+		</property>
+		<property name="paramManager">
+			<ref bean="xmlParamManager" />
+		</property>
+		<property name="userId" value="AutoVerify001"/>
+	</bean>
+	<!-- 自动验印 --> 
+	<bean id="AutoProve" class="com.yzj.ebs.auto.prove.AutoProve"
+		init-method="init">
+		<property name="jobRegister">
+			<ref bean="jobRegister" />
+		</property>
+		<property name="serviceForRemote">
+			<ref bean="serviceForRemote" />
+		</property>
+		<property name="paramManager">
+			<ref bean="xmlParamManager" />
+		</property>
+		<property name="userId" value="AutoProve001"/>
+	</bean>
+	<!-- 自动记账 -->
+	<bean id="AutoTally" class="com.yzj.ebs.auto.tally.AutoTally"
+		init-method="init">
+		<property name="jobRegister">
+			<ref bean="jobRegister" />
+		</property>
+		<property name="serviceForRemote">
+			<ref bean="serviceForRemote" />
+		</property>
+		<property name="userId" value="AutoTally001"/>
+	</bean>
+</beans>

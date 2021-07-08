@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="mm" namespace="/" extends="struts-default">
+	    <!-- 模块初始化 -->
+		<action name="modulesInitAction" class="modulesInitAction" method="getModuleList">
+		</action>
+		<!-- 模块管理 -->
+		<action name="modules_*" class="moduleManagerAction" method="{1}">
+		<result name="detail">/windforce/mm/moduleDetail.jsp</result>
+		<result name="add">/windforce/mm/addModule.jsp</result>
+		<result name="edit">/windforce/mm/modifyModule.jsp</result>
+		</action>
+	</package>
+</struts>    

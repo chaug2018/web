@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TRADETEMPLATE xmlns="http://www.infotech.com/xml/trade-template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.infotech.com/xml/trade-template trade-template.xsd" 
+	DESC="IBANK客户端模板">
+	<PARAMS>
+		<!-- 参数 -->
+		<PARAM NAME="hostip" VALUE="192.168.120.118" DESC="通讯地址IP" />
+		<PARAM NAME="hostport" VALUE="17017" DESC="通讯端口" />
+		<PARAM NAME="hosttimeout" VALUE="3000" DESC="通讯超时时间设置" />
+		<PARAM NAME="hostsuccessret" VALUE="0000" DESC="主机交易结果返回成功标识" />
+		<PARAM NAME="tracepath" VALUE="/home/logs/ibank" DESC="记录报文日志路径" />
+		<!-- 客户端服务 -->
+		<PARAM NAME="IBANKASSEMBLE_SERVICE" VALUE="IBANKASSEMBLE" DESC="数据包装配服务" />
+		<PARAM NAME="COMMUNICATION_SERVICE" VALUE="IBANKSOCKET" DESC="通讯服务" />
+		<PARAM NAME="TALLYFLOWLIST_SERVICE" VALUE="TALLYFLOWLIST" DESC="账务流水服务" />
+	</PARAMS>
+	<TRADE ID="E001" NAME="发送签约标识交易" CODE="E001" CRC="00000000" TYPE="BYTE" DESC="发送签约标识交易" INSERT="2" TRACE="1" DEBUG="1" RANDOM="100">
+		<PARAMS>
+		</PARAMS>
+		<HOSTRETURN RET="" SEQNO="" CODE="" MSG=""/>
+		<FILELIST>
+			<FILE TAG="down" VALID="0" NAME=""/>
+			<FILE TAG="up" VALID="0" NAME=""/>
+		</FILELIST>
+		<FIELDLIST>
+			<!-- 公共上传字段 -->
+		  	<FIELD NAME="transaction_sn" KEY="transaction_sn" COLUMN="" TYPE="string" LEN="20" VALUE="" ISFIX="1" MEMO="报文流水号" DIRECT="2" />
+			<FIELD NAME="transaction_id" KEY="transaction_id" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="交易码" DIRECT="2" />
+			<FIELD NAME="requester_id" KEY="requester_id" COLUMN="" TYPE="string" LEN="10" VALUE="" ISFIX="1" MEMO="发起系统ID" DIRECT="0" />
+			<FIELD NAME="transaction_date" KEY="transaction_date" COLUMN="" TYPE="string" LEN="8" VALUE="" ISFIX="1" MEMO="交易日期" DIRECT="0" />
+			<FIELD NAME="transaction_time" KEY="transaction_time" COLUMN="" TYPE="string" LEN="6" VALUE="" ISFIX="1" MEMO="交易时间" DIRECT="0" />		
+			<!-- 具体交易上传字段 -->
+			<FIELD NAME="AcNo" KEY="AcNo" COLUMN="" TYPE="string" LEN="32" VALUE="" ISFIX="1" MEMO="账号" DIRECT="0" />
+			<FIELD NAME="SignCheck" KEY="SignCheck" COLUMN="" TYPE="string" LEN="2" VALUE="" ISFIX="1" MEMO="签约标识" DIRECT="0" />
+			<FIELD NAME="SignStatus" KEY="SignStatus" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="签约状态" DIRECT="0" />
+			<!-- 公共下传字段 -->
+			<FIELD NAME="code" KEY="code" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="交易执行结果" DIRECT="1" />
+			<FIELD NAME="desc" KEY="desc" COLUMN="" TYPE="string" LEN="20" VALUE="" ISFIX="1" MEMO="返回信息" DIRECT="1" />
+		</FIELDLIST>
+	</TRADE>
+</TRADETEMPLATE>

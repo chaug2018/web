@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//WSC/DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+com.yzj.ebs.query.action
+</TITLE>
+</HEAD>
+<BODY>
+存放对账单信息查询统计相关Action，查看账单的实时状态<BR><BR>
+	设计思路：数据处理完成生成账单后，提供查询账单的实时状态，分为按账单和按账号俩种查询方式。<BR>按账单查询操作checkmaindata表，查看账单基本信息；按账号信息查询则还包括账单上账号信息，以accnomaindata为主。 <BR><BR>
+	1.对账单信息查询的Action类(BillInfoQueryAction.java)
+	<BR>VOUCHERNO_QUERYTYPE = "1";// 按账单编号查询，只有一张表，checkmaindata
+    <BR>ACCNOINFO_QUERYTYPE = "2";// 按账号查询，查询俩张表，checkmaindata和accnomaindata表
+	<BR>init()方法：初始化页面信息；
+	<BR>queryBillinfoData()方法：根据queryMap查询对账单信息，其中调用的queryData方法，根据查询方式，分为俩种；
+	<BR>exportData()方法：调用公共类DataExporter，导出所有符合查询条件信息；
+	<BR>viewBillinfoDetail()方法：查看详情，根据所选列表的账单编号关联accnomaindata查询出对账单信息详情；
+</BODY>
+</HTML>

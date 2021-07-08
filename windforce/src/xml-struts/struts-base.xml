@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<constant name="struts.objectFactory"
+		value="org.apache.struts2.spring.StrutsSpringObjectFactory" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.action.extension" value="action" />
+	<include file="xml-struts/struts-as.xml" />
+	<include file="xml-struts/struts-dk.xml" />
+	<include file="xml-struts/struts-po.xml" />
+	<include file="xml-struts/struts-mm.xml" />
+	<include file="xml-struts/struts-am.xml" />
+	<include file="xml-struts/struts-cache.xml" />
+	<include file="xml-struts/struts-auth.xml" />
+	<include file="xml-struts/struts-pam.xml" />
+	<include file="xml-struts/struts-bizlog.xml" />
+	<include file="xml-struts/struts-ebs.xml" />
+	<include file="xml-struts/struts-pm.xml" />
+</struts>    

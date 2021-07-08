@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+	<class name="com.yzj.wf.pam.db.BaseParam" table="Param_Sysbase"
+		dynamic-insert="true" dynamic-update="true" entity-name="Param_Sysbase">
+		<id name="id" type="long">
+			<column name="autoid" />
+			<generator class="native">
+				<param name="sequence">PARAM_SYSBASE_ID</param>
+			</generator>
+		</id>
+		<dynamic-component name="extFields">
+			<property name="sysbaseID" type="string">
+				<column name="SysbaseID" length="32" />
+			</property>
+
+			<property name="sysbaseValue" type="string">
+				<column name="SysbaseValue" length="128" />
+			</property>
+
+			<property name="sysbaseMemo" type="string">
+				<column name="SysbaseMemo" length="128" />
+			</property>
+
+			<property name="systemType" type="int">
+				<column name="SystemType" length="4" />
+			</property>
+		</dynamic-component>
+		<property name="activeTime" type="string">
+			<column name="activetime" length="32" />
+		</property>
+		<property name="deactiveTime" type="string">
+			<column name="deactivetime" length="32" />
+		</property>
+		<property name="lastUpdatedTime" type="string">
+			<column name="lastupdatedtime" length="32" />
+		</property>
+		<property name="updateOperator" type="string">
+			<column name="updateoperator" length="10" />
+		</property>
+	</class>
+</hibernate-mapping>

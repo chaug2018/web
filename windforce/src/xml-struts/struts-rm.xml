@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+<constant name="struts.ognl.allowStaticMethodAccess" value="true"></constant>   
+<package name="myJasper"   extends="jasperreports-default">
+
+     <result-types>
+         <result-type name="jasper" class="org.apache.struts2.views.jasperreports.JasperReportsResult"></result-type>
+     </result-types> 
+     <!-- jasper 提供了 xls,pdf,csv,xml,word -->
+     <action name="JR_*_*" class="paramReportAction" method="getReportHTML">
+         <result name="success" type="jasper">
+             <param name="location">/WEB-INF/jasper/{2}.jasper</param>
+             <param name="format">{1}</param>
+             <param name="dataSource">testList</param>
+                <param name="reportParameters">map</param>    
+                <param name="documentName">${myName}</param>  
+                <param name="imageServletUrl"><![CDATA[/servlets/image?image=]]></param>  
+         </result>
+     </action>
+     
+     
+<action name="credAction" class="credenceAction" method="getReportHTML">
+         <result name="success" type="jasper">
+             <param name="location">/WEB-INF/jasper/credence.jasper</param>
+             <param name="format">HTML</param>
+             <param name="dataSource">testList</param>
+                <param name="reportParameters">map</param>    
+                <param name="imageServletUrl"><![CDATA[/servlets/image?image=]]></param>  
+                     
+         </result>
+     </action>
+     <action name="chartManager" class="ChartManagerAction" method="toChart">
+     </action>
+     
+     <!-- 展现业务报表 -->
+     <action name="showBiz_*" class="reportShowAction" method="get{1}" >
+     <result name="success">/rm-ui/bizReport/{1}.jsp</result>
+     </action>
+     
+     <!-- 通用业务数据表格组件 -->
+     <action name="tableCommon" class="tableCommonAction" method="getReportList">
+     <result name="success">/rm-ui/common/tableDataCommon.jsp</result>
+     </action>
+     
+     <!-- jquery插件数据源 -->
+     <action name="jqueryTabledata" class="jqueryTableDataAction" method="queryJson" >
+     </action>
+     <!-- jquery表头信息 -->
+     <action name="tabledataHeader" class="tabledataHeaderAction" method="queryHeader" >
+     </action>
+     <!-- 左侧菜单初始化 -->
+     <action name="leftInit" class="leftInitAction" method="initLeft">
+     <result name="left">/rm-ui/bizReport/left.jsp</result>
+     </action>
+</package>  
+
+</struts>    

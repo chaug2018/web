@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2008-12-18 14:39:37 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class lazy="false" name="com.yzj.wf.pam.db.BaseParam" table="ebs_Ref_customResponse"
+    	dynamic-insert="true" dynamic-update="true" entity-name="ebs_Ref_customResponse">
+		<id name="id" type="long">
+			<column name="autoid" />
+			<generator class="native">
+				<param name="sequence">Ref_response_ID</param>
+			</generator>
+		</id>
+		<dynamic-component name="extFields">
+			<property name="refid" type="int">
+				<column name="REFID"  />
+			</property>
+			<property name="refdesc" type="string">
+	            <column name="REFDESC" length="128" not-null="true" />
+	        </property>
+		</dynamic-component>
+		<property name="activeTime" type="string">
+			<column name="activetime" length="32" />
+		</property>
+		<property name="deactiveTime" type="string">
+			<column name="deactivetime" length="32" />
+		</property>
+		<property name="lastUpdatedTime" type="string">
+			<column name="lastupdatedtime" length="32" />
+		</property>
+		<property name="updateOperator" type="string">
+			<column name="updateoperator" length="10" />
+		</property>
+    </class>
+</hibernate-mapping>

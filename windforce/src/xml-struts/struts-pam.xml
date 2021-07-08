@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="manageAccount" namespace="/pam" extends="struts-default">
+		<action name="Param_*" class="ManageAction">
+			<result>/windforce/pam/Param_{1}.jsp</result>
+		</action>
+	</package>		
+		
+	<package name="managementJson" extends="json-default">
+		<action name="fillTableContext" method="tableContext"  class="ManageAction">
+			<result type="json">
+				<param name="success">result</param>
+			</result>
+		</action>
+		
+		<action name="saveParam" method="saveObject" class="ManageAction"> 
+			<result type="json">
+				<param name="success">result</param>
+			</result>
+		</action>
+		
+		<action name="updateParam" method="updateObject" class="ManageAction"> 
+			<result type="json">
+				<param name="success">result</param>
+			</result>
+		</action>
+		
+		<action name="deleteParam" method="deleteObject" class="ManageAction"> 
+			<result type="json">
+				<param name="success">result</param>
+			</result>
+		</action>			
+		
+		<action name="getOrderSelect" method="getOrderSelect" class="DateSource"> 
+			<result type="json">
+				<param name="root">map</param>
+			</result>
+		</action>	
+		
+		<action name="initNewObj" method="initNewObjs" class="ManageAction"> 
+			<result type="json">
+				<param name="root">newObjmap</param>
+			</result>
+		</action>		
+			
+		<action name="nameCheck" method="nameCheck" class="ManageAction"> 
+			<result type="json">
+				<param name="root">exit</param>
+			</result>
+		</action>
+	</package>
+
+</struts>    

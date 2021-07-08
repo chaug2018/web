@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configs>
+	<!-- WF框架内部参数配置 -->
+	<ParamGroup name="WF_CORE_PARAM" memo="WF内部参数">
+		<!-- 资源刷新时间 beam-am.xml line 16 -->
+		<Param name="refreshWait" type="String">60000</Param>
+		
+		<!-- 默认密码beam-po.xml line 40 -->
+		<Param name="defaultPassword" type="String">888888</Param>
+		
+		<!-- 允许最近修改密码次数beam-po.xml line 41 -->
+		<Param name="passwordRecordsLength" type="String">6</Param>
+		
+		<!-- 密码锁定错误次数spring-security-base.xml line 74 -->
+		<Param name="maxErrTime" type="String">3</Param>
+		
+		<!-- 密码强度 -->
+		<Param name="pwdStrengthLevel" type="String">-20</Param>
+		
+		<!-- 系统运行状态 run:运行状态，debug：调式状态 -->
+		<Param name="sysRunMode" type="String">run</Param>
+		
+		<!-- 系统启动状态 true：第一次启动，false：不是第一次启动 -->
+		<Param name="isFirstStart" type="Boolean">false</Param>
+		
+		<!-- 密码过期时间，默认30天 -->
+		<Param name="passwordActiveInterval" type="String">90</Param>
+		
+		<!-- 密码过期前提示周期 ，默认提前7天 -->
+		<Param name="passwordInfoInterval" type="String">30</Param>
+		
+		<!-- 是否屏蔽任务菜单，默认不屏蔽 !  block:屏蔽,unblock:不屏蔽 -->
+		<Param name="isBlockTaskMenu" type="String">unblock</Param>
+	</ParamGroup>
+</Configs>

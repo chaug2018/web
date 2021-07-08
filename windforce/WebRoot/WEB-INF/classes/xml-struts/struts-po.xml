@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="po" namespace="/" extends="struts-default">
+		<!-- 机构导航列表显示 -->
+		<action name="getOrganizeList" class="getOrganizeListAction"
+			method="getOrganizeList">
+			<result name="success">/windforce/po/organizeinfo/organize_left.jsp
+			</result>
+		</action>
+		<!-- 获取适用机构角色组 -->
+		<action name="getOrgRoleGroup" class="getOrganizeListAction"
+			method="initRoleGroupInOrg">
+			<result name="roleGroup">/windforce/po/peopleInfo/roleRroupTable.jsp
+			</result>
+		</action>
+		<!-- 机构详细信息显示 -->
+		<action name="organizeDetail" class="getOrganizeDetailAction"
+			method="getOrganizeDetail">
+			<result name="success">/windforce/po/organizeinfo/detail.jsp</result>
+		</action>
+		<!-- 机构下人员分页显示 -->
+		<action name="getPeoplesByPage" class="getOrganizeDetailAction"
+			method="getPeoplesByPage">
+			<result name="peoplesTable">/windforce/po/organizeinfo/peoplesTable.jsp
+			</result>
+		</action>
+		<!-- 导出机构下人员分页显示 -->
+		<action name="exportPeopleData" class="getOrganizeDetailAction"
+			method="exportData">
+			<result name="success">/windforce/po/organizeinfo/detail.jsp</result>
+		</action>
+		<!-- 添加机构信息 -->
+		<action name="addOrganize" class="addOrganizeAction" method="addOrganize">
+			<result name="success">/windforce/po/organizeinfo/add.jsp</result>
+		</action>
+		<!-- 添加机构信息初始化 -->
+		<action name="initAddOrganize_*" class="initAddAction" method="{1}">
+			<result name="success">/windforce/po/organizeinfo/add.jsp</result>
+		</action>
+		<!-- 修改机构信息 -->
+		<action name="editOrganize_*" class="editOrganizeAction"
+			method="{1}">
+			<result name="success">/windforce/po/organizeinfo/editOrg.jsp</result>
+		</action>
+		<!-- 删除机构信息 -->
+		<action name="deleteOrganize" class="deleteOrganizeAction"
+			method="deleteOrganize">
+		</action>
+		<!-- 用户管理模块 -->
+		<action name="userList" class="userManager" method="initUserList">
+			<result name="success">/windforce/po/peopleInfo/userManager.jsp</result>
+		</action>
+		<!-- 用户自动检索 -->
+		<action name="userAutoSearch" class="autoSearch" method="search">
+			<result name="success">/windforce/po/peopleInfo/userAutoSearchTable.jsp
+			</result>
+		</action>
+		<!-- 添加和修改时设置类型与父岗位的级联关系 -->
+		<action name="getParentOrg" class="setParentOrg" method="getParent">
+		</action>
+		<!-- 添加人员初始化角色信息 -->
+		<action name="initAddUserGroup" class="initAddUser" method="addPeopleInit">
+			<result name="success">/windforce/po/peopleInfo/addPeople.jsp</result>
+		</action>
+		<!-- 添加人员处理 -->
+		<action name="doAddUser" class="addUser" method="addPeople">
+		</action>
+		<!-- 修改人员处理 -->
+		<action name="editUser_*" class="editUser" method="{1}">
+			<result name="success">/windforce/po/peopleInfo/editPeople.jsp</result>
+		</action>
+		<!-- 删除人员处理 -->
+		<action name="doDelUser" class="delUser" method="deletePeople">
+		</action>
+		<!-- 机构拆并初始化处理 -->
+		<action name="splitOrg_*" class="splitOrg" method="{1}">
+			<result name="success">/windforce/po/organizeinfo/splitOrg.jsp</result>
+		</action>
+		<!-- 机构拆并处理 -->
+		<action name="doSplit" class="doSplit" method="doSplit">
+			<result name="success">/windforce/po/organizeinfo/splitOrg.jsp</result>
+		</action>
+		<!-- 用户详细信息 -->
+		<action name="userDetail" class="userDetail" method="getPeopleDetail">
+			<result name="success">/windforce/po/peopleInfo/peopleDetail.jsp
+			</result>
+		</action>
+		<!-- 机构自动检索 -->
+		<action name="autoSearch" class="getOrganizeListAction" method="searchOrgList">
+		</action>
+		<!-- 修改密码 -->
+		<action name="editPwdAction" class="editUser" method="updatePwd">
+		</action>
+		<!-- 重置密码 -->
+		<action name="resetPwdAction" class="editUser" method="resetPwd">
+		</action>
+	</package>
+</struts>    

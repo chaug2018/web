@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+	<class name="com.yzj.wf.pam.db.BaseParam" table="Param_ModuleFlow"
+		dynamic-insert="true" dynamic-update="true" entity-name="Param_ModuleFlow">
+		<id name="id" type="long">
+			<column name="autoid" />
+			<generator class="native">
+				<param name="sequence">PARAM_ModuleFlow_ID</param>
+			</generator>
+		</id>
+		<dynamic-component name="extFields">
+			<property name="moduleID" type="string">
+				<column name="ModuleID" length="32" />
+			</property>
+			<property name="appId" type="string">
+				<column name="AppId" length="32" />
+			</property>
+			<property name="processDefKey" type="string">
+				<column name="ProcessDefKey" length="32" />
+			</property>
+			<property name="processDefShowname" type="string">
+				<column name="ProcessDefShowname" length="32" />
+			</property>
+			<property name="taskName" type="string">
+				<column name="TaskName" length="32" />
+			</property>
+			<property name="taskShowname" type="string">
+				<column name="TaskShowname" length="32" />
+			</property>
+		</dynamic-component>
+	</class>
+</hibernate-mapping>

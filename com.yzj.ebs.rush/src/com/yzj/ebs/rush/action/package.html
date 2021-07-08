@@ -1,0 +1,21 @@
+<!DOCTYPE HTML PUBLIC "-//WSC/DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+com.yzj.ebs.rush.action
+</TITLE>
+</HEAD>
+<BODY>
+存放催收处理相关Action类<BR><BR>
+	设计思路：账单生成后，如果一定时间内账单还未回收完成对账，则变为催收账单，这里提供查询并处理退信账单 <BR><BR>
+	1.催收处理Action类(RushAction.java)  
+	 <BR>init()方法：初始化页面信息；
+	 <BR>queryRushData()方法：分页查询催收信息，方法在checkMainDataAdm；
+	 <BR>exportData()方法：调用公共类，导出符合条件的所有列表信息；
+	 <BR>modify()方法：单个催收处理；
+	 <BR>updateChenkMianData(CheckMainData checkMainData)方法：记录操作信息desc，写入CheckMainDataLog日志；
+	 <BR>batchModify()方法：批量处理，循环调用单个处理方法；
+	 <BR>modifyOne()方法：单个处理方法，修改checkmaindata；
+</BODY>
+</HTML>

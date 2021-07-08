@@ -1,0 +1,905 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 二期改造所有报表模块begin -->
+	
+	<!-- 验印情况统计业务实现bean -->
+	<bean id="sealReportBizBean" class="com.yzj.ebs.report.biz.impl.SealReportBiz"  scope="session">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	
+	<!-- 验印情况账户明细 -->
+	<bean id="sealAccDetailReportBizBean" class="com.yzj.ebs.report.biz.impl.SealAccDetailReportBiz"  scope="session">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	
+	<!-- 机构对账成功率统计 -->
+	<bean id="ebillReportBizBean" class="com.yzj.ebs.report.biz.impl.EbillReportBizImpl"  scope="session">
+       <property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	
+	<!-- 半年机构对账有效率 统计 业务实现bean -->
+	<bean id="ebillMatchReportBizBean" class="com.yzj.ebs.report.biz.impl.EbillMatchReportBizImpl"  scope="session">
+        <property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+	</bean>
+	<!-- 半年机构对账有效明细 统计 业务实现bean -->
+	<bean id="ebillMatchDetailReportBizBean" class="com.yzj.ebs.report.biz.impl.EbillMatchDetailReportBizImpl"  scope="session">
+       <property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+	</bean>
+	<!-- 账户有效对账结果展示 -->
+	<bean id="ebillMatchResultReportBizBean" class="com.yzj.ebs.report.biz.impl.EbillMatchResultReportBizImpl"  scope="session">
+       <property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+	</bean>
+	
+	<!--覆盖率统计 -->
+	<bean id="coverReportBizBean" class="com.yzj.ebs.report.biz.impl.CoverReportBizImpl"  scope="session">
+       <property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+	</bean>
+	
+	<!--连续对账未成功账户明细(未覆盖的明细) -->
+	<bean id="coverFailReportBizBean" class="com.yzj.ebs.report.biz.impl.CoverFailReportBizImpl"  scope="session">
+       <property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+	</bean>
+	
+	<!--对账集中情况统计  -->
+	<bean id="focusReportBizBean" class="com.yzj.ebs.report.biz.impl.FocusReportBizImpl"  scope="session">
+       <property name="basicinfoAdm">
+			<ref bean="BasicinfoAdm" />
+		</property>
+	</bean>
+	
+	<!--网银对账签约率统计 -->
+	<bean id="netSignReportBizBean" class="com.yzj.ebs.report.biz.impl.NetSignReportBizImpl"  scope="session">
+       <property name="basicinfoAdm">
+			<ref bean="BasicinfoAdm" />
+		</property>
+	</bean>
+	
+	<!--网银对账率统计 -->
+	<bean id="netCheckReportBizBean" class="com.yzj.ebs.report.biz.impl.NetCheckReportBizImpl"  scope="session">
+       <property name="basicinfoAdm">
+			<ref bean="BasicinfoAdm" />
+		</property>
+	</bean>
+	
+	<!--活跃账户情况统计表 -->
+	<bean id="activeAccReportBizBean" class="com.yzj.ebs.report.biz.impl.ActiveAccReportBizImpl"  scope="session">
+       <property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+	</bean>
+	
+	<!-- 二期改造所有报表模块end -->
+	
+	
+		<!-- 面对面 柜台 发送方式配置  -->
+	<bean id="faceFlugAdm" class="com.yzj.ebs.impl.FaceFlugAdm"> 
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	
+	<bean id="changeAddressServer" class="com.yzj.ebs.changeaddress.biz.ChangeAddressServer"> 
+		<property name="faceFlugAdm">
+			<ref bean="faceFlugAdm" />
+		</property>
+		<property name="basicinfoAdm">
+			<ref bean="BasicinfoAdm" />
+		</property>
+	</bean>
+
+	<!-- 内部账户参数配置  -->
+	<bean id="insideAccnoParamAdm" class="com.yzj.ebs.impl.InsideAccnoParamAdm"> 
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	
+	<bean id="InsideAccnoParamBean" class="com.yzj.ebs.insideaccnoparam.impl.InsideAccnoParamImpl"> 
+		<property name="insideAccnoParamAdm">
+			<ref bean="insideAccnoParamAdm" />
+		</property>
+	</bean>
+	
+	<!-- 内部账户对账单核对  -->
+	<bean id="insideAccnoCheckBean" class="com.yzj.ebs.insideaccnoparam.impl.InsideAccnoCheckImpl"> 
+		<property name="insideAccnoParamAdm">
+			<ref bean="insideAccnoParamAdm" />
+		</property>
+	</bean>
+	
+	<!-- 内部账户对账单复核  -->
+	<bean id="insideAccnoRecheckBean" class="com.yzj.ebs.insideaccnoparam.impl.InsideAccnoRecheckImpl"> 
+		<property name="insideAccnoParamAdm">
+			<ref bean="insideAccnoParamAdm" />
+		</property>
+	</bean>
+	
+	<!-- 内部账户对账单查询  -->
+	<bean id="insideAccnoQueryBean" class="com.yzj.ebs.insideaccnoparam.impl.InsideAccnoQueryImpl"> 
+		<property name="insideAccnoParamAdm">
+			<ref bean="insideAccnoParamAdm" />
+		</property>
+	</bean>
+	
+	<!-- 内部账户维护-->
+	<bean id="innerAccnoBean" class="com.yzj.ebs.insideaccnoparam.impl.InnerAccnoImpl"> 
+		<property name="insideAccnoParamAdm">
+			<ref bean="insideAccnoParamAdm" />
+		</property>
+	</bean>
+	
+	<!-- 内部账户发生额明细查询 -->
+	<bean id="innerAccnoDetailQueryBean" class="com.yzj.ebs.insideaccnoparam.impl.InnerAccnoDetailQueryImpl"> 
+		<property name="insideAccnoParamAdm">
+			<ref bean="insideAccnoParamAdm" />
+		</property>
+	</bean>
+	
+	
+	<!-- 特殊账户过滤  -->
+	<bean id="inputQueryImpl" class=" com.yzj.ebs.blackwhite.biz.InputQueryImpl"> 
+		<property name="importSpecileAdm">
+			<ref bean="ImportSpecileAdm" />
+		</property>
+	</bean>
+	
+		<!-- 账户类型配置  -->
+	<bean id="RuleOfAccCycleAdm" class="com.yzj.ebs.impl.RuleOfAccCycleAdm"> 
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	
+	<bean id="ruleOfAccCycleImpl" class="com.yzj.ebs.ruleofacccycle.biz.RuleOfAccCycleImpl"> 
+		<property name="ruleOfAccCycleAdm">
+			<ref bean="RuleOfAccCycleAdm" />
+		</property>
+	</bean>
+
+		<!-- 特殊帐户信息表 -->
+	<bean id="ImportSpecileAdm" class="com.yzj.ebs.impl.ImportSpecileAdm"> 
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	
+	<!-- paramBank 机构信息 -->
+	<bean id="iParamBank" class="com.yzj.ebs.impl.ParamBankAdm"> 
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+
+ 	<bean id="newSealAdm" class="com.yzj.ebs.impl.NewSealAdm"> 
+		<property name="dao">
+			<ref bean="SealDao" />
+		</property>
+	</bean>
+
+	<bean id="BaseService" class="com.yzj.ebs.impl.BaseService">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+
+	<bean id="PublicTools" class="com.yzj.ebs.impl.PublicToolsImpl">
+		<property name="paramManager">
+			<ref bean="dbParamManager" />
+		</property>
+		<property name="logger">
+			<ref bean="dataLogUtils" />
+		</property>
+	</bean>
+	<bean id="DocSetAdm" class="com.yzj.ebs.impl.DocSetAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<bean id="DocLogAdm" class="com.yzj.ebs.impl.DocLogAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<!-- 验印日志管理类 Add by LiuQiFeng -->
+	<bean id="SealLogAdm" class="com.yzj.ebs.impl.SealLogAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+
+
+	<bean id="AccnoMainDataAdm" class="com.yzj.ebs.impl.AccnoMainDataAdm">
+
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+
+	<bean id="BasicinfoAdm" class="com.yzj.ebs.impl.BasicinfoAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<bean id="BasicInfoLogAdm" class="com.yzj.ebs.impl.BasicInfoLogAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+
+	<bean id="CheckMainDataAdm" class="com.yzj.ebs.impl.CheckMainDataAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<bean id="CheckMainDataLogAdm" class="com.yzj.ebs.impl.CheckMainDataLogAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<bean id="SpecialFaceToFaceAdm" class="com.yzj.ebs.impl.SpecialFaceToFaceAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+
+	<bean id="notMatchTableAdm" class="com.yzj.ebs.impl.NotMatchTableAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<bean id="accnoDetailAdm" class="com.yzj.ebs.impl.AccnoDetailAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<bean id="PublicToolsImpl" class="com.yzj.ebs.impl.PublicToolsImpl">
+		<property name="paramManager">
+			<ref bean="dbParamManager" />
+		</property>
+		<property name="logger">
+			<ref bean="dataLogUtils" />
+		</property>
+	</bean>
+	<bean id="BillinfoQueryDataAdm" class="com.yzj.ebs.impl.BillinfoQueryDataAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+
+
+	<!-- 以下为工作流相关配置 -->
+	<bean id="lweEngineConfig" class="com.yzj.wf.bpm.lwe.LweEngineConfig">
+		<property name="taskDao">
+			<ref bean="taskDao" />
+		</property>
+		<property name="logDao">
+			<ref bean="taskLogDao" />
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager_wf" />
+		</property>
+	</bean>
+
+	<bean id="processDefFiles" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>xml-config/ebs_recover.bpmn20.xml</value>
+			</list>
+		</constructor-arg>
+	</bean>
+<!-- 	<bean id="enginesManager" class="com.yzj.wf.bpm.engine.BPMEnginesManager"
+		init-method="init">
+		<property name="bpmEnginesList">
+			<ref bean="lweProcessEngine" />
+		</property>
+	</bean> -->
+	<bean id="lweProcessEngine" class="com.yzj.wf.bpm.lwe.LweEngine" init-method="init">
+		<constructor-arg>
+			<ref bean="lweEngineConfig" />
+		</constructor-arg>
+		<property name="processDefFiles">
+			<ref bean="processDefFiles" />
+		</property>
+	</bean>
+
+	<bean id="recoveryTaskManager" factory-bean="lweProcessEngine" factory-method="getTaskManagerByProcessDefinitionKey" >
+		<constructor-arg ref="lweProcessEngine" index="0"/>
+		<constructor-arg value="EBS_RECOVERY" index="1"/>
+	</bean>
+	<bean id="runtimeManager" factory-bean="lweProcessEngine" factory-method="getRuntimeManager">
+		<constructor-arg ref="lweProcessEngine" index="0"/>
+	</bean>
+	<bean id="taskManagers" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<entry key="EBS_RECOVERY" value-ref="recoveryTaskManager" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+
+	<!-- 票据查询相关服务类bean -->
+	<bean id="billQueryBiz" class="com.yzj.ebs.billquery.biz.impl.BillQueryBizImpl">
+		<property name="billQueryDao" ref="billQueryAdm"></property>
+	</bean>
+
+	<bean id="AppTaskAdm" class="com.yzj.ebs.task.impl.AppTaskAdm"
+		init-method="init">
+		<property name="docSetAdm">
+			<ref bean="DocSetAdm" />
+		</property>
+		<property name="paramManager">
+			<ref bean="dbParamManager" />
+		</property>
+		<property name="docLogAdm">
+			<ref bean="DocLogAdm" />
+		</property>
+		<property name="taskManager">
+			<ref bean="recoveryTaskManager" />
+		</property>
+		<property name="runtimeManager">
+			<ref bean="runtimeManager" />
+		</property>
+		<property name="publicTools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+	</bean>
+
+	<!-- 枚举变量 -->
+	<bean id="RefTableTools" class="com.yzj.ebs.common.RefTableTools"
+		init-method="init">
+		<property name="universalDao">
+			<ref bean="UniversalDao" />
+		</property>
+		<property name="paramManager">
+			<ref bean="dbParamManager" />
+		</property>
+	</bean>
+	<!-- 自动记账服务 -->
+	<bean id="tallyService" class="com.yzj.ebs.impl.TallyService">
+	</bean>
+
+	<!--配置rmi服务供自动陈列调用 -->
+	<bean id="ServiceForRemote" class="com.yzj.ebs.impl.ServiceForRemote">
+		<property name="appTaskAdm">
+			<ref bean="AppTaskAdm" />
+		</property>
+		<property name="docSetAdm">
+			<ref bean="DocSetAdm" />
+		</property>
+		<property name="tallyService">
+			<ref bean="tallyService" />
+		</property>
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		<property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+		<property name="newSealAdm">
+			<ref bean="newSealAdm" />
+		</property>
+		<property name="publicTools">
+			<ref bean="PublicToolsImpl"/>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="serviceName" value="ServiceForRemoteURL" />
+		<property name="service" ref="ServiceForRemote" />
+		<property name="serviceInterface" value="com.yzj.ebs.common.IServiceForRemote" />
+		<property name="registryPort" value="8001" />
+	</bean>
+	<!-- 自动阵列 <bean id="autoStarter" class="com.yzj.ebs.auto.Starter" init-method="init"> 
+		</bean> -->
+	<bean id="DetailMainDataAdm" class="com.yzj.ebs.impl.DetailMainDataAdm">
+
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<!-- 票据查询所使用的Dao,查询票据 相关试图-->
+	<bean id="billQueryAdm" class="com.yzj.ebs.impl.BillQueryAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<bean id="DataProcessServiceImpl"
+		class="com.yzj.ebs.edata.service.impl.DataProcessServiceImpl">
+		<property name="EdataDao">
+			<ref bean="EdataDao" />
+		</property>
+	</bean>
+	<!--账单交接登记薄 -->
+	<bean id="ExChangeBookAdm" class="com.yzj.ebs.impl.ExChangeBookAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<!--自定义任务分配器 -->
+	<bean id="taskDistributor" class="com.yzj.ebs.task.impl.TaskDistributor">
+		<property name="publicTools">
+			<ref bean="PublicTools" />
+		</property>
+		<property name="docSetAdm">
+			<ref bean="DocSetAdm" />
+		</property>
+		<property name="peopleAdm">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="paramManager">
+			<ref bean="dbParamManager" />
+		</property>
+	</bean>
+
+	<!--自动数据导入、处理 -->
+	<bean id="EdataServiceAuto" class="com.yzj.ebs.edata.service.impl.EdataServiceAuto">
+		<property name="dataProcess">
+			<ref bean="DataProcessServiceImpl" />
+		</property>
+		<property name="dataImport">
+			<ref bean="DataImportAuto" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicTools" />
+		</property>
+	</bean>
+
+	<bean id="DataImportAuto" class="com.yzj.ebs.edata.service.impl.DataImportAuto">
+		<property name="peopleInfoAdm">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicTools" />
+		</property>
+		<property name="biz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="dataProcess">
+			<ref bean="DataProcessServiceImpl" />
+		</property>
+		<property name="wfDataDao">
+			<ref bean="wfDataDao" />
+		</property>
+	</bean>
+
+
+	<!-- 自动导数 -->
+	<bean id="AutoImportData" class="com.yzj.ebs.edata.job.AutoImportData"
+		init-method="init">
+		<property name="jobRegister">
+			<ref bean="jobRegister" />
+		</property>
+		<property name="dataServiceAuto">
+			<ref bean="EdataServiceAuto" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicTools" />
+		</property>
+		<property name="netProcessServer">
+			<ref bean="netServer" />
+		</property>
+	</bean>
+	<!-- ==================业务逻辑处理bean======================== -->
+	<!-- 账户信息修改bean -->
+	<bean id="accModeifyBizBean" class="com.yzj.ebs.biz.impl.AccoperBizImpl">
+		<property name="basicInfoAdm">
+			<ref bean="BasicinfoAdm" />
+		</property>
+		<property name="basicInfoLogAdm">
+			<ref bean="BasicInfoLogAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+		<property name="newSealAdm">
+			<ref bean="newSealAdm" />
+		</property>
+	</bean>
+	<!-- 账户对账状态修改bean -->
+	<bean id="isCheckModeifyBizBean" class="com.yzj.ebs.ischeckmodify.biz.impl.IsCheckModifyBizImpl">
+		<property name="basicInfoAdm">
+			<ref bean="BasicinfoAdm" />
+		</property>
+		<property name="basicInfoLogAdm">
+			<ref bean="BasicInfoLogAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+		<property name="newSealAdm">
+			<ref bean="newSealAdm" />
+		</property>
+	</bean>
+	<!-- 账户验印账号维护bean -->
+	<bean id="sealAccnoModeifyBizBean" class="com.yzj.ebs.sealaccnomodify.biz.impl.SealAccnoModifyBizImpl">
+		<property name="basicInfoAdm">
+			<ref bean="BasicinfoAdm" />
+		</property>
+		<property name="basicInfoLogAdm">
+			<ref bean="BasicInfoLogAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+		<property name="newSealAdm">
+			<ref bean="newSealAdm" />
+		</property>
+	</bean>
+	
+	<!-- 网银对账情况统计业务实现bean -->
+	<bean id="netQueryBizBean" class="com.yzj.ebs.netquery.biz.NetQueryBiz"  scope="session">
+        <property name="basicinfoAdm">
+			<ref bean="BasicinfoAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+	</bean>
+	<!-- 未达情况统计业务实现bean -->
+	<bean id="notMatchAnalyseBizBean" class="com.yzj.ebs.notmatch.analyse.biz.NotMatchAnalyseBiz"  scope="session">
+        <property name="notMatchTableAdm">
+			<ref bean="notMatchTableAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+	</bean>
+	<!-- 操作日志查询业务实现 bean -->
+	<bean id="operLogQueryBizBean" class="com.yzj.ebs.operlog.query.biz.OperLogQueryBiz"  scope="session">
+        <property name="checkMainDataLogAdm">
+			<ref bean="CheckMainDataLogAdm" />
+		</property>
+		<property name="basicInfoLogAdm">
+			<ref bean="BasicInfoLogAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+	</bean>
+	<!-- 发生额明细查询业务实现bean -->
+	<bean id="paramQueryBizBean" class="com.yzj.ebs.param.biz.ParamQueryBiz"  scope="session">
+        <property name="accnoDetailAdm">
+			<ref bean="accnoDetailAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+	</bean>
+	<!-- 退信登记业务实现bean -->
+	<bean id="retreatInputBizBean" class="com.yzj.ebs.retreatinput.biz.RetreatInputBizImpl"  scope="session">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		<property name="checkMainDataLogAdm">
+			<ref bean="CheckMainDataLogAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+	</bean>
+	<!-- 退信处理业务实现bean -->
+	<bean id="retreatProcessBizBean" class="com.yzj.ebs.retreatprocess.biz.RetreatProcessBizImpl"  scope="session">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		<property name="checkMainDataLogAdm">
+			<ref bean="CheckMainDataLogAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+	</bean>
+	<!-- 催收处理业务实现bean -->
+	<bean id="rushBizBean" class="com.yzj.ebs.rush.biz.RushBizImpl"  scope="session">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		<property name="checkMainDataLogAdm">
+			<ref bean="CheckMainDataLogAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+	</bean>
+	<!-- 催收处理业务实现bean -->
+	<bean id="rushStatisticsBizBean" class="com.yzj.ebs.rushstatistics.biz.RushStatisticsBizImpl"  scope="session">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	<!-- 对账中心业务量实现bean -->
+	<bean id="businessStatisticsBizBean" class="com.yzj.ebs.businessstatistics.biz.BusinessStatisticsBizImpl"  scope="session">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	<!-- 验印情况统计业务实现bean -->
+	<bean id="sealAnalyseBizBean" class="com.yzj.ebs.seal.analyse.biz.SealAnalyseBiz"  scope="session">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	<!-- 退信情况统计业务实现bean -->
+	<bean id="urgeStatisticsBizBean" class="com.yzj.ebs.urgestatistics.biz.UrgeStatisticsBizImpl"  scope="session">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	<!-- 半年机构对账有效率 统计 业务实现bean -->
+	<bean id="ebillMatchAnalyseBizBean" class="com.yzj.ebs.ebillmatch.biz.EbillMatchAnalyseBizImpl"  scope="session">
+        <property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+	</bean>
+	<!-- 半年机构对账有效明细 统计 业务实现bean -->
+	<bean id="ebillMatchParamBizBean" class="com.yzj.ebs.ebillmatch.param.biz.EbillMatchParamBizImpl"  scope="session">
+       <property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+	</bean>
+	<!-- 机构对账率统计 统计 业务实现bean -->
+	<bean id="ebillAnalyseBizBean" class="com.yzj.ebs.ebill.analyse.biz.EbillAnalyseBizImpl"  scope="session">
+       <property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	
+	<!-- 增量对账情况统计 统计 业务实现bean -->
+	<bean id="partEbillAnalyseBizBean" class="com.yzj.ebs.partebill.biz.PartEbillAnalyseBizImpl"  scope="session">
+       <property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	
+	<!-- 机构对账率统计 统计 业务实现bean -->
+	<bean id="billinfoQueryBizBean" class="com.yzj.ebs.billinfoquery.biz.BillinfoQueryBizImpl"  scope="session">
+       <property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+	</bean>
+	<!-- 黑白名单维护  统计 业务实现bean -->
+	<bean id="blackWhiteBizBean" class="com.yzj.ebs.blackwhite.biz.BlackWhiteBizImpl">
+		<property name="basicinfoAdm">
+			<ref bean="BasicinfoAdm" />
+		</property>
+		<property name="basicInfoLogAdm">
+			<ref bean="BasicInfoLogAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+		<property name="importSpecileAdm">
+			<ref bean="ImportSpecileAdm" />
+		</property>
+	</bean>
+	<!-- 特殊面对面账户维护 -->
+	<bean id="specialFaceToFaceBizBean" class="com.yzj.ebs.blackwhite.biz.SpecialFaceToFaceBizImpl">
+		<property name="specialFaceToFaceAdm">
+			<ref bean="SpecialFaceToFaceAdm" />
+		</property>
+		
+	</bean>
+	
+	<!--账单打印bean -->
+	<bean id="printDataBizImplBean" class="com.yzj.ebs.edata.biz.PrintDataBizImpl">
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicTools" />
+		</property>
+		<property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+		<property name="accnoDetailAdm">
+			<ref bean="accnoDetailAdm" />
+		</property>
+		<property name="paramBank">
+			<ref bean="iParamBank" />
+		</property>
+		<property name="refTableTools">
+			<ref bean="RefTableTools" />
+		</property>
+	</bean>
+		<!-- 未达录入相关的bean -->
+	<bean id="notMatchBiz" class="com.yzj.ebs.back.notmatch.biz.impl.NotMatchBizImpl" >
+		<property name="notMatchTableAdm">
+			<ref bean="notMatchTableAdm" />
+		</property>
+		<property name="docSetAdm">
+			<ref bean="DocSetAdm" />
+		</property>
+		<property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+	</bean>
+	<!--账单交接登记薄业务bean -->
+	<bean id="exChangeBookBiz" class="com.yzj.ebs.exchangebook.biz.impl.ExChangeBookBizImpl">
+		<property name="tools">
+			<ref bean="PublicTools" />
+		</property>
+		<property name="exChangeBookAdm">
+			<ref bean="ExChangeBookAdm" />
+		</property>
+	</bean>
+	
+	<!--人工验印业务bean -->
+	<bean id="manuProveBiz" class="com.yzj.ebs.manuprove.biz.impl.ManuProveBizImpl">
+		<property name="docSetAdm">
+			<ref bean="DocSetAdm" />
+		</property>
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		<property name="publicTools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+		<property name="seallogAdm">
+			<ref bean="SealLogAdm" />
+		</property>
+		<property name="newSealAdm">
+			<ref bean="newSealAdm" />
+		</property>
+	</bean>
+	<!--数据导出bean -->
+	<bean id="dataExportBiz" class="com.yzj.ebs.edata.biz.DataExportBizImpl">
+		<property name="detailMainDataAdm">
+			<ref bean="DetailMainDataAdm" />
+		</property>
+		<property name="accnoDetailAdm">
+			<ref bean="accnoDetailAdm" />
+		</property>
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		<property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicTools" />
+		</property>
+		<property name="paramBank">
+			<ref bean="iParamBank" />
+		</property>
+	</bean>
+	<!-- 数据补录业务实现 -->
+	<bean id="ManualBiz" class="com.yzj.ebs.manualinput.biz.impl.ManualBizImpl"  scope="session">
+        <property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		<property name="docSetAdm">
+			<ref bean="DocSetAdm" />
+		</property>
+	</bean>
+	<!--删除审核业务bean -->
+	<bean id="deleteAuthBiz" class="com.yzj.ebs.deleteauth.biz.impl.DeleteAuthBizImpl">
+		<property name="docSetAdm">
+			<ref bean="DocSetAdm" />
+		</property>
+		<property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+		<property name="notMatchAdm">
+			<ref bean="notMatchTableAdm" />
+		</property>
+	</bean>
+	<!-- 机构信息过滤 -->
+	<bean id="organizaFilterDao" class="com.yzj.ebs.organizaFilter.dao.OrganizaFilterDao">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	<bean id="organizaFilterServer" class="com.yzj.ebs.organizaFilter.server.OrganizaFilterServer">
+		<property name="organizaFilterDao">
+			<ref bean="organizaFilterDao" />
+		</property>
+	</bean>
+	
+	<!-- 人员岗位查询 -->
+	<bean id="queryPeopleRoleBiz" class="com.yzj.ebs.peoplerole.biz.QueryPeopleRoleBiz">
+		<property name="queryPeopleRoleDao">
+			<ref bean="queryPeopleRoleDao" />
+		</property>
+	</bean>
+	
+	
+	
+	<!-- 20131111 日志工具类 -->
+	<bean id="dataLogUtils" class="com.yzj.ebs.util.DataLogUtils">
+		<property name="ibasicAdm">
+			<ref bean="BasicInfoLogAdm" />
+		</property>
+	</bean>
+	
+	
+	<!-- 网银接口服务类 -->
+	<bean id="netServer"
+		class="com.yzj.ebs.edata.service.impl.NetProcessServerImpl">
+		<property name="EdataDao">
+			<ref bean="EdataDao" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicTools" />
+		</property>
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		
+		<property name="accnoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+		
+		<property name="biz">
+			<ref bean="notMatchBiz" />
+		</property>
+		
+		<property name="webBankUtil">
+			<ref bean="webBankUtil" />
+		</property>
+	</bean>
+	
+	
+	<!-- 接收网银 -->
+	<bean id="acceptNetJob" class="com.yzj.ebs.edata.job.AcceptNetJob"
+		init-method="init">
+		<property name="jobRegister">
+			<ref bean="jobRegister" />
+		</property>
+		<property name="netServer">
+			<ref bean="netServer" />
+		</property>
+	</bean>
+	
+	<!-- 发送网银 -->
+	<bean id="sendNetJob" class="com.yzj.ebs.edata.job.SendNetJob"
+		init-method="init">
+		<property name="jobRegister">
+			<ref bean="jobRegister" />
+		</property>
+		<property name="netServer">
+			<ref bean="netServer" />
+		</property>
+	</bean>
+	
+	<!--  处理网银返回的对账结果和不符明细结果工具 -->
+	<bean id="webBankUtil" class="com.yzj.ebs.util.WebBankUtil" >
+		<property name="taskAdm">
+			<ref bean="AppTaskAdm" />
+		</property>
+		<property name="notMatchTableAdm">
+			<ref bean="notMatchTableAdm" />
+		</property>
+		<property name="checkMainDataAdm">
+			<ref bean="CheckMainDataAdm" />
+		</property>
+		<property name="accNoMainDataAdm">
+			<ref bean="AccnoMainDataAdm" />
+		</property>
+		<property name="docSetAdm">
+			<ref bean="DocSetAdm" />
+		</property>
+	</bean>
+</beans>

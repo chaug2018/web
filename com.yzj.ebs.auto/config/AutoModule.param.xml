@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configs>
+	<ParamGroup name="AUTOTASK" memo="自动任务">
+		<Param name="AUTOPROVE" type="AutoTaskModule" desc="自动验印"
+			ThreadCount="1" AutoStart="true" StartTime="" Interval="10000"
+			EndTime="" BusInfo="docId=流水号|voucherNo=账单编号|branchNo=行号|credit=金额">AUTOPROVE
+		</Param>
+		<Param name="AUTOTALLY" type="AutoTaskModule" desc="自动记账"
+			ThreadCount="1" AutoStart="true" StartTime="" Interval="10000"
+			EndTime="" BusInfo="docId=流水号|voucherNo=账单编号|branchNo=行号|credit=金额">AUTOTALLY
+		</Param>
+		<Param name="AUTOVERIFY" type="AutoTaskModule" desc="自动匹配"
+			ThreadCount="1" AutoStart="true" StartTime="" Interval="10000"
+			EndTime="" BusInfo="docId=流水号|voucherNo=账单编号|branchNo=行号|credit=金额">AUTOVERIFY
+		</Param>
+	</ParamGroup>
+</Configs>

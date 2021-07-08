@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ParamRoot>
+	<System name="DEFAULT" memo="">
+		<GroupName>AUTOTASK</GroupName>
+		<GroupName>DOWNPARAM</GroupName>
+	</System>
+</ParamRoot>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 基础的数据库操作类 -->
+	<bean id="baseDAO" class="com.yzj.wf.rm.dao.impl.BasicHibernateDao">
+		<property name="sessionFactory" ref="sessionFactory_RM"></property>
+	</bean>
+
+	<!--=========================biz====================================== -->
+    <!-- 报表数据展现层 -->
+    <bean id="bizParam" class="com.yzj.wf.rm.impl.RMService">
+    <property name="dao" ref="baseDAO"></property>
+    </bean>
+	<!-- 通用业务数据展现组件业务层 -->
+	<bean id="bizCommonData" class="com.yzj.wf.rm.biz.impl.TableDataCommonImpl">
+		<property name="dao" ref="baseDAO"></property>
+	</bean>
+
+
+	<!--=========================action====================================== -->
+	<!-- 参数报表action -->
+	<bean id="paramReportAction" class="com.yzj.wf.rm.web.action.ParamPrintAction">
+		<property name="biz" ref="bizParam"></property>
+	</bean>
+
+	<!-- 汇总报表action -->
+	<bean id="credenceAction" class="com.yzj.wf.rm.web.action.CredencePrintAction">
+		<property name="biz" ref="bizParam"></property>
+	</bean>
+
+	<!-- 图表展现action -->
+	<bean id="ChartManagerAction" class="com.yzj.wf.rm.web.action.ChartManagerAction">
+	</bean>
+
+	<!-- 业务报表展现action -->
+	<bean id="reportShowAction" class="com.yzj.wf.rm.web.action.ReportIndexAction" >
+		<property name="biz" ref="bizParam"></property>
+		<property name="tableDataBiz" ref="bizCommonData"></property>
+	</bean>
+
+	<!-- 业务报表展现action -->
+	<bean id="tableCommonAction" class="com.yzj.wf.rm.web.action.TableDataCommonAction">
+		<property name="biz" ref="bizCommonData"></property>
+		<property name="rmService" ref="bizParam"></property>
+	</bean>
+	<!-- jquery table 数据源展现 action -->
+	<bean id="jqueryTableDataAction" class="com.yzj.wf.rm.web.action.JqueryDataTableAction">
+		<property name="rmService" ref="bizParam"></property>
+	</bean>
+	<!-- 左侧初始化 action -->
+	<bean id="leftInitAction" class="com.yzj.wf.rm.web.action.LeftInitAction">
+		<property name="biz" ref="bizParam"></property>
+	</bean>
+	<!--数据表格组件表头信息查询 action -->
+	<bean id="tabledataHeaderAction" class="com.yzj.wf.rm.web.action.DataTableHeaderAction">
+		<property name="biz" ref="bizCommonData"></property>
+	</bean>
+</beans>

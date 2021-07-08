@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<import resource="bean-as.xml" />
+	<import resource="bean-am.xml" />
+	<import resource="bean-dk.xml" />
+	<import resource="bean-mm.xml" />
+	<import resource="bean-pam.xml" />
+	<import resource="bean-pamui.xml" />
+	<import resource="bean-pm.xml" />
+	<import resource="bean-po.xml" />
+	<import resource="bean-cache.xml" />
+	<import resource="bean-bpm.xml" />
+	<import resource="bean-bizlog.xml" />
+	<import resource="bean-ebs.xml" />
+	<import resource="bean-com.xml" />
+<!-- 	<import resource="bean-rm.xml" /> -->
+</beans>

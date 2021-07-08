@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+  	<bean id="bpmMonitorDao" class="com.yzj.wf.bpm.monitor.dao.impl.BPMMonitorDao">
+		<property name="taskDao">
+			<ref bean="taskDao" />
+		</property>
+	</bean>
+   	<!-- 流程监控服务类 -->
+    <bean id="bpmMonitorService" class="com.yzj.wf.bpm.monitor.service.impl.BPMMonitorService" >         
+ 		<property name="taskManagers" ref="taskManagers"></property>
+   		<property name="paramManager" ref="dbParamManager"></property>
+		<property name="bpmMonitorDao" ref="bpmMonitorDao"></property>
+		<property name="peopleInfoAdm" ref="PeopleInfoAdm"></property>
+   	</bean>
+   	
+   	<!-- 流程监控定时更新缓存方法 -->
+   	<bean id="cacheUpdateThread" init-method="initProcessMonitorCache" class="com.yzj.wf.bpm.monitor.cache.CacheUpdateUtil">
+   		<property name="bpmMonitorService" ref="bpmMonitorService"></property>
+   	</bean>
+</beans>

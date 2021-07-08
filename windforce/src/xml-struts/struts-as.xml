@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="as" namespace="/" extends="struts-default">
+		<!-- 调度导航列表显示 -->
+		<action name="getInitTaskInfo" class="autoTaskInit" method="initTaskList">
+			<result name="success">/windforce/as/menu.jsp</result>
+		</action>
+		<!-- 启动线程列表 -->
+		<action name="startThreads" class="stratThreads" method="startTaskList">
+			<result name="success">/windforce/as/menu.jsp</result>
+		</action>
+		<!-- 停止线程列表 -->
+		<action name="stopThreads" class="stopThreads" method="stopTaskList">
+			<result name="success">/windforce/as/menu.jsp</result>
+		</action>
+		<!-- 停止线程列表 -->
+		<action name="showBizDatas" class="bizDataShow" method="showBizData">
+			<result name="success">/windforce/as/tableDataCommon.jsp</result>
+		</action>
+	</package>
+</struts>    

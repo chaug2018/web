@@ -1,0 +1,38 @@
+.dispan{ margin:10px; width:1004px; height:auto;}
+.dibiaoti{font-size:12px; font-weight:bold; margin-right:10px;color:#b40001; background: ../images/iocn_06.jpg) center left no-repeat; padding-left:20px; }
+.dili{ padding:0px; margin:0px;}
+.dili li{ float:left; list-style:none; margin-top:5px;height:22px;}
+.diinput_text01{ color:#333333; font-size:13px; width:160px;}
+.left_dinov{ float:left; display:block; width:632px; height:250px;}
+.right_dinov{float:left; display:block; width:358px; height:250px; border-left:1px dotted #333333;}
+
+.pinz {
+	padding: 0px;
+	margin-left: 10px;
+}
+
+.pinz li {
+	float: left;
+	list-style: none;
+	width: 170px;
+	margin-top: 5px;
+	height: 30px;
+}
+.select_buttom {
+	font-size: 14px;
+	margin: 0px;
+	padding: 0px;
+	width: 140px;
+}
+
+.baby_in2 #nov_nr .modelname {
+	font-size: 24px;
+	color: #FF0033;
+}
+
+select{
+	font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+	width: 165px;
+}

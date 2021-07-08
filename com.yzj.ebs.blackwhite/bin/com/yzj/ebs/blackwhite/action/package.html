@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//WSC/DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+com.yzj.ebs.blackWhite.action
+</TITLE>
+</HEAD>
+<BODY>
+存放特殊账号维护相关Action及辅助类<BR><BR>
+	其中包括： <BR><BR>
+	<b>1.特殊账号维护Action类</b>(BlackWhiteAction.java) 
+	<BR><BR>设计思路:数据导入成功后，提供查询和维护当前对账周期内的特殊账号信息。
+	 <BR><BR>init()方法：初始化页面信息；
+	 <BR>getQueryData()方法：查询特殊账户信息；
+	 <BR>exportData()方法：调用公共类，导出符合条件的所有列表信息；
+	 <BR>submitModify()方法：单笔维护；
+	 <BR>batchModify()方法：批量维护；
+	 <BR>modifyByOne()方法：根据前台传过来的下标，逐个维护账号； <BR><BR>
+	<b>2.特殊账号统计Action类</b>(BlackWhiteAnalyseAction.java)
+	<BR><BR>统计当前对账周期内机构的特殊账号数。
+     <BR><BR>init()方法：初始化页面信息；
+	 <BR>analyse()方法：统计特殊账户信息；
+	 <BR>exportData()方法：调用公共类，导出符合条件的所有列表信息；
+     <BR><BR>
+	<b>3.特殊账号维护辅助类，在一个事务中更新basicInfo记录并写日志</b>(BlackWhiteForTransactionAction.java)  
+	<BR>处理需要在一个事务中的黑名名单维护操作
+	<BR>
+</BODY>
+</HTML>

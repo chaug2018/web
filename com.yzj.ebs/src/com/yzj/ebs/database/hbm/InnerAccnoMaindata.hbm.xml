@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.yzj.ebs.database.InnerAccnoMaindata" table="ebs_inneraccnomaindata">
+        <id name="autoId" type="java.lang.Long">
+            <column name="autoId" precision="10" scale="0">
+				<comment>流水号</comment>
+			</column>
+			<generator class="native" >
+				<param name="sequence">inneraccnomaindata_autoid</param>
+			</generator>
+        </id>
+        <property name="accNo" type="java.lang.String">
+            <column name="accno"  length="32"  >
+				<comment>内部账号 </comment>
+			</column>
+        </property>
+        <property name="dataDate" type="java.lang.String">
+            <column name="datadate" length="10"  >
+				<comment>账单日期 </comment>
+			</column>
+        </property>
+        <property name="bal" type="java.lang.String">
+            <column name="bal" length="32"  >
+				<comment>余额 </comment>
+			</column>
+        </property>
+        <property name="abs" type="java.lang.String">
+            <column name="abs" length="1024"  >
+				<comment>备注(存放余额调节信息) </comment>
+			</column>
+        </property>
+        <property name="result" type="java.lang.String">
+            <column name="result"  length="2"  >
+				<comment>核对结果(0：相符 1:不相符) </comment>
+			</column>
+        </property>
+        <property name="resultPeopleCode" type="java.lang.String">
+            <column name="resultpeoplecode"  length="12"  >
+				<comment>核对柜员号 </comment>
+			</column>
+        </property>
+        <property name="resultDate" type="java.lang.String">
+            <column name="resultdate" length="10"  >
+				<comment>核对日期 </comment>
+			</column>
+        </property>
+        <property name="reCheck" type="java.lang.String">
+            <column name="recheck" length="2"  >
+				<comment>复核结果(0：复核通过 1:复核不通过) </comment>
+			</column>
+        </property>
+        <property name="reCheckPeopleCode" type="java.lang.String">
+            <column name="recheckpeoplecode"  length="12"  >
+				<comment>复核柜员号 </comment>
+			</column>
+        </property>
+        <property name="reCheckDate" type="java.lang.String">
+            <column name="recheckdate" length="10"  >
+				<comment>复核日期 </comment>
+			</column>
+        </property>
+        <property name="idCenter" type="java.lang.String">
+            <column name="idcenter"  length="12"  >
+				<comment>对账中心号 </comment>
+			</column>
+        </property>
+    </class>
+</hibernate-mapping>

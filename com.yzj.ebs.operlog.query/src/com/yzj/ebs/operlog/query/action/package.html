@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//WSC/DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+com.yzj.ebs.operlog.query.action
+</TITLE>
+</HEAD>
+<BODY>
+日志查询<BR>
+<BR>
+设计思路：银企对账系统有六个模块提供给客户来操作，为了规避风险必须记录操作日志提供查询<BR>
+<BR>
+日志查询Action(OperLogQueryAction。java)
+     <BR>init()方法：初始化页面信息；
+	 <BR>queryOperLog()方法：账户信息查询方法在basicInfoLogAdm；账单信息查询方法在checkMainDataLogAdm；
+	 <BR>exportData()方法：调用公共类，导出符合条件的所有列表信息；
+<BR>
+</BODY>
+</HTML>

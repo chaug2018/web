@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.yzj.ebs.database.NotMatchTable" table="ebs_notmatchtable">
+		<id name="autoId" type="java.lang.Long">
+            <column name="autoId" precision="10" scale="0" >
+				<comment>自动编号</comment>
+			</column>
+			<generator class="native" >
+				<param name="sequence">notmatchtable_autoid</param>
+			</generator>
+        </id>
+		<property name="docId" type="java.lang.Long">
+			<column name="docId" precision="10" scale="0" >
+				<comment>流水号</comment>
+			</column>
+		</property>
+		<property name="voucherNo" type="java.lang.String">
+			<column name="voucherNo" length="32" >
+				<comment>账单编号</comment>
+			</column>
+		</property>
+		<property name="docDate" type="java.lang.String">
+			<column name="docDate" length="10">
+				<comment>对账日期</comment>
+			</column>
+		</property>
+		<property name="accNo" type="java.lang.String">
+			<column name="accNo" length="32" >
+				<comment>账号</comment>
+			</column>
+		</property>
+		<property name="direction" type="java.lang.String">
+			<column name="DIRECTION" length="2" >
+				<comment>未达方向 </comment>
+			</column>
+		</property>
+		<property name="traceDate" type="java.lang.String">
+			<column name="traceDate" length="10" >
+				<comment>交易时间</comment>
+			</column>
+		</property>
+		<property name="traceNo" type="java.lang.String">
+			<column name="traceNo" length="32">
+				<comment>交易凭证号</comment>
+			</column>
+		</property>
+		<property name="traceCredit" type="java.lang.Double">
+			<column name="traceCredit" precision="18" scale="2"   >
+				<comment>交易金额</comment>
+			</column>
+		</property>
+		<property name="checkFlag" type="java.lang.String">
+			<column name="checkFlag" length="2" >
+				<comment>未达明细结果</comment>
+			</column>
+		</property>
+		
+		<property name="finalCheckFlag" type="java.lang.String">
+			<column name="finalCheckFlag" length="2" >
+				<comment>最终结果</comment>
+			</column>
+		</property>
+		
+		<property name="inputOpCode" type="java.lang.String">
+			<column name="inputOpCode" length="10" >
+				<comment>录入柜员</comment>
+			</column>
+		</property>
+		<property name="inputOpTime" type="java.lang.String">
+			<column name="inputOpTime" length="32">
+				<comment>录入时间</comment>
+			</column>
+		</property>
+		<property name="inputDesc" type="java.lang.String">
+			<column name="inputDesc" length="256" >
+				<comment>录入备注</comment>
+			</column>
+		</property>
+		<property name="checkOpCode" type="java.lang.String">
+			<column name="checkOpCode" length="10">
+				<comment>复核柜员</comment>
+			</column>
+		</property>
+		<property name="checkOpTime" type="java.lang.String">
+			<column name="checkOpTime" length="32">
+				<comment>复核时间</comment>
+			</column>
+		</property>
+		<property name="checkDesc" type="java.lang.String">
+			<column name="checkDesc" length="256">
+				<comment>复核备注</comment>
+			</column>
+		</property>
+		<property name="authFlag" type="java.lang.String">
+			<column name="authFlag" length="2" >
+				<comment>复核处理标志</comment>
+			</column>
+		</property>
+		 <!-- 机构信息 -->
+        <property name="idBank" type="java.lang.String">
+            <column name="idBank" length="16" >
+				<comment>行号</comment>
+			</column>
+        </property>
+        <property name="idBranch" type="java.lang.String">
+            <column name="idBranch" length="16">
+				<comment>上级管理行 </comment>
+			</column>
+        </property>
+        <property name="idCenter" type="java.lang.String">
+            <column name="idCenter" length="16">
+				<comment>对账中心 </comment>
+			</column>
+        </property>   
+        <property name="bankName" type="java.lang.String">
+            <column name="bankName" length="64" >
+				<comment>机构名称</comment>
+			</column>
+        </property>
+	</class>
+</hibernate-mapping>

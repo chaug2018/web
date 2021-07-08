@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<constant name="struts.ui.theme" value="simple" />
+	<constant name="struts.ui.templateDir" value="template" />
+	<constant name="struts.ui.templateSuffix" value="ftl" />
+	<package name="am" namespace="/" extends="struts-default">
+		<!-- 角色管理 -->
+		<action name="roles_*" class="roleMnagaerAction" method="{1}">
+			<result name="index">/windforce/am/roleIndex.jsp</result>
+			<result name="add">/windforce/am/addRole.jsp</result>
+			<result name="edit">/windforce/am/roleEdit.jsp</result>
+			<result name="detail">/windforce/am/roleDetail.jsp</result>
+			<result name="ajaxRoleList">/windforce/am/roleList.jsp</result>
+		</action>
+		<!-- 角色组管理 -->
+		<action name="rolegroup_*" class="roleGroupAction" method="{1}">
+			<result name="index">/windforce/am/roleGroup/roleGroupIndex.jsp
+			</result>
+			<result name="add">/windforce/am/roleGroup/addRoleGroup.jsp</result>
+			<result name="edit">/windforce/am/roleGroup/roleGroupEdit.jsp
+			</result>
+			<result name="detail">/windforce/am/roleGroup/roleGroupDetail.jsp
+			</result>
+			<result name="ajaxRoleList">/windforce/am/roleGroup/roleGroupList.jsp
+			</result>
+		</action>
+	</package>
+
+
+</struts>    

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+  <class name="com.yzj.wf.bpm.lwe.db.LightweightTask" table="bpm_lwe_ebs_recovery" entity-name="bpm_lwe_ebs_recovery" dynamic-insert="true" dynamic-update="true">
+    <id name="taskId" type="long">
+      <column name="id"/>
+      <generator class="native">
+        <param name="sequence">bpm_lwe_ebs_recovery_taskId</param>
+      </generator>
+    </id>
+    <property name="nodeId" type="string" column="nodeid" length="32" index="idx_ebs_recovery_nodeid" not-null="true"/>
+    <property name="processDefId" type="string" column="processdefid" length="32" index="idx_ebs_recovery_processdefid" not-null="true"/>
+    <property name="priority" type="integer" column="priority" not-null="true"/>
+    <property name="owner" type="string" column="owner" length="32" index="idx_ebs_recovery_owner"/>
+    <property name="bizKey" type="string" column="bizkey" length="32" index="idx_ebs_recovery_bizkey" not-null="true"/>
+    <property name="createOpCode" type="string" column="createopcode" length="32" not-null="true"/>
+    <property name="createDate" type="string" column="createdate" length="16" not-null="true"/>
+    <property name="createTime" type="string" column="createtime" length="16" not-null="true"/>
+    <dynamic-component name="processVariables">
+      <property name="SEALTYPE" type="string" column="var_sealtype" length="32"/>
+      <property name="CREDIT_MP_SND" type="long" column="var_credit_mp_snd"/>
+      <property name="CREDIT_MI_INPT" type="long" column="var_credit_mi_inpt"/>
+      <property name="CREDIT_MP_AUTH" type="long" column="var_credit_mp_auth"/>
+      <property name="CREDIT_MP_FST" type="long" column="var_credit_mp_fst"/>
+      <property name="CREDIT_MI_AUTH" type="long" column="var_credit_mi_auth"/>
+      <property name="CREDIT" type="double" column="var_credit"/>
+      <property name="RESULT" type="string" column="var_result" length="32"/>
+      <property name="NOTMATCHRESULT" type="string" column="var_notmatchresult" length="32"/>
+      <property name="TASKSOURCE" type="string" column="var_tasksource" length="32"/>
+      <property name="NOTMATCHINPUTTYPE" type="string" column="var_notmatchinputtype" length="32"/>
+      <property name="PRENODE" type="string" column="var_prenode" length="32"/>
+      <property name="ORGID" type="string" column="var_orgid" length="32"/>
+    </dynamic-component>
+    <dynamic-component name="opCodes"/>
+  </class>
+  <query name="数据复核.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="数据复核.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="删除审核.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="删除审核.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="人工复验.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="人工复验.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="未达审核.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="未达审核.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="人工初验.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="人工初验.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="自动记账.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId]]></query>
+  <query name="自动记账.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId]]></query>
+  <query name="数据补录.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="数据补录.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="未达录入.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="未达录入.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="自动匹配.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId]]></query>
+  <query name="自动匹配.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId]]></query>
+  <query name="自动验印.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId]]></query>
+  <query name="自动验印.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId]]></query>
+  <query name="主管验印.QueryTask"><![CDATA[select t from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+  <query name="主管验印.CountFreeTask"><![CDATA[select count(t) from bpm_lwe_ebs_recovery as t where t.nodeId = :nodeId and t.owner = null and t.processDefId = :processDefId and t.processVariables.ORGID = :orgId]]></query>
+</hibernate-mapping>

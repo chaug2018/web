@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="iDesktopLoader" class="com.yzj.wf.dk.impl.DefaultDesktopLoader" />
+	<bean id="runtimeContext" class="com.yzj.wf.common.RuntimeContext">
+		<property name="sysRunMode">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WF_CORE_PARAM</value>
+						<value>sysRunMode</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="iDesktopInfoParser" class="com.yzj.wf.dk.impl.DefaultDesktopInfoParser">
+		<property name="imoduleManager">
+			<ref bean="moduleManager" />
+		</property>
+		<property name="taskManagers" ref="taskManagers"></property>
+		<property name="paramManeger" ref="dbParamManager"></property>
+	</bean>
+
+</beans>

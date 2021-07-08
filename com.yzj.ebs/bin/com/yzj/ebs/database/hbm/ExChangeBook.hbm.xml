@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.yzj.ebs.database.ExChangeBook" table="ebs_ExChangeBook">
+		<id name="autoid" type="java.lang.Long">
+            <column name="autoid" precision="10" scale="0" >
+				<comment>自动编号</comment>
+			</column>
+			<generator class="native" >
+				<param name="sequence">ExChangeBook_autoid</param>
+			</generator>
+        </id>
+		<property name="docDate" type="java.lang.String">
+			<column name="docDate"  length="10" >
+				<comment>对账日期</comment>
+			</column>
+		</property>
+		<property name="voucherNo" type="java.lang.String">
+			<column name="voucherNo"  length="30" >
+				<comment>账单编号</comment>
+			</column>
+		</property>
+		<property name="sendmode" type="java.lang.String">
+			<column name="sendmode"  length="3" >
+				<comment>对帐渠道</comment>
+			</column>
+		</property>
+		<property name="accName" type="java.lang.String">
+			<column name="accName"  length="256" >
+				<comment>单位名称</comment>
+			</column>
+		</property>
+		<property name="sendDate" type="java.lang.String">
+			<column name="sendDate" length="10" >
+				<comment>发送日期</comment>
+			</column>
+		</property>
+		<property name="backDate" type="java.lang.String">
+			<column name="backDate" length="10" >
+				<comment>收回日期</comment>
+			</column>
+		</property>
+		<property name="letterSum" type="java.lang.Long">
+			<column name="letterSum" >
+				<comment>份数</comment>
+			</column>
+		</property>
+		<property name="idCenter" type="java.lang.String">
+			<column name="idCenter" length="12" >
+				<comment>对账中心</comment>
+			</column>
+		</property>
+		<property name="idBranch" type="java.lang.String">
+			<column name="idBranch" length="12" >
+				<comment>支行</comment>
+			</column>
+		</property>
+		<property name="idBank" type="java.lang.String">
+			<column name="idBank" length="12" >
+				<comment>网点</comment>
+			</column>
+		</property>
+		<property name="desc" type="java.lang.String">
+			<column name="description" length="22" >
+				<comment>备注</comment>
+			</column>
+		</property>
+		<property name="opcode" type="java.lang.String">
+			<column name="opcode" length="10" >
+				<comment>登记柜员号</comment>
+			</column>
+		</property>
+		<property name="opType" type="java.lang.String">
+			<column name="opType" length="2" >
+				<comment>登记类型</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

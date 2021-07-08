@@ -1,0 +1,18 @@
+.ui-combobox {
+	position: relative;
+	display: inline-block;
+	white-space: nowrap;
+	text-align: left;
+}
+
+.ui-combobox-toggle {
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	border-width: 1px;
+}
+
+.ui-combobox-input {
+	left: 0;
+	width: 80%;
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.yzj.ebs.database.InsideAccnoParam" table="ebs_insideaccnoparam">
+        <id name="autoId" type="java.lang.Long">
+            <column name="autoId" precision="10" scale="0">
+				<comment>流水号</comment>
+			</column>
+			<generator class="native" >
+				<param name="sequence">insideaccnoparam_autoid</param>
+			</generator>
+        </id>
+        <property  name="accNo" type="java.lang.String">
+            <column name="insideaccno"  length="32"  >
+				<comment>内部账号 </comment>
+			</column>
+        </property>
+        <property name="custId" type="java.lang.String">
+            <column name="insideuser" length="60"  >
+				<comment>操作员代码 </comment>
+			</column>
+        </property>
+        <property name="recheckCustId" type="java.lang.String">
+            <column name="insiderecheckuser" length="60"  >
+				<comment>复核员代码 </comment>
+			</column>
+        </property>
+        <property name="flog" type="java.lang.String">
+            <column name="flog" length="3"  >
+				<comment>标示(0:正常  1:已删除)</comment>
+			</column>
+        </property>
+    </class>
+</hibernate-mapping>

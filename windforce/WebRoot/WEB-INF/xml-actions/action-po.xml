@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<!-- 加载所有机构信息 -->
+	<bean id="getOrganizeListAction" class="com.yzj.wf.po.action.OrganizeListAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="poService" ref="POService"></property>
+		<property name="powerControlMap" ref="poPowerControlMap"></property>
+	</bean>
+	<!-- 权限控制器map配置，key为权限sid，value为控制器，此map是有序的，程序会自上而下获取控制器，获取到一个即终止 -->
+	<bean id="poPowerControlMap" class="java.util.LinkedHashMap">
+		<constructor-arg>
+			<map>
+				<entry key="00000000000000000000000000000001" value-ref="SuperPOPowerControl" />
+			</map>
+		</constructor-arg>
+	</bean>
+
+	<!-- 加载机构详细信息 -->
+	<bean id="getOrganizeDetailAction" class="com.yzj.wf.po.action.OrganizeDetailWarpAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="peopleAdm">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="organizeDetailWarpBiz">
+			<ref bean="organizeDetailWarpBiz" />
+		</property>
+		<property name="tools">
+			<ref bean="PublicToolsImpl" />
+		</property>
+	</bean>
+
+	<!-- 添加机构信息 -->
+	<bean id="addOrganizeAction" class="com.yzj.wf.po.action.AddOrganizeAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="operateLog" ref="OperateLogInfoAdm"></property>
+	</bean>
+
+	<!-- 修改机构信息 -->
+	<bean id="editOrganizeAction" class="com.yzj.wf.po.action.EditOrganizeAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="poService" ref="POService"></property>
+		<property name="operateLog" ref="OperateLogInfoAdm"></property>
+	</bean>
+	<!-- 初始化添加机构信息 -->
+	<bean id="initAddAction" class="com.yzj.wf.po.action.InitAddOrganizeAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+	</bean>
+	<!-- 删除机构信息 -->
+	<bean id="deleteOrganizeAction" class="com.yzj.wf.po.action.DeleteOrganizeAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="operateLog" ref="OperateLogInfoAdm"></property>
+	</bean>
+
+	<!-- 用户管理初始化 -->
+	<bean id="userManager" class="com.yzj.wf.po.action.UserManagerAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="orgBiz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+	</bean>
+
+	<!-- 用户自动检索方法 -->
+	<bean id="autoSearch" class="com.yzj.wf.po.action.UserAutoSearchAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+	</bean>
+
+	<!-- 用户自动检索方法 -->
+	<bean id="setParentOrg" class="com.yzj.wf.po.action.SetParentOrgAction"
+		scope="session">
+
+	</bean>
+
+
+	<!-- 添加用户初始化处理 -->
+	<bean id="initAddUser" class="com.yzj.wf.po.action.AddPeopleInitAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="roleGroupBiz">
+			<ref bean="RoleGroupAdm" />
+		</property>
+		<property name="orgBiz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+	</bean>
+
+	<!-- 添加用户处理 -->
+	<bean id="addUser" class="com.yzj.wf.po.action.AddPeopleDoAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="roleGroupBiz">
+			<ref bean="RoleGroupAdm" />
+		</property>
+		<property name="admBiz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="roleGroupPeopleAdm">
+			<ref bean="RoleGroupPeopleAdm" />
+		</property>
+		<property name="operateLog" ref="OperateLogInfoAdm"></property>
+		<property name="roleAdm" ref="RoleAdm"></property>
+	</bean>
+
+	<!-- 修改用户处理 -->
+	<bean id="editUser" class="com.yzj.wf.po.action.EditPeopleAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="roleGroupBiz">
+			<ref bean="RoleGroupAdm" />
+		</property>
+		<property name="admBiz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="roleGroupPeopleAdm">
+			<ref bean="RoleGroupPeopleAdm" />
+		</property>
+		<property name="poService" ref="POService"></property>
+		<property name="operateLog" ref="OperateLogInfoAdm"></property>
+		<property name="roleAdm" ref="RoleAdm"></property>
+	</bean>
+
+	<!-- 删除用户处理 -->
+	<bean id="delUser" class="com.yzj.wf.po.action.DeletePeopleInfoAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="operateLog" ref="OperateLogInfoAdm"></property>
+	</bean>
+
+	<!-- 机构拆并 -->
+	<bean id="splitOrg" class="com.yzj.wf.po.action.InitSplitOrgAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+
+	</bean>
+
+	<!-- 机构拆并 -->
+	<bean id="doSplit" class="com.yzj.wf.po.action.SplitOrgAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+		<property name="peopleBiz">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+	</bean>
+
+	<!-- 用户详细 -->
+	<bean id="userDetail" class="com.yzj.wf.po.action.PeopleDetailAction"
+		scope="session">
+		<property name="biz">
+			<ref bean="PeopleInfoAdm" />
+		</property>
+		<property name="roleGroupPeopleAdm">
+			<ref bean="RoleGroupPeopleAdm" />
+		</property>
+		<property name="organizeInfoAdm">
+			<ref bean="OrganizeInfoAdm" />
+		</property>
+	</bean>
+</beans>

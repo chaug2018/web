@@ -1,0 +1,460 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+           http://www.springframework.org/schema/aop/spring-aop-2.0.xsd 
+           http://www.springframework.org/schema/tx 
+           http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+	<!-- 数据库连接池配置 -->
+	<bean id="dataSource_ebs" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close" lazy-init="default" autowire="default">
+		<property name="driverClass">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>EBSDB</value>
+						<value>driverClass</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="jdbcUrl">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>EBSDB</value>
+						<value>jdbcUrl</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="user">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>EBSDB</value>
+						<value>user</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="password">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>EBSDB</value>
+						<value>password</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="initialPoolSize">
+			<value>10</value>
+		</property>
+		<property name="minPoolSize">
+			<value>10</value>
+		</property>
+		<property name="maxPoolSize">
+			<value>200</value>
+		</property>
+		<!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 -->
+		<property name="acquireIncrement">
+			<value>3</value>
+		</property>
+		<!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 -->
+		<property name="acquireRetryAttempts">
+			<value>30</value>
+		</property>
+
+	</bean>
+
+	<bean id="sessionFactory_ebs"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref local="dataSource_ebs" />
+		</property>
+
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle9iDialect
+				</prop>
+				<prop key="hibernate.show_sql">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- -->
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+				<prop key="hibernate.connection.release_mode">auto</prop>
+				<prop key="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.query.factory_class">org.hibernate.hql.ast.ASTQueryTranslatorFactory
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<!-- 主表 -->
+				<value>com/yzj/ebs/database/hbm/AccNoMainData.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/BasicInfo.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/BasicInfoLog.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/DocSet.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/CheckMainData.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/CheckMainDataLog.hbm.xml</value>				
+				<value>com/yzj/ebs/database/hbm/DetailMaindata.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/DocLog.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/SealLog.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/EDataLog.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/NotMatchTable.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_01.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_02.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_03.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_04.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_05.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_06.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_07.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_08.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_09.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_10.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_11.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/AccNoDetailData_12.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/ExChangeBook.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/CustomerSignInfo.hbm.xml</value> 
+				<value>com/yzj/ebs/database/hbm/CustManager.hbm.xml</value> 
+ 				<!-- 参数表 -->
+				<value>com/yzj/ebs/database/param/hbm/RefAccCycle.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefAcctype.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefCheckflag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefDocflag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefDocstate.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefFaceflag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefKeyflag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefKeytype.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefMatchflag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefNoticeFlag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefProveflag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefProvestate.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefSealMode.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefSendMode.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefSignflag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefSts.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefDirection.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefNotMatchAuthflag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefSpecialflag.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefRushState.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefRushMethod.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefRushResult.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefUrgeType.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefOperLogModule.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/RefCustomResponse.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_Bank.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_Credit.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_Currtype.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_IdCenter.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_ModuleFlow.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_Sysbase.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_UReason.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_DeleteReason.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_ReInputReason.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_Admin.hbm.xml</value>			
+				<value>com/yzj/ebs/database/param/hbm/Param_Subnoc.hbm.xml</value>
+				<value>com/yzj/ebs/database/param/hbm/Param_OrganizaFilter.hbm.xml</value>
+				<!-- 临时表-->
+				<value>com/yzj/ebs/database/temp/hbm/EbsBill.hbm.xml</value>
+				<value>com/yzj/ebs/database/temp/hbm/EbsKubUser.hbm.xml</value>
+				<value>com/yzj/ebs/database/temp/hbm/EbsMaindata.hbm.xml</value>
+				<value>com/yzj/ebs/database/temp/hbm/EbsDephist.hbm.xml</value>
+				<value>com/yzj/ebs/database/temp/hbm/EbsTempdetailmaindata.hbm.xml</value>
+				<value>com/yzj/ebs/database/temp/hbm/EbsUtblbrcd.hbm.xml</value>
+				<value>com/yzj/ebs/database/temp/hbm/EbsMarginData.hbm.xml</value>
+				<value>com/yzj/ebs/database/temp/hbm/EbsDataState.hbm.xml</value>
+				<value>com/yzj/ebs/database/temp/hbm/EbsInnerAccnoDetail.hbm.xml</value>
+				<!-- 内部账户表-->
+				<value>com/yzj/ebs/database/hbm/InsideAccnoParam.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/InnerAccnoMaindata.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/InnerAccno.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/InnerAccnoDetail.hbm.xml</value>
+				<!-- 特殊帐户信息表 -->
+				<value>com/yzj/ebs/database/hbm/ImportSpecile.hbm.xml</value>
+				<value>com/yzj/ebs/database/hbm/SpecialFaceToFace.hbm.xml</value>
+				
+				<!-- 账户类型定制 -->
+				<value>com/yzj/ebs/database/hbm/RuleOfAccCycle.hbm.xml</value>
+				<!-- 面对面柜台地址定制 -->
+				<value>com/yzj/ebs/database/hbm/FaceFlug.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- 通用DAO，操作所有的表 -->
+	<bean id="UniversalDao" class="com.yzj.ebs.database.dao.UniversalDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_ebs" />
+		</property>
+	</bean>
+	<bean id="dbParamDao" class="com.yzj.wf.pam.dao.DBParamDao">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory_ebs" />
+		</property>
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref local="sessionFactory_ebs" />
+		</property>
+	</bean>
+	
+	<bean id="EdataDao" class="com.yzj.ebs.edata.dao.impl.EDataDao">
+		<property name="driverClass">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>EBSDB</value>
+						<value>driverClass</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="jdbcUrl">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>EBSDB</value>
+						<value>jdbcUrl</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="user">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>EBSDB</value>
+						<value>user</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="password">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>EBSDB</value>
+						<value>password</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	<bean id="queryPeopleRoleDao" class="com.yzj.ebs.peoplerole.dao.QueryPeopleRoleDao">
+		<property name="driverClass">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>driverClass</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="jdbcUrl">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>jdbcUrl</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="user">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>user</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="password">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>password</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 2期改造 为了删除对应人员的岗位 -->
+	<bean id="wfDataDao" class="com.yzj.ebs.edata.dao.impl.WFDataDao">
+		<property name="driverClass">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>driverClass</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="jdbcUrl">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>jdbcUrl</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="user">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>user</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+		<property name="password">
+			<bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetObject">
+					<ref bean="xmlParamManager" />
+				</property>
+				<property name="targetMethod">
+					<value>getParamValueByName</value>
+				</property>
+				<property name="arguments">
+					<list>
+						<value>WFDB</value>
+						<value>password</value>
+					</list>
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+	
+	
+	
+	
+	
+	<aop:aspectj-autoproxy proxy-target-class="true">
+
+	</aop:aspectj-autoproxy>
+
+	<tx:annotation-driven transaction-manager="transactionManager"
+		order="2000" />
+</beans>

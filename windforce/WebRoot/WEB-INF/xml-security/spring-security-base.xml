@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+
+	<http auto-config="true" access-denied-page="/accessDenied.jsp"
+		use-expressions="true">
+		<form-login login-page="/windforce/dk/login.jsp" />
+		<intercept-url pattern="/common/**" filters="none" />
+		<intercept-url pattern="/windforce/common/**" filters="none" />
+		<intercept-url pattern="/index.html" filters="none" />
+		<intercept-url pattern="/toLogin.action" filters="none" />
+		<intercept-url pattern="/login.action" filters="none" />
+		<intercept-url pattern="/windforce/dk/login.jsp" filters="none" />
+		<intercept-url pattern="/windforce/dk/blank.jsp" filters="none" />
+		<intercept-url pattern="/windforce/dk/login_view.jsp" filters="none" />
+		<intercept-url pattern="/windforce/dk/login_valid.jsp" filters="none" />
+		<intercept-url pattern="/getPreUser.action" filters="none" />
+		<intercept-url pattern="/EDataAction_edataProcess.action" filters="none" />
+		<intercept-url pattern="/scanAction.action" filters="none" />
+		
+		<custom-filter before="FORM_LOGIN_FILTER" ref="loginAuththenticationFilter" />
+		<custom-filter before="FILTER_SECURITY_INTERCEPTOR"
+			ref="authenticationSecurityInterceptor" />
+		<custom-filter before="LOGOUT_FILTER" ref="logoutFilter" />
+		<custom-filter position="CONCURRENT_SESSION_FILTER" ref="concurrencyFilter" />
+		<custom-filter after="FILTER_SECURITY_INTERCEPTOR" ref="isLoginedFilter" />
+		<session-management invalid-session-url="/windforce/dk/login.jsp"
+			session-authentication-strategy-ref="sas" />
+	</http>
+
+
+	<beans:bean id="authenticationProcessingFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="authenticationSuccessHandler"
+			ref="afterLoginSuccessHandler" />
+		<beans:property name="authenticationFailureHandler"
+			ref="afterLoginFailHandler" />
+
+		<beans:property name="sessionAuthenticationStrategy"
+			ref="sas" />
+	</beans:bean>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="securityAuthenticationProvider" />
+	</authentication-manager>
+
+	<beans:bean id="securityAuthenticationProvider"
+		class="com.yzj.wf.am.security.login.AMAuthenticationProvider">
+		<beans:property name="userDetailsService" ref="securityUserService" />
+		<beans:property name="passwordEncoder" ref="passwordEncoder" />
+		<beans:property name="POService" ref="POService" />
+		<beans:property name="SaltSource" ref="SaltSource" />
+		<beans:property name="hideUserNotFoundExceptions"
+			value="false" />
+	</beans:bean>
+
+	<beans:bean id="passwordEncoder"
+		class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<beans:bean id="isLoginedFilter"
+		class="com.yzj.wf.am.security.auththentication.IsLoginedFilter">
+	</beans:bean>
+
+	<beans:bean id="afterLoginSuccessHandler"
+		class="com.yzj.wf.am.security.login.AMAuthenticationSuccessHandler">
+		<beans:property name="defaultTargetUrl">
+			<beans:value>/login.action</beans:value>
+		</beans:property>
+		<beans:property name="alwaysUseDefaultTargetUrl">
+			<beans:value>true</beans:value>
+		</beans:property>
+		<beans:property name="poService" ref="POService" />
+	</beans:bean>
+
+	<beans:bean id="afterLoginFailHandler"
+		class="com.yzj.wf.am.security.login.AMAuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl">
+			<beans:value>/windforce/dk/login.jsp</beans:value>
+		</beans:property>
+		<beans:property name="poService" ref="POService" />
+		<beans:property name="maxErrTime">
+			<beans:bean
+				class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<beans:property name="targetObject">
+					<beans:ref bean="xmlParamManager" />
+				</beans:property>
+				<beans:property name="targetMethod">
+					<beans:value>getParamValueByName</beans:value>
+				</beans:property>
+				<beans:property name="arguments">
+					<beans:list>
+						<beans:value>WF_CORE_PARAM</beans:value>
+						<beans:value>maxErrTime</beans:value>
+					</beans:list>
+				</beans:property>
+			</beans:bean>
+		</beans:property>
+
+	</beans:bean>
+
+	<beans:bean id="logoutFilter"
+		class="org.springframework.security.web.authentication.logout.LogoutFilter">
+		<!-- 登出成功后跳转的URL -->
+		<beans:constructor-arg value="/windforce/dk/login.jsp" />
+		<beans:constructor-arg>
+			<beans:list>
+				<beans:bean class="com.yzj.wf.am.security.logout.AMLogoutHandler">
+					<beans:property name="POService" ref="POService" />
+					<beans:property name="operateLog" ref="OperateLogInfoAdm" />
+				</beans:bean>
+			</beans:list>
+		</beans:constructor-arg>
+	</beans:bean>
+
+	<beans:bean id="authenticationSecurityInterceptor"
+		class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager"></beans:property>
+		<beans:property name="accessDecisionManager">
+			<beans:bean
+				class="org.springframework.security.access.vote.AffirmativeBased">
+				<beans:property name="decisionVoters">
+					<beans:list>
+						<beans:bean class="org.springframework.security.access.vote.RoleVoter">
+							<beans:property name="rolePrefix" value="" />
+						</beans:bean>
+					</beans:list>
+				</beans:property>
+			</beans:bean>
+		</beans:property>
+		<beans:property name="securityMetadataSource" ref="securityResourceService"></beans:property>
+		<beans:property name="rejectPublicInvocations">
+			<beans:value>false</beans:value>
+		</beans:property>
+	</beans:bean>
+
+	<beans:bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<beans:property name="basename"
+			value="/WEB-INF/xml-security/messages_zh_CN" />
+	</beans:bean>
+
+	<beans:bean id="concurrencyFilter"
+		class="org.springframework.security.web.session.ConcurrentSessionFilter">
+		<beans:property name="sessionRegistry" ref="sessionRegistry" />
+		<beans:property name="expiredUrl" value="/windforce/dk/login.jsp" />
+	</beans:bean>
+
+	<beans:bean id="sas"
+		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<beans:constructor-arg name="sessionRegistry"
+			ref="sessionRegistry" />
+		<beans:property name="maximumSessions" value="1" />
+		<beans:property name="exceptionIfMaximumExceeded"
+			value="false" />
+	</beans:bean>
+
+	<beans:bean id="sessionRegistry"
+		class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+	<beans:bean id="loginAuththenticationFilter"
+		class="com.yzj.wf.am.security.auththentication.CustomLoginAuththenticationFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="authenticationSuccessHandler"
+			ref="afterLoginSuccessHandler" />
+		<beans:property name="authenticationFailureHandler"
+			ref="afterLoginFailHandler" />
+
+		<beans:property name="sessionAuthenticationStrategy"
+			ref="sas" />
+	</beans:bean>
+</beans:beans>

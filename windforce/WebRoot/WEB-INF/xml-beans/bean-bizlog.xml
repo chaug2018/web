@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="simpleCurrLogService" class="com.yzj.wf.bizlog.impl.SimpleCurrLogService">
+		<property name="logDao"><ref bean="SimpleCurrLogDao" /></property>
+		<property name="paramManager"><ref bean="universalParamManager" /></property>
+	</bean>
+	
+	<bean id="simpleHisLogService" class="com.yzj.wf.bizlog.impl.SimpleHisLogService">
+		<property name="logDao"><ref bean="SimpleCurrLogDao" /></property>
+		<property name="paramManager"><ref bean="universalParamManager" /></property>
+	</bean>
+	
+	<bean id="simpleLogServiceTools" class="com.yzj.wf.bizlog.impl.SimpleLogServiceTools">
+		<property name="exportExcelNum">
+				<bean
+					class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+					<property name="targetObject">
+						<ref bean="xmlParamManager" />
+					</property>
+					<property name="targetMethod">
+						<value>getParamValueByName</value>
+					</property>
+					<property name="arguments">
+						<list>
+							<value>BIZLOG_PARAM</value>
+							<value>exportExcelNum</value>
+						</list>
+					</property>
+				</bean>
+			</property>
+	</bean>
+	
+	<bean id="pamCurrLogService" class="com.yzj.wf.bizlog.impl.PamCurrLogService">
+		<property name="logDao"><ref bean="PamCurrLogDao" /></property>
+	</bean>
+</beans>

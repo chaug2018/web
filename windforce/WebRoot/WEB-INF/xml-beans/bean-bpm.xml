@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<bean id="lweEngineConfig" class="com.yzj.wf.bpm.lwe.LweEngineConfig">
+		<property name="taskDao">
+			<ref bean="taskDao" />
+		</property>
+		<property name="logDao">
+			<ref bean="taskLogDao" />
+		</property>
+		<property name="transactionManager">
+			<ref bean="transactionManager_wf" />
+		</property>
+	</bean>
+
+	<bean id="processDefFiles" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+<!-- 				<value>xml-config/TEST.bpmn20.xml</value> -->
+			</list>
+		</constructor-arg>
+	</bean>
+	<bean id="lweProcessEngine" class="com.yzj.wf.bpm.lwe.LweEngine">
+		<constructor-arg>
+			<ref bean="lweEngineConfig" />
+		</constructor-arg>
+		<property name="processDefFiles">
+			<ref bean="processDefFiles" />
+		</property>
+	</bean>
+	<bean id="enginesManager" class="com.yzj.wf.bpm.engine.BPMEnginesManager"
+		init-method="init">
+		<property name="bpmEnginesList">
+			<ref bean="lweProcessEngine" />
+		</property>
+	</bean>
+	<bean id="runtimeManager" factory-bean="lweProcessEngine"
+		factory-method="getRuntimeManager">
+		<constructor-arg ref="lweProcessEngine" index="0" />
+	</bean>
+	<!-- <bean id="testTaskManager" factory-bean="lweProcessEngine" factory-method="getTaskManagerByProcessDefinitionKey"> 
+		<constructor-arg ref="lweProcessEngine" index="0" /> <constructor-arg value="TEST" 
+		index="1" /> </bean> -->
+	<bean id="taskManagers" class="java.util.HashMap">
+		<constructor-arg>
+			<map>
+				<!-- <entry key="TEST" value-ref="testTaskManager" /> -->
+			</map>
+		</constructor-arg>
+	</bean>
+</beans>

@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TRADETEMPLATE xmlns="http://www.infotech.com/xml/trade-template" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.infotech.com/xml/trade-template trade-template.xsd" 
+	DESC="IBANK服务端模板">
+	<PARAMS>
+		<!-- 参数 -->
+		<PARAM NAME="tracepath" VALUE="/home/logs/ibank" DESC="记报文内容日志的目录，默认为C:\TRACE\SERVER" />		
+		<!-- 服务 -->
+		<PARAM NAME="ibankrevise_service" VALUE="IBANKREVISE" DESC="字段格式整理服务" />
+		<PARAM NAME="ibankfix_service" VALUE="IBANKFIX" DESC="字段长度修正服务" />
+		<PARAM NAME="ibankassemble_service" VALUE="IBANKASSEMBLE" DESC="数据包装配服务" />		
+		<PARAM NAME="ibankprocess_service" VALUE="SampleProcess" DESC="业务逻辑处理服务" />
+	</PARAMS>
+	<TRADE ID="2100" NAME="网银签约查询" CODE="2100" CRC="00000000" TYPE="BYTE" DESC="网银签约查询" INSERT="0" TRACE="1" DEBUG="0" RANDOM="50">
+		<PARAMS>
+		</PARAMS>
+		<HOSTRETURN RET="" SEQNO="" CODE="" MSG=""/>
+		<FILELIST>
+			<FILE TAG="down" VALID="0" NAME=""/>
+			<FILE TAG="up" VALID="0" NAME=""/>
+		</FILELIST>
+		<FIELDLIST>
+			<!-- 公共上传字段 -->
+		  	<FIELD NAME="SEQNO" KEY="SEQNO" COLUMN="" TYPE="string" LEN="20" VALUE="" ISFIX="1" MEMO="报文流水号" DIRECT="2" />
+			<FIELD NAME="SYSID" KEY="SYSID" COLUMN="" TYPE="string" LEN="10" VALUE="" ISFIX="1" MEMO="发起系统ID" DIRECT="0" />
+			<FIELD NAME="MSGTYPE" KEY="MSGTYPE" COLUMN="" TYPE="string" LEN="2" VALUE="" ISFIX="1" MEMO="消息类型" DIRECT="0" />
+			<FIELD NAME="TRNCD" KEY="TRNCD" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="交易码" DIRECT="2" />
+			<FIELD NAME="TRNDT" KEY="TRNDT" COLUMN="" TYPE="string" LEN="8" VALUE="" ISFIX="1" MEMO="交易日期" DIRECT="0" />
+			<FIELD NAME="TRNTM" KEY="TRNDT" COLUMN="" TYPE="string" LEN="8" VALUE="" ISFIX="1" MEMO="交易时间" DIRECT="0" />
+			<!-- 具体交易上传字段 -->
+			<FIELD NAME="QRYNO" KEY="QRYNO" COLUMN="" TYPE="string" LEN="2" VALUE="1" ISFIX="1" MEMO="查询数" DIRECT="2" />
+			<FIELD NAME="AcNo" KEY="AcNo" COLUMN="" TYPE="string" LEN="32" VALUE="" ISFIX="1" MEMO="账号" DIRECT="2" />
+			<!-- 公共下传字段 -->
+			<FIELD NAME="RSPCD" KEY="RSPCD" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="交易执行结果" DIRECT="1" />
+			<FIELD NAME="RSPMSG" KEY="RSPMSG" COLUMN="" TYPE="string" LEN="20" VALUE="" ISFIX="1" MEMO="返回信息" DIRECT="1" />
+			<!-- 具体交易下传字段 -->
+			<FIELD NAME="SendType" KEY="SendType" COLUMN="" TYPE="string" LEN="2" VALUE="" ISFIX="1" MEMO="发送方式" DIRECT="1" />
+			<FIELD NAME="ContactName" KEY="ContactName" COLUMN="" TYPE="string" LEN="32" VALUE="" ISFIX="1" MEMO="联系人" DIRECT="1" />
+			<FIELD NAME="Phone" KEY="Phone" COLUMN="" TYPE="string" LEN="64" VALUE="" ISFIX="1" MEMO="联系电话" DIRECT="1" />
+			<FIELD NAME="PostCode" KEY="PostCode" COLUMN="" TYPE="string" LEN="10" VALUE="" ISFIX="1" MEMO="邮编" DIRECT="1" />
+			<FIELD NAME="Address" KEY="Address" COLUMN="" TYPE="string" LEN="256" VALUE="" ISFIX="1" MEMO="地址" DIRECT="1" />
+		</FIELDLIST>
+	</TRADE>
+	
+	<TRADE ID="2101" NAME="网银签约或修改" CODE="2101" CRC="00000000" TYPE="BYTE" DESC="网银签约或修改" INSERT="1" TRACE="1" DEBUG="1" RANDOM="50">
+		<PARAMS>
+		</PARAMS>
+		<HOSTRETURN RET="" SEQNO="" CODE="" MSG=""/>
+		<FILELIST>
+			<FILE TAG="down" VALID="0" NAME=""/>
+			<FILE TAG="up" VALID="0" NAME=""/>
+		</FILELIST>
+		<FIELDLIST>
+			<!-- 公共上传字段 -->
+		  	<FIELD NAME="SEQNO" KEY="SEQNO" COLUMN="" TYPE="string" LEN="20" VALUE="" ISFIX="1" MEMO="报文流水号" DIRECT="2" />
+			<FIELD NAME="SYSID" KEY="SYSID" COLUMN="" TYPE="string" LEN="10" VALUE="" ISFIX="1" MEMO="发起系统ID" DIRECT="0" />
+			<FIELD NAME="MSGTYPE" KEY="MSGTYPE" COLUMN="" TYPE="string" LEN="2" VALUE="" ISFIX="1" MEMO="消息类型" DIRECT="0" />
+			<FIELD NAME="TRNCD" KEY="TRNCD" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="交易码" DIRECT="2" />
+			<FIELD NAME="TRNDT" KEY="TRNDT" COLUMN="" TYPE="string" LEN="8" VALUE="" ISFIX="1" MEMO="交易日期" DIRECT="0" />
+			<FIELD NAME="TRNTM" KEY="TRNDT" COLUMN="" TYPE="string" LEN="8" VALUE="" ISFIX="1" MEMO="交易时间" DIRECT="0" />
+			<!-- 具体交易上传字段 -->
+			<FIELD NAME="AcNo" KEY="AcNo" COLUMN="" TYPE="string" LEN="32" VALUE="" ISFIX="1" MEMO="账号" DIRECT="0" />
+			<FIELD NAME="SendType" KEY="SendType" COLUMN="" TYPE="string" LEN="2" VALUE="" ISFIX="1" MEMO="发送方式" DIRECT="0" />
+			<FIELD NAME="ContactName" KEY="ContactName" COLUMN="" TYPE="string" LEN="32" VALUE="" ISFIX="1" MEMO="联系人" DIRECT="0" />
+			<FIELD NAME="Phone" KEY="Phone" COLUMN="" TYPE="string" LEN="64" VALUE="" ISFIX="1" MEMO="联系电话" DIRECT="0" />
+			<FIELD NAME="PostCode" KEY="PostCode" COLUMN="" TYPE="string" LEN="10" VALUE="" ISFIX="1" MEMO="邮编" DIRECT="0" />
+			<FIELD NAME="Address" KEY="Address" COLUMN="" TYPE="string" LEN="256" VALUE="" ISFIX="1" MEMO="地址" DIRECT="0" />
+			<FIELD NAME="SignType" KEY="SignType" COLUMN="" TYPE="string" LEN="2" VALUE="" ISFIX="1" MEMO="签约和修改标识" DIRECT="0" />
+			<!-- 公共下传字段 -->
+			<FIELD NAME="RSPCD" KEY="RSPCD" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="交易执行结果" DIRECT="1" />
+			<FIELD NAME="RSPMSG" KEY="RSPMSG" COLUMN="" TYPE="string" LEN="20" VALUE="" ISFIX="1" MEMO="返回信息" DIRECT="1" />
+		</FIELDLIST>
+	</TRADE>
+	<TRADE ID="E001" NAME="发送签约标识交易" CODE="E001" CRC="00000000" TYPE="BYTE" DESC="发送签约标识交易" INSERT="2" TRACE="1" DEBUG="1" RANDOM="100">
+		<PARAMS>
+		</PARAMS>
+		<HOSTRETURN RET="" SEQNO="" CODE="" MSG=""/>
+		<FILELIST>
+			<FILE TAG="down" VALID="0" NAME=""/>
+			<FILE TAG="up" VALID="0" NAME=""/>
+		</FILELIST>
+		<FIELDLIST>
+			<!-- 公共上传字段 -->
+		  	<FIELD NAME="transaction_sn" KEY="transaction_sn" COLUMN="" TYPE="string" LEN="20" VALUE="" ISFIX="1" MEMO="报文流水号" DIRECT="2" />
+			<FIELD NAME="transaction_id" KEY="transaction_id" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="交易码" DIRECT="2" />
+			<FIELD NAME="requester_id" KEY="requester_id" COLUMN="" TYPE="string" LEN="10" VALUE="" ISFIX="1" MEMO="发起系统ID" DIRECT="0" />
+			<FIELD NAME="transaction_date" KEY="transaction_date" COLUMN="" TYPE="string" LEN="8" VALUE="" ISFIX="1" MEMO="交易日期" DIRECT="0" />
+			<FIELD NAME="transaction_time" KEY="transaction_time" COLUMN="" TYPE="string" LEN="6" VALUE="" ISFIX="1" MEMO="交易时间" DIRECT="0" />		
+			<!-- 具体交易上传字段 -->
+			<FIELD NAME="AcNo" KEY="AcNo" COLUMN="" TYPE="string" LEN="32" VALUE="" ISFIX="1" MEMO="账号" DIRECT="0" />
+			<FIELD NAME="SignCheck" KEY="SignCheck" COLUMN="" TYPE="string" LEN="2" VALUE="" ISFIX="1" MEMO="签约标识" DIRECT="0" />
+			<FIELD NAME="SignStatus" KEY="SignStatus" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="签约状态" DIRECT="0" />
+			<!-- 公共下传字段 -->
+			<FIELD NAME="code" KEY="code" COLUMN="" TYPE="string" LEN="4" VALUE="" ISFIX="1" MEMO="交易执行结果" DIRECT="1" />
+			<FIELD NAME="desc" KEY="desc" COLUMN="" TYPE="string" LEN="20" VALUE="" ISFIX="1" MEMO="返回信息" DIRECT="1" />
+		</FIELDLIST>
+	</TRADE>
+</TRADETEMPLATE>

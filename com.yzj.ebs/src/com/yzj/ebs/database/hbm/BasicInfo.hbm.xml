@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field">
+	<class lazy="false" name="com.yzj.ebs.database.BasicInfo" table="ebs_basicInfo">
+		<id name="autoId" type="java.lang.Long">
+            <column name="autoId" precision="10" scale="0" >
+				<comment>流水号</comment>
+			</column>
+            <generator class="native" >
+				<param name="sequence">Basicinfo_autoid</param>
+			</generator>
+        </id>
+        <property generated="never" lazy="false" name="accNo" type="java.lang.String">
+	   		<column length="32" name="accNo" >
+				<comment>账号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="accSon" type="java.lang.String">
+	   		<column length="10" name="accSon" >
+				<comment>子账号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="idBank" type="java.lang.String">
+	   		<column length="12" name="idBank" >
+				<comment>网点号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="accName" type="java.lang.String">
+	   		<column length="128" name="accName" >
+				<comment>户名</comment>
+			</column>
+	 	</property>
+		<property generated="never" lazy="false" name="sealAccNo" type="java.lang.String">
+	   		<column length="32" name="sealAccNo" >
+				<comment>验印账号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="currency" type="java.lang.String">
+	   		<column length="4" name="currency" >
+				<comment>币种</comment>
+			</column>
+	 	</property>
+		<property generated="never" lazy="false" name="address" type="java.lang.String">
+	   		<column length="256" name="address" >
+				<comment>地址</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="zip" type="java.lang.String">
+	   		<column length="10" name="zip" >
+				<comment>邮编</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="linkMan" type="java.lang.String">
+	   		<column length="100" name="linkMan" >
+				<comment>联系人</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="phone" type="java.lang.String">
+	   		<column length="128" name="phone" >
+				<comment>联系电话</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="sendMode" type="java.lang.String">
+	   		<column length="2" name="sendMode" >
+				<comment>发送方式</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="openDate" type="java.lang.String">
+	   		<column length="10" name="openDate" >
+				<comment>开户日期</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="accType" type="java.lang.String">
+	   		<column length="12" name="accType" >
+				<comment>账户类型</comment>
+			</column>
+	 	</property>
+		<property generated="never" lazy="false" name="custId" type="java.lang.String">
+	   		<column length="32" name="custId" >
+				<comment>客户号</comment>
+			</column>
+	 	</property>
+		<property generated="never" lazy="false" name="accState" type="java.lang.String">
+	   		<column length="2" name="accState" >
+				<comment>账户状态</comment>
+			</column>
+	 	</property>
+		<property generated="never" lazy="false" name="idBranch" type="java.lang.String">
+	   		<column length="12" name="idBranch" >
+				<comment>支行号</comment>
+			</column>
+	 	</property>
+		<property generated="never" lazy="false" name="idCenter" type="java.lang.String">
+	   		<column length="12" name="idCenter" >
+				<comment>对账中心号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="bankName" type="java.lang.String">
+	   		<column length="128" name="bankName" >
+				<comment>网点名称</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="faceFlag" type="java.lang.String">
+	   		<column length="1" name="faceFlag" >
+				<comment>面对面标志</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="specialFlag" type="java.lang.String">
+	   		<column length="1" name="specialFlag" >
+				<comment>特殊账号标志，0，默认，1白名单，2黑名单</comment>
+			</column>
+	 	</property>
+		<property generated="never" lazy="false" name="accCycle" type="java.lang.String">
+	   		<column length="1" name="accCycle" >
+				<comment>对账周期</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="subjectNo" type="java.lang.String">
+	   		<column length="12" name="subjectNo" >
+				<comment>科目号</comment>
+			</column>
+	 	</property>
+		<property generated="never" lazy="false" name="productNo" type="java.lang.String">
+	   		<column length="12" name="productNo" >
+				<comment>产品号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="productDesc" type="java.lang.String">
+	   		<column length="20" name="productDesc" >
+				<comment>产品名称</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="signFlag" type="java.lang.String">
+	   		<column length="1" name="signFlag" >
+				<comment>签约标志</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="signTime" type="java.lang.String">
+	   		<column length="19" name="signTime" >
+				<comment>签约时间</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="signOpCode" type="java.lang.String">
+	   		<column length="32" name="signOpCode" >
+				<comment>签约柜员号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="signContractNo" type="java.lang.String">
+	   		<column length="32" name="signContractNo" >
+				<comment>签约合同号</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="sealMode" type="java.lang.String">
+	   		<column length="1" name="sealMode" >
+				<comment>验印模式</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="singleAccno" type="java.lang.String">
+	   		<column length="32" name="singleAccno" >
+				<comment>单账号，主账号加分账号组成</comment>
+			</column>
+	 	</property>
+	 		<property generated="never" lazy="false" name="isSpecile" type="java.lang.String">
+	   		<column length="4" name="isSpecile" >
+				<comment>特殊帐户标制</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="isCheck" type="java.lang.String">
+	   		<column length="3" name="isCheck" >
+				<comment>是否对账表示</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="distributary" type="java.lang.String">
+	   		<column length="10" name="distributary" >
+				<comment>账单分流</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="sendAddress" type="java.lang.String">
+	   		<column length="256" name="sendAddress" >
+				<comment>账单发送地址</comment>
+			</column>
+	 	</property>
+	 	<property generated="never" lazy="false" name="remark" type="java.lang.String">
+	   		<column length="256" name="remark" >
+				<comment>对账状态维护原因</comment>
+			</column>
+	 	</property>
+	</class>
+</hibernate-mapping>

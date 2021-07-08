@@ -1,0 +1,21 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Plug-in
+Bundle-SymbolicName: com.yzj.ebs.edata.app
+Bundle-Version: 1.0.0
+Bundle-ClassPath: .,
+ lib/AbsoluteLayout.jar,
+ lib/com.yzj.wf.common_v_1.0.0.201210251848.jar,
+ lib/dom4j-1.6.1.jar,
+ lib/httpclient-4.2.1.jar,
+ lib/httpcore-4.2.1.jar,
+ lib/httpmime-4.2.1.jar,
+ lib/log4j-1.2.16.jar,
+ lib/slf4j-api-1.6.1.jar,
+ lib/slf4j-log4j12-1.6.1.jar,
+ lib/swing-layout-1.0.3.jar,
+ lib/commons-logging-1.1.1.jar,
+ lib/edtftpj.jar,
+ lib/FileOperator.jar,
+ lib/jftp.jar
+

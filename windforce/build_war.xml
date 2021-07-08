@@ -1,0 +1,81 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<project name="build war" default="war" basedir=".">
+	<property name="src.dir" value="src" />
+	<!--临时构建目录-->
+	<property name="build.dir" value="D:/javawork/PS_WF/TestLib/trunk/build/temp" />
+	<!--输出目录-->
+	<property name="output.dir" value="D:/javawork/PS_WF/TestLib/trunk/build" />
+	<property name="webapp.dir" value="WebRoot" />
+	<property name="war.name" value="windforce" />
+	<property name="j2ee.lib" value="D:/javawork/PS_WF/TestLib/trunk/depend/j2ee" />
+	<property name="logger.lib" value="D:/javawork/PS_WF/TestLib/trunk/depend/logger" />
+	<property name="hibernate.lib" value="D:/javawork/PS_WF/TestLib/trunk/depend/hibernate" />
+	<property name="spring.lib" value="D:/javawork/PS_WF/TestLib/trunk/depend/spring" />
+	<property name="struts.lib" value="D:/javawork/PS_WF/TestLib/trunk/depend/struts" />
+	<property name="wf.lib" value="D:/javawork/PS_WF/TestLib/trunk/release/Project_Jar" />
+
+	<!--构建版本号-->
+	<property name="bulid.version" value="v_1.0.0" />
+	<property name="bulid.stage" value="b" />
+	<tstamp />
+
+	<!--删除临时目录-->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<delete dir="${wf.lib}" />
+	</target>
+
+	<!--创建临时构建目录-->
+	<target name="init" depends="clean">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.dir}/lib" />
+		<mkdir dir="${wf.lib}" />
+	</target>
+
+	<!--打WF.jar-->
+	<target name="jar" depends="init">
+		<ant antfile="build.xml" target="build-all" />
+	</target>
+
+	<!--将依赖jar文件拷贝到临时目录-->
+	<target name="copy" depends="jar">
+		<copy todir="${build.dir}/lib">
+			<fileset dir="${j2ee.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/lib">
+			<fileset dir="${logger.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/lib">
+			<fileset dir="${hibernate.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/lib">
+			<fileset dir="${spring.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/lib">
+			<fileset dir="${struts.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${build.dir}/lib">
+			<fileset dir="${wf.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+	</target>
+	<!--打War包-->
+	<target name="war" depends="copy">
+		<war destfile="${output.dir}/${war.name}_${bulid.version}.${bulid.stage}.${DSTAMP}${TSTAMP}/${war.name}.war" webxml="${webapp.dir}/WEB-INF/web.xml">
+			<fileset dir="${webapp.dir}">
+			</fileset>
+			<lib dir="${build.dir}/lib" />
+		</war>
+	</target>
+</project>

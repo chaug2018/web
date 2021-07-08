@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<!-- IBank的DAO -->
+	<bean id="iBankAdm" name="iBankAdm"
+		class="com.yzj.ebs.ibank.server.IBankAdm">
+		<property name="dao">
+			<ref bean="UniversalDao" />
+		</property>
+	</bean>
+	
+	<!-- IBank 交易模板 -->
+	<bean id="tradeTemplate" name="tradeTemplate"
+		class="com.yzj.wf.com.ibank.common.template.TradeTemplate" />
+		
+	<!-- IBank 交易对象trade -->
+	<bean id="trade" name="trade"
+		class="com.yzj.wf.com.ibank.common.template.Trade" />
+		
+	<!-- 默认IBank数据包装配服务 -->
+	<bean id="defaultIBankAssembleService" name="defaultIBankAssembleService"
+		class="com.yzj.ebs.ibank.server.IBankAssembleService" />
+	
+	<!-- IBank服务工厂映射MAP -->
+	<bean id="concurrentHashMap" class="java.util.concurrent.ConcurrentHashMap">
+		<constructor-arg>
+			<map>
+				<entry key="IBANKASSEMBLE" value-ref="defaultIBankAssembleService" />
+				<!-- ****服务端服务映射**** -->
+				<!-- IBank服务端控制器 -->
+				<entry key="IBANKSERVER" value-ref="iBankServer" />
+				<!-- IBank交易码获取器服务 -->
+				<entry key="IBANKTRADECODEGETTER" value-ref="NORMALTRADECODEGETTER" />
+			</map>
+		</constructor-arg>
+	</bean>
+	
+	<!-- 服务工厂 -->
+	<!-- 在服务工厂中配置的服务可以根据特定交易配置文件中配置的服务标识符动态获取相关服务 -->
+	<bean id="serviceFactory" name="serviceFactory" class="com.yzj.wf.com.ibank.servicefactory.ServiceFactory"
+		init-method="init">
+		<property name="concurrentHashMap">
+			<ref bean="concurrentHashMap"/>
+		</property>
+		<property name="lazyStartTime">
+			<value>5</value>
+		</property>
+	</bean>
+	
+	
+	<!-- 模板工厂 -->	
+	<bean id="templateFactoryService" name="templateFactoryService"
+		class="com.yzj.ebs.ibank.server.TemplateFactoryService" >
+		<!-- 如配置文件在/WEB-INF/IBankClientMapsTemplate.xml下，则可以配置形如 ../IBankServerMapsTemplate.xml的地址。../指的是当前类路径的上一级目录，即/WEB-INF/下-->
+		<property name="templateFileUrlServer">
+			<value>/home/logs/IBankServerMapsTemplate.xml</value>
+		</property>
+		<property name="templateFileUrlClient">
+			<value>/home/logs/IBankClientMapsTemplate.xml</value>
+		</property>
+		<property name="clientTradeTemplate">
+			<ref bean="tradeTemplate"/>
+		</property>
+		<property name="serverTradeTemplate">
+			<ref bean="tradeTemplate"/>
+		</property>
+	</bean>
+	
+	<!-- IBank字段填充服务 --> 
+	<bean id="iBankReviseServer" name="iBankReviseServer"
+		class="com.yzj.wf.com.ibank.core.IBankReviseServer" init-method="init">
+		<property name="serviceFactory">
+			<ref bean="serviceFactory"/>
+		</property>
+	</bean>
+	
+	<!-- IBank字段长度修正服务 -->
+	<bean id="iBankFixServer" name="iBankFixServer" 
+		class="com.yzj.wf.com.ibank.core.IBankFixServer" init-method="init"/>
+		
+	<!-- IBank交易码获取器服务 --> 
+	<bean id="NORMALTRADECODEGETTER" class="com.yzj.ebs.ibank.server.IBankCodeGetterImpl" />
+	
+	<!-- 上传下传扩展服务(依赖于数据库) -->
+	<bean id="ExternService_DB" name="/ExternService_DB"
+		class="com.yzj.wf.com.ibank.standard.server.IBankExternDBService">
+		<property name="serviceFactory">
+			<ref bean="serviceFactory"/>
+		</property> 
+	</bean>
+	
+	<!-- 服务端日志记载 -->
+	<bean id="StrToFile" name="StrToFile" class="com.yzj.ebs.ibank.server.StrToFile">
+		<property name="publicTools">
+			<ref bean="PublicTools"/>
+		</property>
+		 <property name="templateFactory">
+			<ref bean="templateFactoryService"/>
+		</property>
+	</bean>
+	
+	<!--客户端日志记载 -->
+	<bean id="ClientToFile" name="ClientToFile" class="com.yzj.ebs.ibank.client.ClientToFile">
+		<property name="publicTools">
+			<ref bean="PublicTools"/>
+		</property>
+		 <property name="templateFactory">
+			<ref bean="templateFactoryService"/>
+		</property>
+	</bean>
+	
+	<!-- IBank服务端控制器 -->
+	<bean id="iBankServer" class="com.yzj.wf.com.ibank.standard.server.CBankServer" >
+		<property name="maxThreads">
+			<value>10</value>
+		</property>
+		<property name="maxSpareThreads">
+			<value>5</value>
+		</property>
+		<property name="mixSpareThreads">
+			<value>2</value>
+		</property>
+		<property name="workWaitTimeout">
+			<value>60000</value>
+		</property>	
+	</bean>	
+	
+	<!-- 通讯服务端组件(基于SOCKET) -->
+	<bean id="SocketControl" name="SocketControl" class="com.yzj.ebs.ibank.server.IBankSocketControl"
+	    init-method="init">
+	    <property name="port">
+			<value>10000</value>
+		</property>	
+	    <property name="templateFactory">
+			<ref bean="templateFactoryService"/>
+		</property>
+	    <property name="serviceFactory">
+	        <ref bean="serviceFactory"/>
+	    </property>
+	    <property name="fixService">
+			<ref bean="iBankFixServer"/>
+		</property>
+		<property name="reviseService">
+			<ref bean="iBankReviseServer"/>
+		</property>
+		<property name="ibankAdm">
+			<ref bean="iBankAdm"/>
+		</property>
+		<property name="iBankClient">
+			<ref bean="iBankClient"/>
+		</property>
+		<property name="strToFile">
+			<ref bean="StrToFile"/>
+		</property>
+		<property name="publicTools">
+			<ref bean="PublicTools"/>
+		</property>
+		
+	</bean>
+	
+	<!--服务端开关 -->
+	<bean id="IBankServerStart" name="IBankServerStart" class="com.yzj.ebs.ibank.server.IBankServerStart"
+		init-method="start">
+		<property name="socketControl">
+			<ref bean="SocketControl"/>
+		</property>
+	</bean>
+	
+	<!-- Client开关 -->
+	<bean id="iBankClient" name="iBankClient" class="com.yzj.ebs.ibank.client.IBankClient">
+		<property name="ibankAdm">
+			<ref bean="iBankAdm"/>
+		</property>
+		<property name="clientToFile">
+			<ref bean="ClientToFile"/>
+		</property>
+		 <property name="templateFactory">
+			<ref bean="templateFactoryService"/>
+		</property>
+	</bean>
+
+</beans>

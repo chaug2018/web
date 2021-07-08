@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-lazy="false">
+	<class name="com.yzj.wf.pam.db.BaseParam" table="Param_DeleteReason"
+		dynamic-insert="true" dynamic-update="true" entity-name="Param_DeleteReason">
+		<id name="id" type="long">
+			<column name="autoid" />
+			<generator class="native">
+				<param name="sequence">PARAM_DELETEREASON_ID</param>
+			</generator>
+		</id>
+		<dynamic-component name="extFields">
+			<property name="deletereasonID" type="int">
+				<column name="DeletereasonID" length="4" />
+			</property>
+			<property name="description" type="string">
+				<column name="Description" length="64" />
+			</property>
+			<property name="ccpcCode" type="string">
+				<column name="ccpcCode" length="16" />
+			</property>
+			<property name="bankCode" type="string">
+				<column name="BankCode" length="8" />
+			</property>
+			<property name="npcCode" type="string">
+				<column name="NPCCode" length="8" />
+			</property>
+			<property name="isIssue" type="int">
+				<column name="IsIssue" length="4" />
+			</property>
+			<property name="curSceneType" type="int">
+				<column name="CurSceneType" length="4" />
+			</property>
+			<property name="systemType" type="int">
+				<column name="SystemType" length="4" />
+			</property>
+		</dynamic-component>
+		<property name="activeTime" type="string">
+			<column name="activetime" length="32" />
+		</property>
+		<property name="deactiveTime" type="string">
+			<column name="deactivetime" length="32" />
+		</property>
+		<property name="lastUpdatedTime" type="string">
+			<column name="lastupdatedtime" length="32" />
+		</property>
+		<property name="updateOperator" type="string">
+			<column name="updateoperator" length="10" />
+		</property>
+	</class>
+</hibernate-mapping>

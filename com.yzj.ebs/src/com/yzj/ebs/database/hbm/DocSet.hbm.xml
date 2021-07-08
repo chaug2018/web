@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.yzj.ebs.database.DocSet" table="ebs_docSet">
+		<id name="docId" type="java.lang.Long">
+			<column name="docId" precision="10" scale="0">
+				<comment>账单流水号</comment>
+			</column>
+			<generator class="native" >
+				<param name="sequence">DOCSET_DOCID</param>
+			</generator>
+		</id>
+		<property name="docTypeId" type="java.lang.Integer">
+			<column name="docTypeId" not-null="true" >
+				<comment>票据类型</comment>
+			</column>
+		</property>
+		<property name="docFlag" type="java.lang.Integer">
+			<column name="docFlag" not-null="true" >
+				<comment>账单状态</comment>
+			</column>
+		</property>
+		<property name="workDate" type="java.lang.String">
+			<column name="workDate" length="10" not-null="true">
+				<comment>工作日期</comment>
+			</column>
+		</property>
+		<property name="docDate" type="java.lang.String">
+			<column name="docDate" length="16" >
+				<comment>对账日期</comment>
+			</column>
+		</property>
+        <property  name="voucherNo" type="java.lang.String">
+            <column name="voucherNo"  length="32"  >
+				<comment>账单编号 </comment>
+			</column>
+        </property>
+		<property name="accName" type="java.lang.String">
+			<column name="accName" length="128"  >
+				<comment>账户名称</comment>
+			</column>
+		</property>
+		<!-- 机构信息 -->
+		<property name="idBank" type="java.lang.String">
+			<column name="idBank" length="16" >
+				<comment>机构号</comment>
+			</column>
+		</property>
+		<property name="idBranch" type="java.lang.String">
+			<column name="idBranch" length="16" >
+				<comment>上级管理行</comment>
+			</column>
+		</property>
+		<property name="idCenter" type="java.lang.String">
+			<column name="idCenter" length="16"  >
+				<comment>对账中心</comment>
+			</column>
+		</property>
+		<property name="bankName" type="java.lang.String">
+			<column name="bankName" length="64" >
+				<comment>机构名称</comment>
+			</column>
+		</property>
+		<property name="currency" type="java.lang.String">
+			<column name="currency" length="3" >
+				<comment>币种代码</comment>
+			</column>
+		</property>
+		<property name="credit" type="java.lang.Double">
+			<column name="CREDIT" >
+				<comment>汇总金额（账单所有账号金额汇总）</comment>
+			</column>
+		</property>
+		<property name="matchFlag" type="java.lang.Integer">
+			<column name="matchFlag" >
+				<comment>未达标记</comment>
+			</column>
+		</property>
+		<property name="proveFlag" type="java.lang.Integer">
+			<column name="proveFlag" >
+				<comment>验印状态</comment>
+			</column>
+		</property>
+		<property name="proveState" type="java.lang.Integer">
+			<column name="proveState" >
+				<comment>验印标记</comment>
+			</column>
+		</property>
+		<property name="opCode100" type="java.lang.String">
+			<column name="opCode100" length="8"  >
+				<comment>扫描柜员 </comment>
+			</column>
+		</property>
+		<property name="opCode111" type="java.lang.String">
+			<column name="opCode111" length="8"  >
+				<comment>补录柜员</comment>
+			</column>
+		</property>
+		<property name="opCode112" type="java.lang.String">
+			<column name="opCode112" length="8"  >
+				<comment>复核柜员</comment>
+			</column>
+		</property>
+		<property name="opCode114" type="java.lang.String">
+			<column name="opCode114" length="8"  >
+				<comment>初验柜员</comment>
+			</column>
+		</property>
+		<property name="opCode124" type="java.lang.String">
+			<column name="opCode124" length="8"  >
+				<comment>复验柜员</comment>
+			</column>
+		</property>
+		<property name="opCode134" type="java.lang.String">
+			<column name="opCode134" length="8"  >
+				<comment>主管复验柜员</comment>
+			</column>
+		</property>
+		<property name="frontImagePath" type="java.lang.String">
+			<column name="frontImagePath" length="100"  >
+				<comment>正面图像url</comment>
+			</column>
+		</property>
+		<property name="backImagePath" type="java.lang.String">
+			<column name="backImagePath" length="100"  >
+				<comment>背面url</comment>
+			</column>
+		</property>
+		 <property name="storeId" type="java.lang.String">
+            <column name="storeId" length="64"  >
+				<comment>存储id号</comment>
+			</column>
+        </property>
+		<property name="docFileName" type="java.lang.String">
+			<column name="docFileName" length="100"  >
+				<comment>XML文件名称</comment>
+			</column>
+		</property>
+		<property name="description" type="java.lang.String">
+			<column name="DESCRIPTION" length="1024"  >
+				<comment>描述</comment>
+			</column>
+		</property>
+		<property name="isFree" type="java.lang.Integer">
+			<column name="isFree"  >
+				<comment>锁定标记</comment>
+			</column>
+		</property>
+		<property name="callTimes" type="java.lang.Integer">
+			<column name="callTimes"  >
+				<comment>调用次数</comment>
+			</column>
+		</property>
+		<property name="sealAccNo" type="java.lang.String">
+			<column name="sealAccNo"  length="32"  >
+				<comment>验印账号</comment>
+			</column>
+		</property>    
+		<property name="needNotMatch" type="java.lang.Short">
+			<column name="needNotMatch"   >
+				<comment>目前是否还需要进行未达，0代表否，1代表是</comment>
+			</column>
+		</property>  
+		<property name="reInputReason" type="java.lang.String">
+			<column name="bReason"  length="256"  >
+				<comment>重录理由</comment>
+			</column>
+		</property> 
+		<property name="deleteReason" type="java.lang.String">
+			<column name="dReason"  length="256"  >
+				<comment>删除理由</comment>
+			</column>
+		</property> 
+		  
+	</class>
+</hibernate-mapping>

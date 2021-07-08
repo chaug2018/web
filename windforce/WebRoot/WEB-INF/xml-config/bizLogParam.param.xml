@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configs>
+	<!-- BizLog业务日志框架内部参数配置 -->
+	<ParamGroup name="BIZLOG_PARAM" memo="BizLog内部参数">
+		<!-- 日志导出exel每页的数据条数 -->
+		<Param name="exportExcelNum" type="String">3000</Param>
+	</ParamGroup>
+	
+	<!-- BizLog表映射关系 sysid与对应的表名  -->
+	<ParamGroup name="BIZLOG_TABLE" memo="BizLog表映射关系 sysid与对应的表名">
+		<!-- 业务日志表 -->
+		<Param name="bussinessLog">com.yzj.wf.bizlog.model.SimpleLogModel</Param>
+		<Param name="pamLog">com.yzj.wf.bizlog.model.PamLogModel</Param>
+	</ParamGroup>
+</Configs>

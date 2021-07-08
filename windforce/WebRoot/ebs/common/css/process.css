@@ -1,0 +1,207 @@
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+a,img {
+	border: 0;
+}
+
+
+.overlay {
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 998;
+	width: 100%;
+	height: 100%;
+	_padding: 0 20px 0 0;
+	background: #EDEDED;
+	display: none;
+}
+
+.showbox {
+	position: fixed;
+	top: 0;
+	left: 30%;
+	z-index: 9999;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	margin-left: -80px;
+}
+
+.untreadReason {
+	position: fixed;
+	top: 0;
+	left: 25%;
+	top:25%;
+	z-index: 9999;
+	opacity: 0;
+	display: none;
+	filter: alpha(opacity = 0);
+	margin-left: -80px;
+}
+
+
+* html,* html body {
+	background-image: url(about:blank);
+	background-attachment: fixed;
+}
+
+* html .showbox,* html .overlay,* html.untreadReason,* html.son_div,* html.son2_div {
+	position: absolute;
+	top: expression(eval(document.documentElement.scrollTop) );
+}
+
+#AjaxLoading {
+	border: 1px solid #EDEDED;
+	color: #37a;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#untreadReason {
+	border: 1px solid #F5FFFA;
+	color: #6496ED;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#AjaxLoading div.loadingWord {
+	width: 300px;
+	height: 50px;
+	line-height: 50px;
+	border: 2px solid #EDEDED;
+	background: #FFE4E1;
+}
+
+#untreadReason div.reasons {
+	width: 400px;
+	height: 100%;
+	line-height: 20px;
+	border: 1px solid #EDEDED;
+	background: #F5FFFA;
+}
+
+#AjaxLoading img {
+	margin: 10px 15px;
+	float: left;
+	display: inline;
+}
+
+.son_div {
+	position: fixed;
+	top: 0;
+	left: 10%;
+	z-index: 999;
+	display:none;
+	background:url('/windforce/ebs/common/images/bg_content.jpg');
+}
+
+.son2_div {
+	position: fixed;
+	top: 0;
+	left: 10%;
+	z-index: 999;
+	margin-left: -80px;
+	display:none;
+}
+
+#son_div {
+	color: #37a;
+	font-size: 12px;
+	font-weight: bold;
+	border: solid RGB(153,187,232) 3px; 
+    width: 600px; 
+    height: 400px;
+    top:-70px;
+    left:200px;
+}
+
+#son2_div {
+	color: #37a;
+	font-size: 12px;
+	font-weight: bold;
+	border: solid RGB(153,187,232) 3px; 
+    width: 600px; 
+    height: 400px;
+    top:-75px;
+    left:200px;
+}
+
+
+#son_div div.sonpage {
+	line-height: 30px;
+	border: 2px solid #EDEDED;
+	width: 99.5%; 
+    height: 30px; 
+    border-bottom: solid RGB(153,187,232) 2px; 
+    background-color: RGB(217,231,248);
+}
+
+ 
+ 
+ 
+ 
+
+#son2_div div.sonpage2 {
+		line-height: 30px;
+	border: 2px solid #EDEDED;
+	width: 99.5%; 
+    height: 30px; 
+    border-bottom: solid RGB(153,187,232) 2px; 
+    background-color: RGB(217,231,248);
+}
+.panel{
+    border: solid RGB(153,187,232) 1px; 
+    width: 300px; 
+    height: 400px;
+    top:0px;
+    left:0px;
+}
+.head{
+    width: 100%; 
+    height: 20px; 
+    border-bottom: solid RGB(153,187,232) 1px; 
+    background-color: RGB(217,231,248);
+}
+.title{
+   height: 20px; 
+   line-height: 20px; 
+   float: left;
+   font-size: 10pt;
+}
+.toolbar{
+   float: right;
+}
+.button{
+   cursor:hand;
+   float: left;
+   width:20px;
+   height:20px;
+   margin-right: 2px;
+   background-position:center;
+   background-repeat: no-repeat;
+}
+#button1{
+   background-color:gray;
+}
+.content{
+   height:379px;
+   background-color:gray;
+}
+.pagelinks{
+   line-height: 33px
+}
+.pagelinks a{
+   border: 1px solid #AAAAAA;background-color: #DDDDDD;
+   color: #333333 !important;
+   cursor: pointer;
+   margin: 0 3px;
+   padding: 2px 5px;
+}
+</style>

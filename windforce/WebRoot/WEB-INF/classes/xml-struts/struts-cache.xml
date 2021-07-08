@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="cache" namespace="/" extends="struts-default">
+		<!-- 按命名空间刷新页面缓存 -->
+		<action name="refreshPageCache" class="pageCacheAction" method="refreshPageCache">
+		</action>
+		<!-- 刷新所有缓存 -->
+		<action name="loadPageCache" class="pageCacheAction" method="loadPageCache">
+		</action>
+	</package>
+</struts>    

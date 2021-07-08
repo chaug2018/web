@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configs>
+	<ParamGroup name="AUTOTASK" memo="自动任务">
+		<Param name="AUTOIMPORT" type="AutoTaskModule" desc="自动导数"
+			ThreadCount="1" AutoStart="true" startTime="04:00" Interval="7200000"
+			endTime="18:00" BusInfo="startTime=开始时间|time=操作耗时|desc=操作描述">AUTOIMPORT
+		</Param>
+		
+		<Param name="ACCEPTNETJOB" type="AutoTaskModule" desc="接受网银结果"
+			ThreadCount="1" AutoStart="true" startTime="00:00" Interval="7200000"
+			endTime="18:00" BusInfo="startTime=开始时间|time=操作耗时|desc=操作描述">ACCEPTNETJOB
+		</Param>
+		
+		<Param name="SENDNETJOB" type="AutoTaskModule" desc="发送未达结果"
+			ThreadCount="1" AutoStart="true" startTime="00:00" Interval="7200000"
+			endTime="18:00" BusInfo="startTime=开始时间|time=操作耗时|desc=操作描述">SENDNETJOB
+		</Param>
+		
+	</ParamGroup>
+</Configs>

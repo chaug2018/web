@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configs>
+	<ParamGroup name="DOWNPARAM" memo="获取图片参数">
+		<Param name="ip" type="string" desc="服务端IP">127.0.0.1</Param>
+		<Param name="port" type="int" desc="端口">8080</Param>
+		<Param name="imageLocalPath" type="string" desc="图像本地路径">d:\\SealImage</Param>
+		<Param name="imageServer" type="string" desc="图像服务名称">storeServer/StoreSys</Param>
+	</ParamGroup>
+</Configs>

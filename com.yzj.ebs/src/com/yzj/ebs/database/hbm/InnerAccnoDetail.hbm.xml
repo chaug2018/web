@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.yzj.ebs.database.InnerAccnoDetail" table="ebs_inneraccnodetail_data">
+        <id name="autoid" type="long">
+			<column name="AUTOID" >
+				<comment>自动增长id</comment>
+			</column>
+			<generator class="native">
+				<param name="sequence">INNERACCNODETAILDATA_AUTOID</param>
+			</generator>
+		</id>
+		<property name="trad_date" type="java.lang.String">
+			<column name="trad_date" length="10" >
+				<comment>交易日期</comment>
+			</column>
+		</property>
+		<property name="seri_no" type="java.lang.String">
+			<column name="seri_no" length="32" >
+				<comment>交易流水号</comment>
+			</column>
+		</property>
+		<property name="curr_code" type="java.lang.String">
+			<column name="curr_code"  length="8" >
+				<comment>币种</comment>
+			</column>
+		</property>
+		<property name="acct" type="java.lang.String">
+			<column name="acct" length="32" >
+				<comment>交易账号</comment>
+			</column>
+		</property>
+		<property name="oppost_acct" type="java.lang.String">
+			<column name="oppost_acct" length="32" >
+				<comment>对方账号</comment>
+			</column>
+		</property>
+		<property name="oppost_acct_name" type="java.lang.String">
+			<column name="oppost_acct_name" length="60" >
+				<comment>对方户名</comment>
+			</column>
+		</property>
+		<property name="vouch_no" type="java.lang.String">
+			<column name="vouch_no" length="30" >
+				<comment>凭证号码</comment>
+			</column>
+		</property>
+		<property name="summy" type="java.lang.String">
+			<column name="summy" length="256" >
+				<comment>摘要</comment>
+			</column>
+		</property>
+		<property name="borrow_lend_sign" type="java.lang.String">
+			<column name="borrow_lend_sign" length="2"  >
+				<comment>借贷标志</comment>
+			</column>
+		</property>
+		<property name="trad_amt" type="java.lang.String">
+			<column name="trad_amt" length="20" >
+				<comment>发生额</comment>
+			</column>
+		</property>
+		<property name="acct_bal" type="java.lang.String">
+			<column name="acct_bal" length="20" >
+				<comment>实时余额</comment>
+			</column>
+		</property>
+		<property name="trad_code" type="java.lang.String">
+			<column name="trad_code" length="10" >
+				<comment>交易码</comment>
+			</column>
+		</property>
+		<property name="host_syst_time" type="java.lang.String">
+			<column name="host_syst_time" length="16" >
+				<comment>主机系统时间</comment>
+			</column>
+		</property>
+		<property name="dataDate" type="java.lang.String">
+			<column name="datadate" length="10" >
+				<comment>数据日期</comment>
+			</column>
+		</property>
+		<property name="importDate" type="java.lang.String">
+			<column name="importdate" length="10" >
+				<comment>导入日期</comment>
+			</column>
+		</property>
+    </class>
+</hibernate-mapping>

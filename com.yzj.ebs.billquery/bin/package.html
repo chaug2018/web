@@ -1,0 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//WSC/DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>
+com.yzj.ebs.query.action
+</TITLE>
+</HEAD>
+<BODY>
+存放影像流水信息查询统计相关Action<BR><BR>
+	设计思路：账单扫描生成影像进入回收流程后，系统提供影像实时查询：主要操作DocSet表 <BR><BR>
+	1.影像流水查询的Action类(BillQueryAction.java)
+	<BR>initPage()方法：初始化页面信息；
+	<BR>queryBillList()方法：根据queryMap查询影像信息；
+	<BR>exportData()方法：调用公共类DataExporter，导出所有符合查询条件信息；
+	<BR>viewBillDetail()方法：查看详情，根据所选列表的流水号关联accnomaindata查询出对账单信息详情；
+	<BR>queryLog()方法：在详情页面，点击查询操作日志；
+	<BR>deleteBill()方法：在详情界面，点击对影像发起删除操作；
+</BODY>
+</HTML>

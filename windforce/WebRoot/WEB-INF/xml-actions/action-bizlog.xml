@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <!-- 业务日志 -->
+	<bean id="simpleLogAction" class="com.yzj.wf.bizlog.action.SimpleLogAction" scope="prototype">
+		<property name="sysId" value="bussinessLog" />
+		<property name="simpleCurrLogService" ref="simpleCurrLogService" />
+		<property name="simpleHisLogService" ref="simpleCurrLogService" />
+		<property name="simpleLogServiceTools" ref="simpleLogServiceTools" />
+	</bean>
+	<bean id="logDataSource" class="com.yzj.wf.bizlog.action.SimpleLogDataSourceAction" scope="prototype">
+	</bean>
+	
+	<!-- 测试action -->
+	<bean id="testSimpleLog" class="com.yzj.wf.bizlog.action.TestSimpleLogAction" scope="prototype">
+		<property name="curLogDao" ref="SimpleCurrLogDao" />
+		<property name="hisLogDao" ref="SimpleCurrLogDao" />
+	</bean>
+	
+	<!-- 参数管理 日志 -->
+	<bean id="pamLogAction"  class="com.yzj.wf.bizlog.action.SimpleLogAction" scope="prototype">
+		<property name="sysId" value="pamLog" />
+		<property name="simpleCurrLogService"><ref bean="pamCurrLogService" /></property>
+		<property name="simpleHisLogService"><ref bean="pamCurrLogService" /></property>
+		<property name="logServiceTools"><ref bean="logServiceTools" /></property>
+	</bean>
+</beans>
